@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>STERIA — AI CSSD Specialist | Sterilization Passport Journey</title>
+<meta name="description" content="STERIA is the AI CSSD Specialist guide for the Sterilization Passport Journey, International Sterile Processing Week 2026.">
+<meta name="theme-color" content="#DFE7F0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --paper:#DFE7F0;        /* sterile-wrap blue paper */
+  --paper-deep:#CBD8E7;
+  --card:#F5F8FC;
+  --ink:#08213F;          /* navy document ink */
+  --ink-soft:#3B577F;
+  --steel:#94A5BA;        /* guilloche hairlines */
+  --glove:#5B8AD9;        /* cornflower nitrile */
+  --stamp:#7A2E4E;        /* developed indicator ink */
+  --stamp-raw:#C6B79B;    /* undeveloped indicator */
+  --verdigris:#20705F;
+  --rule:rgba(8,33,63,.14);
+  --rule-2:rgba(8,33,63,.07);
+
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Public Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+
+  --step--1:clamp(.78rem,.74rem + .2vw,.86rem);
+  --step-0:clamp(.95rem,.9rem + .28vw,1.06rem);
+  --step-1:clamp(1.1rem,1rem + .5vw,1.32rem);
+  --step-2:clamp(1.35rem,1.15rem + 1vw,1.85rem);
+  --step-3:clamp(1.8rem,1.35rem + 2.2vw,3rem);
+  --step-4:clamp(2.8rem,1.6rem + 6vw,6.5rem);
+
+  --sp:clamp(1rem,.6rem + 1.6vw,2rem);
+  --radius:3px;           /* documents don't have soft corners */
+  --tap:48px;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--f-body);font-size:var(--step-0);line-height:1.6;
+  min-height:100svh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--f-display);margin:0;line-height:1.05;font-weight:700}
+p{margin:0 0 .8em}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--glove);outline-offset:3px;border-radius:2px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:8px;top:-60px;z-index:99;background:var(--ink);color:#fff;padding:12px 18px;font-weight:600;transition:top .18s}
+.skip:focus{top:8px}
+
+/* eyebrow / labels — the utility voice of the document */
+.eyebrow{
+  font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 .9rem;
+}
+.hair{height:1px;background:var(--rule);border:0;margin:0}
+
+/* ============================================================
+   GUILLOCHE BACKGROUND + PARALLAX
+   ============================================================ */
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#bg svg{position:absolute;top:50%;left:50%;width:min(190vmax,2400px);height:auto;
+  transform:translate3d(-50%,-50%,0);will-change:transform}
+.g-layer{opacity:.5}
+.g-layer path{fill:none;stroke:var(--steel);vector-effect:non-scaling-stroke}
+#bg::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 80% at 70% 10%,rgba(255,255,255,.85),rgba(255,255,255,0) 60%),
+             linear-gradient(180deg,rgba(223,231,240,0) 55%,var(--paper-deep) 100%)}
+
+/* ============================================================
+   CHROME
+   ============================================================ */
+.topbar{
+  position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:1rem;
+  padding:.7rem var(--sp);background:rgba(223,231,240,.86);
+  backdrop-filter:blur(9px);border-bottom:1px solid var(--rule);
+}
+.brand{display:flex;align-items:baseline;gap:.6rem;font-family:var(--f-display);
+  font-weight:800;font-variation-settings:"wdth" 112;letter-spacing:.06em;font-size:var(--step-0)}
+.brand small{font-family:var(--f-mono);font-weight:400;letter-spacing:.12em;
+  font-size:.66em;color:var(--ink-soft);text-transform:uppercase}
+.topbar-spacer{flex:1}
+.chip-btn{
+  min-height:38px;padding:.35rem .85rem;background:transparent;border:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.08em;text-transform:uppercase;
+  cursor:pointer;border-radius:var(--radius);transition:background .15s,border-color .15s;
+}
+.chip-btn:hover{background:var(--card);border-color:var(--ink-soft)}
+.chip-btn[hidden]{display:none}
+.chip-btn[disabled]{opacity:.35;cursor:not-allowed}
+
+main{position:relative;z-index:1}
+.view{display:none;padding:0 var(--sp) 5rem}
+.view.is-active{display:block;animation:viewIn .45s cubic-bezier(.2,.7,.3,1) both}
+@keyframes viewIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.wrap{max-width:1240px;margin:0 auto}
+
+/* ============================================================
+   HOME
+   ============================================================ */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(1rem,3vw,3.5rem);align-items:center;min-height:calc(100svh - 190px);padding:clamp(1.5rem,4vh,4rem) 0}
+.hero-title{
+  font-size:var(--step-4);font-weight:800;font-variation-settings:"wdth" 118;
+  letter-spacing:-.01em;line-height:.86;margin:0 0 .35rem;
+}
+.hero-title span{display:block;color:var(--ink)}
+.hero-role{
+  font-family:var(--f-mono);font-size:clamp(.8rem,.6rem + .6vw,1.05rem);letter-spacing:.24em;
+  text-transform:uppercase;color:var(--stamp);margin:0 0 1.2rem;
+}
+.hero-lede{font-size:var(--step-1);max-width:46ch;color:var(--ink-soft);margin-bottom:1.6rem}
+.hero-lede strong{color:var(--ink);font-weight:600}
+
+.choices{display:grid;gap:.9rem;max-width:min(560px,100%)}
+.choice{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;
+  text-align:left;width:100%;min-height:var(--tap);padding:1.15rem 1.25rem;cursor:pointer;
+  background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--ink);
+  border-radius:var(--radius);transition:transform .2s cubic-bezier(.2,.7,.3,1),box-shadow .2s,border-left-color .2s;
+}
+.choice:hover,.choice:focus-visible{transform:translateX(6px);box-shadow:-6px 6px 0 rgba(8,33,63,.09)}
+.choice[data-choice="A"]{border-left-color:var(--glove)}
+.choice[data-choice="B"]{border-left-color:var(--stamp)}
+.choice-key{font-family:var(--f-mono);font-size:var(--step-2);font-weight:500;color:var(--steel);line-height:1}
+.choice-title{font-family:var(--f-display);font-weight:700;font-variation-settings:"wdth" 108;
+  font-size:var(--step-1);letter-spacing:.01em;display:block}
+.choice-sub{font-size:var(--step--1);color:var(--ink-soft);display:block;margin-top:.15rem}
+.choice-go{font-family:var(--f-mono);font-size:1.2rem;color:var(--ink-soft)}
+
+/* character */
+.stage{position:relative;display:flex;justify-content:center;align-items:flex-end;min-height:min(74svh,720px)}
+.steria{
+  position:relative;z-index:2;height:min(68svh,660px);width:auto;max-width:100%;display:block;
+  filter:drop-shadow(0 26px 34px rgba(8,33,63,.22));
+  animation:idle 7s ease-in-out infinite;transform-origin:50% 100%;
+}
+@keyframes idle{
+  0%,100%{transform:translateY(0) rotate(0deg) scale(1)}
+  35%{transform:translateY(-13px) rotate(-.5deg) scale(1.006)}
+  70%{transform:translateY(-5px) rotate(.35deg) scale(1.002)}
+}
+body[data-mood="greeting"] .steria{animation:greet 1.1s cubic-bezier(.3,1.4,.4,1) 1,idle 7s ease-in-out 1.1s infinite}
+@keyframes greet{0%{transform:translateY(0) rotate(0)}30%{transform:translateY(-24px) rotate(-2.5deg)}60%{transform:translateY(-6px) rotate(1.5deg)}100%{transform:translateY(0) rotate(0)}}
+body[data-mood="thinking"] .steria{animation:think 1.6s ease-in-out infinite}
+@keyframes think{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-1deg)}}
+body[data-mood="celebrating"] .steria{animation:cheer .9s cubic-bezier(.25,1.5,.4,1) 2,idle 7s ease-in-out 1.8s infinite}
+@keyframes cheer{0%{transform:translateY(0) scale(1)}40%{transform:translateY(-30px) scale(1.02)}100%{transform:translateY(0) scale(1)}}
+
+.halo{position:absolute;bottom:2%;left:50%;width:min(78%,380px);aspect-ratio:2.6/1;
+  transform:translateX(-50%);background:radial-gradient(50% 50% at 50% 50%,rgba(8,33,63,.2),rgba(8,33,63,0) 70%);z-index:1}
+.badge-float{
+  position:absolute;z-index:3;background:var(--card);border:1px solid var(--rule);
+  padding:.5rem .75rem;font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.06em;
+  border-radius:var(--radius);box-shadow:-4px 4px 0 rgba(8,33,63,.07);animation:idle 7s ease-in-out infinite}
+.badge-float b{color:var(--stamp);font-weight:500}
+.badge-float.b1{top:14%;right:-2%;animation-delay:-1.6s}
+.badge-float.b2{bottom:22%;left:-4%;animation-delay:-3.4s}
+
+/* MRZ — machine readable zone, the passport signature */
+.mrz{
+  position:relative;z-index:1;border-top:1px solid var(--rule);
+  background:repeating-linear-gradient(90deg,transparent 0 6px,rgba(8,33,63,.03) 6px 7px);
+  padding:.55rem var(--sp);font-family:var(--f-mono);font-size:clamp(.6rem,.52rem + .3vw,.8rem);
+  letter-spacing:.18em;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* ============================================================
+   ASK STERIA
+   ============================================================ */
+.view-head{padding:2rem 0 1.2rem}
+.view-head h2{font-size:var(--step-3);font-variation-settings:"wdth" 112;margin-bottom:.4rem}
+.view-head p{color:var(--ink-soft);max-width:62ch;margin:0}
+
+.ask-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:1.4rem;align-items:start}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:var(--radius)}
+.panel-head{display:flex;align-items:center;gap:.6rem;padding:.8rem 1rem;border-bottom:1px solid var(--rule)}
+.panel-head h3{font-size:var(--step-0);font-variation-settings:"wdth" 108;letter-spacing:.02em}
+.panel-head .count{margin-left:auto;font-family:var(--f-mono);font-size:var(--step--1);color:var(--ink-soft)}
+
+.log{height:clamp(300px,46svh,480px);overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.85rem;scroll-behavior:smooth}
+.msg{max-width:88%;padding:.75rem .95rem;border-radius:var(--radius);font-size:var(--step-0);animation:msgIn .3s ease-out both}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg.steria{background:#fff;border:1px solid var(--rule);border-left:3px solid var(--glove);align-self:flex-start}
+.msg.user{background:var(--ink);color:#EAF0F8;align-self:flex-end;border-left:3px solid var(--stamp)}
+.msg .who{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  opacity:.65;display:block;margin-bottom:.25rem}
+.msg p:last-child{margin-bottom:0}
+.msg .src{display:block;margin-top:.45rem;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;color:var(--ink-soft)}
+.typing{display:inline-flex;gap:4px;align-items:center;height:1.2em}
+.typing i{width:6px;height:6px;background:var(--glove);border-radius:50%;animation:blip 1.1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blip{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+.suggests{display:flex;flex-wrap:wrap;gap:.4rem;padding:0 1rem .8rem}
+.sug{min-height:38px;padding:.35rem .7rem;background:transparent;border:1px dashed var(--steel);
+  font-size:var(--step--1);cursor:pointer;border-radius:var(--radius);text-align:left}
+.sug:hover{background:#fff;border-style:solid;border-color:var(--glove)}
+
+.composer{display:flex;gap:.5rem;padding:.8rem 1rem;border-top:1px solid var(--rule)}
+.composer input{flex:1;min-height:var(--tap);padding:.6rem .8rem;background:#fff;
+  border:1px solid var(--rule);border-radius:var(--radius);font:inherit;color:var(--ink)}
+.composer input::placeholder{color:var(--steel)}
+.btn{min-height:var(--tap);padding:.6rem 1.2rem;background:var(--ink);color:#fff;border:1px solid var(--ink);
+  border-radius:var(--radius);cursor:pointer;font-family:var(--f-display);font-weight:700;
+  font-variation-settings:"wdth" 105;letter-spacing:.04em;transition:background .15s,transform .12s}
+.btn:hover{background:#12365F}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
+.btn.ghost:hover{background:var(--card);border-color:var(--ink-soft)}
+.btn.stamp{background:var(--stamp);border-color:var(--stamp)}
+.btn.stamp:hover{background:#5F2340}
+
+/* browse */
+.search-row{padding:.8rem 1rem;border-bottom:1px solid var(--rule)}
+.search-row input{width:100%;min-height:var(--tap);padding:.6rem .8rem;background:#fff;
+  border:1px solid var(--rule);border-radius:var(--radius);font:inherit;color:var(--ink)}
+.cats{display:flex;gap:.35rem;overflow-x:auto;padding:.7rem 1rem;border-bottom:1px solid var(--rule);
+  scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.cat{flex:0 0 auto;min-height:36px;padding:.3rem .7rem;background:transparent;border:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:var(--radius)}
+.cat[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.kb-list{list-style:none;margin:0;padding:.5rem;display:grid;gap:.35rem;min-height:230px}
+.kb-list li{margin:0}
+.kb-item{width:100%;text-align:left;min-height:var(--tap);padding:.6rem .7rem;background:transparent;
+  border:1px solid transparent;border-radius:var(--radius);cursor:pointer;display:grid;
+  grid-template-columns:auto 1fr;gap:.7rem;align-items:baseline}
+.kb-item:hover{background:#fff;border-color:var(--rule)}
+.kb-item .n{font-family:var(--f-mono);font-size:.72rem;color:var(--steel)}
+.kb-item .qt{font-size:var(--step--1)}
+.kb-empty{padding:1.5rem 1rem;color:var(--ink-soft);font-size:var(--step--1)}
+.pager{display:flex;align-items:center;gap:.5rem;padding:.7rem 1rem;border-top:1px solid var(--rule)}
+.pager .pos{font-family:var(--f-mono);font-size:var(--step--1);color:var(--ink-soft);margin-left:auto}
+
+/* ============================================================
+   PASSPORT JOURNEY
+   ============================================================ */
+.passport{background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 1px 0 #fff inset,-8px 8px 0 rgba(8,33,63,.06)}
+.pp-head{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:.9rem 1.1rem;
+  border-bottom:1px solid var(--rule);background:linear-gradient(180deg,#fff,transparent)}
+.pp-head .code{font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+
+.stamps{display:flex;gap:.3rem;margin-left:auto;align-items:center;flex-wrap:wrap}
+.slot{width:26px;height:26px;border:1px dashed var(--steel);border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-mono);font-size:.62rem;color:var(--steel);transition:.3s}
+.slot[data-state="done"]{border:1.5px solid var(--stamp);border-style:solid;color:var(--stamp);
+  background:rgba(122,46,78,.07);animation:develop .9s ease-out both}
+.slot[data-state="current"]{border-color:var(--ink);color:var(--ink);border-style:solid}
+@keyframes develop{from{color:var(--stamp-raw);border-color:var(--stamp-raw);transform:scale(.7);opacity:.4}
+  to{color:var(--stamp);border-color:var(--stamp);transform:scale(1);opacity:1}}
+
+.spread{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);min-height:min(62svh,560px)}
+.leaf-left{position:relative;padding:clamp(1.2rem,3vw,2.2rem);padding-bottom:clamp(9rem,17vh,11.5rem);border-right:1px solid var(--rule);
+  background:repeating-linear-gradient(45deg,transparent 0 11px,rgba(8,33,63,.022) 11px 12px);overflow:hidden}
+.leaf-right{padding:clamp(1.2rem,3vw,2.2rem);display:flex;flex-direction:column}
+.st-num{font-family:var(--f-display);font-weight:800;font-variation-settings:"wdth" 75;
+  font-size:clamp(5rem,16vw,11rem);line-height:.78;color:var(--ink);opacity:.13;letter-spacing:-.03em}
+.st-zone{font-family:var(--f-mono);font-size:var(--step--1);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);margin-top:-.4rem}
+.st-lead{font-family:var(--f-display);font-weight:700;font-variation-settings:"wdth" 105;
+  font-size:var(--step-2);margin-top:1.1rem;max-width:22ch;line-height:1.12}
+.rosette{position:absolute;right:-18%;bottom:-14%;width:min(75%,300px);opacity:.5;pointer-events:none}
+.rosette path{fill:none;stroke:var(--steel);stroke-width:.6}
+
+.stamp-mark{position:absolute;left:clamp(1.2rem,3vw,2.2rem);bottom:clamp(1.2rem,3vw,2.2rem);
+  width:clamp(96px,13vw,134px);aspect-ratio:1;display:grid;place-items:center;text-align:center;
+  border:3px double var(--stamp);border-radius:50%;color:var(--stamp);
+  font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;line-height:1.45;text-transform:uppercase;
+  transform:rotate(-9deg);opacity:.9;animation:stampIn .75s cubic-bezier(.2,1.5,.4,1) both;mix-blend-mode:multiply}
+@keyframes stampIn{
+  0%{transform:rotate(-24deg) scale(2.1);opacity:0;filter:blur(4px);color:var(--stamp-raw);border-color:var(--stamp-raw)}
+  55%{opacity:.95;filter:blur(0);color:var(--stamp-raw);border-color:var(--stamp-raw)}
+  100%{transform:rotate(-9deg) scale(1);opacity:.9;color:var(--stamp);border-color:var(--stamp)}
+}
+.stamp-mark b{display:block;font-size:1.35em;font-weight:500;letter-spacing:.04em}
+
+.tabs{display:flex;gap:.4rem;margin-bottom:1.1rem}
+.tab{min-height:44px;padding:.5rem 1.05rem;background:transparent;border:1px solid var(--rule);
+  border-radius:var(--radius);cursor:pointer;font-family:var(--f-mono);font-size:var(--step--1);
+  letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.45rem}
+.tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tab svg{width:14px;height:14px;flex:0 0 auto}
+
+.tabpane{flex:1;min-height:0}
+.tabpane[hidden]{display:none}
+.narrative p{font-size:var(--step-1);max-width:56ch;color:var(--ink)}
+.takeaways{list-style:none;margin:1.2rem 0 0;padding:0;display:grid;gap:.5rem;max-width:56ch}
+.takeaways li{position:relative;padding-left:1.5rem;font-size:var(--step--1);color:var(--ink-soft)}
+.takeaways li::before{content:"";position:absolute;left:0;top:.55em;width:.7rem;height:1px;background:var(--stamp)}
+
+/* video */
+.player{position:relative;background:#08213F;border:1px solid var(--rule);border-radius:var(--radius);
+  overflow:hidden;aspect-ratio:16/9;display:block}
+.player video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.player-fallback{position:absolute;inset:0;display:grid;grid-template-columns:clamp(110px,25%,190px) minmax(0,1fr);
+  gap:clamp(.7rem,2vw,1.5rem);align-items:center;padding:clamp(.9rem,2.4vw,1.7rem);color:#DCE6F4;overflow:hidden}
+.player-fallback img{height:100%;width:100%;object-fit:contain;object-position:bottom center;
+  align-self:stretch;filter:drop-shadow(0 12px 20px rgba(0,0,0,.45))}
+.player-fallback>div{min-width:0;align-self:center}
+.player-fallback .pf-label{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;color:#8FB0DC;margin-bottom:.35rem}
+.player-fallback h4{font-family:var(--f-display);font-size:var(--step-0);font-variation-settings:"wdth" 108;margin-bottom:.4rem}
+.player-fallback p{font-size:.78rem;line-height:1.5;color:#B9CBE4;max-width:46ch;margin-bottom:.45rem}
+.player-fallback code{font-family:var(--f-mono);font-size:.72rem;color:#9FE0CD;background:rgba(255,255,255,.07);padding:.1rem .35rem}
+.media-tools{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+.transcript{margin-top:1rem;border:1px solid var(--rule);border-radius:var(--radius);background:#fff}
+.transcript summary{cursor:pointer;padding:.7rem .9rem;font-family:var(--f-mono);font-size:var(--step--1);
+  letter-spacing:.08em;text-transform:uppercase;min-height:44px;display:flex;align-items:center}
+.transcript .tbody{padding:0 .9rem .9rem;font-size:var(--step--1);color:var(--ink-soft)}
+.cue{display:grid;grid-template-columns:auto 1fr;gap:.8rem;padding:.3rem 0;border-top:1px solid var(--rule-2)}
+.cue .t{font-family:var(--f-mono);color:var(--steel);font-size:.72rem}
+
+/* challenge */
+.challenge{margin-top:1.4rem;padding:1.1rem;border:1px solid var(--rule);border-left:3px solid var(--glove);
+  background:#fff;border-radius:var(--radius);overflow:hidden;
+  display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:1.15rem;align-items:start}
+.ch-avatar{grid-column:1;grid-row:1/span 3;width:clamp(72px,7.5vw,108px);height:auto;
+  align-self:end;margin-bottom:-1.1rem;animation:idle 7s ease-in-out infinite;transform-origin:50% 100%}
+.challenge .q,.challenge .opts,.challenge #ch-verdict{grid-column:2}
+.challenge .q{font-family:var(--f-display);font-weight:700;font-variation-settings:"wdth" 106;
+  font-size:var(--step-1);margin-bottom:.8rem}
+.opts{display:grid;gap:.45rem}
+.opt{text-align:left;min-height:var(--tap);padding:.65rem .9rem;background:var(--card);
+  border:1px solid var(--rule);border-radius:var(--radius);cursor:pointer;transition:.15s}
+.opt:hover{border-color:var(--glove);background:#fff}
+.opt[data-verdict="right"]{border-color:var(--verdigris);background:rgba(32,112,95,.09);box-shadow:inset 3px 0 0 var(--verdigris)}
+.opt[data-verdict="wrong"]{border-color:var(--stamp);background:rgba(122,46,78,.07);box-shadow:inset 3px 0 0 var(--stamp)}
+.opt[disabled]{cursor:default;opacity:.75}
+.opt[disabled][data-verdict]{opacity:1}
+.verdict{margin-top:.85rem;padding:.8rem .9rem;background:var(--card);border-radius:var(--radius);
+  font-size:var(--step--1);border-left:3px solid var(--verdigris);animation:msgIn .3s both}
+.verdict .who{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:.2rem}
+
+.pp-foot{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;padding:.9rem 1.1rem;border-top:1px solid var(--rule)}
+.pp-foot .spacer{flex:1}
+.hint{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;color:var(--steel);text-transform:uppercase}
+
+/* completion */
+.cert{max-width:760px;margin:0 auto;text-align:center;background:var(--card);
+  border:1px solid var(--rule);border-radius:var(--radius);padding:clamp(1.5rem,5vw,3.5rem);position:relative;overflow:hidden}
+.cert .rosette{right:-25%;bottom:-30%;width:70%;opacity:.35}
+.cert h2{font-size:var(--step-3);font-variation-settings:"wdth" 115;margin:.6rem 0 .4rem}
+.cert .grade{display:inline-block;margin:1.2rem 0;padding:1rem 2rem;border:3px double var(--stamp);
+  border-radius:50%/40%;color:var(--stamp);font-family:var(--f-mono);letter-spacing:.2em;
+  text-transform:uppercase;transform:rotate(-3deg);animation:stampIn .8s cubic-bezier(.2,1.5,.4,1) both}
+.cert .grade b{display:block;font-size:1.7em;letter-spacing:.06em;font-weight:500}
+.cert-stamps{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin:1.4rem 0}
+.cert-core{max-width:44ch;margin:1.4rem auto 0;font-family:var(--f-display);font-weight:700;
+  font-variation-settings:"wdth" 104;font-size:var(--step-1);line-height:1.3}
+.cert-actions{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-top:1.6rem}
+
+/* resume banner */
+.resume{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem;padding:.8rem 1rem;
+  background:#fff;border:1px solid var(--rule);border-left:3px solid var(--stamp);border-radius:var(--radius)}
+.resume p{margin:0;font-size:var(--step--1)}
+.resume .spacer{flex:1}
+
+/* analytics drawer */
+.log-toggle{position:fixed;right:12px;bottom:12px;z-index:40;min-height:40px;padding:.4rem .8rem;
+  background:var(--ink);color:#fff;border:0;border-radius:var(--radius);cursor:pointer;
+  font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:.55}
+.log-toggle:hover{opacity:1}
+.evlog{position:fixed;right:12px;bottom:60px;z-index:40;width:min(380px,calc(100vw - 24px));
+  max-height:46svh;overflow:auto;background:#08213F;color:#CFE0F4;border-radius:var(--radius);
+  padding:.7rem .8rem;font-family:var(--f-mono);font-size:.68rem;line-height:1.5;box-shadow:0 12px 40px rgba(8,33,63,.35)}
+.evlog[hidden]{display:none}
+.evlog b{color:#8FE3C9;font-weight:500}
+.evlog .t{color:#7E9BC4}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;text-align:left;min-height:0;gap:1rem}
+  .stage{order:-1;min-height:0;padding-top:.5rem}
+  .steria{height:min(34svh,300px);width:auto}
+  .badge-float{display:none}
+  .ask-grid{grid-template-columns:1fr}
+  .spread{grid-template-columns:1fr}
+  .leaf-left{border-right:0;border-bottom:1px solid var(--rule);padding-bottom:1.3rem}
+  .st-num{font-size:clamp(3.5rem,17vw,5.5rem)}
+  .st-lead{margin-top:.2rem;font-size:var(--step-1)}
+  .rosette{display:none}
+  .stamp-mark{position:static;transform:rotate(-6deg);width:clamp(84px,22vw,110px);margin-top:1rem}
+  .player-fallback{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;text-align:center;gap:.5rem}
+  .player-fallback img{height:100%;width:auto;max-height:130px;justify-self:center;object-position:center}
+  .player-fallback p{margin-inline:auto}
+  .player{aspect-ratio:4/3}
+  .challenge{grid-template-columns:minmax(0,1fr)}
+  .challenge .q,.challenge .opts,.challenge #ch-verdict{grid-column:1}
+  .ch-avatar{display:none}
+}
+@media (max-width:560px){
+  .topbar .brand small{display:none}
+  .msg{max-width:96%}
+  .stamps{width:100%;margin-left:0;order:3}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  #bg svg{transform:translate3d(-50%,-50%,0)!important}
+}
+@media print{
+  #bg,.topbar,.log-toggle,.evlog,.cert-actions{display:none!important}
+  body{background:#fff}
+}
+</style>
+</head>
+<body data-mood="idle">
+<a class="skip" href="#main">Skip to main content</a>
+
+<div id="bg" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="brand">STERIA <small>AI CSSD Specialist</small></div>
+  <div class="topbar-spacer"></div>
+  <button class="chip-btn" id="btn-home" hidden>&larr; Main screen</button>
+  <button class="chip-btn" id="btn-motion" aria-pressed="false">Reduce motion</button>
+</header>
+
+<main id="main">
+
+  <!-- ══════════ HOME ══════════ -->
+  <section class="view is-active" id="view-home" aria-labelledby="h-home">
+    <div class="wrap hero">
+      <div>
+        <p class="eyebrow">International Sterile Processing Week 2026 · Central Sterile Services Department</p>
+        <h1 class="hero-title" id="h-home" tabindex="-1"><span>STERIA</span></h1>
+        <p class="hero-role">AI CSSD Specialist Assistant</p>
+        <p class="hero-lede">Every reusable instrument takes a journey before it can safely return to patient care. <strong>Follow it station by station, or ask me anything about sterile processing.</strong></p>
+        <div class="choices">
+          <button class="choice" data-choice="B" data-go="journey">
+            <span class="choice-key">B</span>
+            <span><span class="choice-title">Start my passport journey</span><span class="choice-sub">9 stations · read the story or watch STERIA explain it</span></span>
+            <span class="choice-go" aria-hidden="true">&rarr;</span>
+          </button>
+          <button class="choice" data-choice="A" data-go="ask">
+            <span class="choice-key">A</span>
+            <span><span class="choice-title">Ask STERIA</span><span class="choice-sub">40 answers on sterile processing, patient safety and digital CSSD</span></span>
+            <span class="choice-go" aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+        <p class="eyebrow" style="margin:1.6rem 0 0">Concept by Bodoor Megbel Alharbi · Sterilization Specialist, CSSD</p>
+      </div>
+      <div class="stage">
+        <div class="halo" aria-hidden="true"></div>
+        <img class="steria" id="hero-img" src="data:image/webp;base64,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" width="400" height="812" fetchpriority="high"
+             alt="STERIA, an illustrated CSSD specialist in navy scrubs, surgical cap, mask and blue gloves, holding a tablet and gesturing in welcome.">
+        <div class="badge-float b1" aria-hidden="true">STATIONS <b>09</b></div>
+        <div class="badge-float b2" aria-hidden="true">ANSWERS <b>40</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CHOICE A — ASK STERIA ══════════ -->
+  <section class="view" id="view-ask" aria-labelledby="h-ask">
+    <div class="wrap">
+      <div class="view-head">
+        <p class="eyebrow">Choice A</p>
+        <h2 id="h-ask" tabindex="-1">Ask STERIA</h2>
+        <p>Type a question, or browse the knowledge base. I answer within the sterile processing scope approved by the department — I don't guess, and I don't give patient-specific medical advice.</p>
+      </div>
+      <div class="ask-grid">
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Conversation</h3>
+            <span class="count" id="turn-count">0 turns</span>
+          </div>
+          <div class="log" id="chat-log" role="log" aria-live="polite" aria-label="Conversation with STERIA"></div>
+          <div class="suggests" id="suggests"></div>
+          <form class="composer" id="composer" autocomplete="off">
+            <label class="sr" for="q-input">Ask STERIA a question</label>
+            <input id="q-input" type="text" placeholder="e.g. Can sterilization replace cleaning?" maxlength="180">
+            <button class="btn" type="submit">Ask</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Knowledge base</h3>
+            <span class="count" id="kb-count">40 questions</span>
+          </div>
+          <div class="search-row">
+            <label class="sr" for="kb-search">Search the knowledge base</label>
+            <input id="kb-search" type="search" placeholder="Search 40 questions…">
+          </div>
+          <div class="cats" id="cats" role="group" aria-label="Filter by category"></div>
+          <ul class="kb-list" id="kb-list"></ul>
+          <div class="pager">
+            <button class="chip-btn" id="kb-prev">&larr; Prev</button>
+            <button class="chip-btn" id="kb-next">Next &rarr;</button>
+            <span class="pos" id="kb-pos">Page 1 of 7</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CHOICE B — PASSPORT JOURNEY ══════════ -->
+  <section class="view" id="view-journey" aria-labelledby="h-journey">
+    <div class="wrap">
+      <div class="view-head">
+        <p class="eyebrow">Choice B</p>
+        <h2 id="h-journey" tabindex="-1">Sterilization Passport Journey</h2>
+        <p>Follow one reusable instrument from the moment it is put down to the moment it is safe to use again. Collect a stamp at every station.</p>
+      </div>
+
+      <div class="resume" id="resume-banner" hidden>
+        <p><strong>You have a passport in progress.</strong> <span id="resume-detail"></span></p>
+        <span class="spacer"></span>
+        <button class="btn ghost" id="resume-restart">Start over</button>
+        <button class="btn stamp" id="resume-continue">Continue</button>
+      </div>
+
+      <div class="passport">
+        <div class="pp-head">
+          <span class="code" id="pp-code">Station 01 of 09</span>
+          <span class="stamps" id="pp-stamps" role="img" aria-label="Passport stamps collected"></span>
+        </div>
+
+        <div class="spread" id="spread">
+          <div class="leaf-left">
+            <div class="st-num" id="st-num" aria-hidden="true">01</div>
+            <div class="st-zone" id="st-zone"></div>
+            <h3 class="st-lead" id="st-lead"></h3>
+            <svg class="rosette" viewBox="0 0 200 200" aria-hidden="true" id="rosette"></svg>
+            <div id="stamp-holder"></div>
+          </div>
+
+          <div class="leaf-right">
+            <h3 class="sr" id="st-title-sr"></h3>
+            <div class="tabs" role="tablist" aria-label="How would you like this station?">
+              <button class="tab" role="tab" id="tab-read" aria-controls="pane-read" aria-selected="true">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 3h5a2 2 0 0 1 2 2v8a2 2 0 0 0-2-2H2zM14 3H9a2 2 0 0 0-2 2v8a2 2 0 0 1 2-2h5z"/></svg>
+                Read
+              </button>
+              <button class="tab" role="tab" id="tab-watch" aria-controls="pane-watch" aria-selected="false">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M6.5 6.4v3.2L9.8 8z" fill="currentColor" stroke="none"/></svg>
+                Watch
+              </button>
+            </div>
+
+            <div class="tabpane" id="pane-read" role="tabpanel" aria-labelledby="tab-read" tabindex="0">
+              <div class="narrative" id="st-narrative"></div>
+              <ul class="takeaways" id="st-takeaways"></ul>
+            </div>
+
+            <div class="tabpane" id="pane-watch" role="tabpanel" aria-labelledby="tab-watch" tabindex="0" hidden>
+              <div class="player" id="player"></div>
+              <div class="media-tools" id="media-tools"></div>
+              <details class="transcript" id="transcript">
+                <summary>Transcript &amp; captions</summary>
+                <div class="tbody" id="transcript-body"></div>
+              </details>
+            </div>
+
+            <div class="challenge" id="challenge">
+              <img class="ch-avatar" id="ch-avatar" alt="" aria-hidden="true">
+              <p class="q" id="ch-q"></p>
+              <div class="opts" id="ch-opts"></div>
+              <div id="ch-verdict"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pp-foot">
+          <button class="btn ghost" id="nav-prev">&larr; Previous station</button>
+          <span class="hint" id="nav-hint">Swipe or use &larr; &rarr;</span>
+          <span class="spacer"></span>
+          <button class="btn stamp" id="nav-next">Stamp &amp; continue &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ COMPLETION ══════════ -->
+  <section class="view" id="view-complete" aria-labelledby="h-complete">
+    <div class="wrap">
+      <div class="cert">
+        <svg class="rosette" viewBox="0 0 200 200" aria-hidden="true" id="rosette-2"></svg>
+        <p class="eyebrow">Sterilization Passport · International Sterile Processing Week 2026</p>
+        <h2 id="h-complete" tabindex="-1">Passport complete</h2>
+        <p style="max-width:52ch;margin-inline:auto;color:var(--ink-soft)">You followed the instrument from point-of-use handling through decontamination, inspection, packaging, sterilization, monitoring, documentation, storage and distribution.</p>
+        <div class="grade"><span>Sterilization passport</span><b id="cert-grade">CSSD Champion</b></div>
+        <div class="cert-stamps" id="cert-stamps"></div>
+        <p class="eyebrow" id="cert-score"></p>
+        <p class="cert-core">Technology supports us. Knowledge empowers us. Together, we protect what matters most — our patients.</p>
+        <div class="cert-actions">
+          <button class="btn" id="cert-ask">Ask STERIA a question</button>
+          <button class="btn ghost" id="cert-restart">Start a new passport</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="mrz" id="mrz" aria-hidden="true"></div>
+
+<button class="log-toggle" id="log-toggle" aria-expanded="false" aria-controls="evlog">Event log</button>
+<div class="evlog" id="evlog" hidden role="region" aria-label="Analytics event log"></div>
+
+<script>
+/* ============================================================
+   STERIA kiosk prototype
+   Vanilla build that mirrors the production component tree 1:1.
+   Every function marked  ▸COMPONENT  maps to a React component
+   in IMPLEMENTATION.md.
+   ============================================================ */
+const CONTENT = {"$schema": "./steria-content.schema.json", "meta": {"id": "steria", "version": "1.0.0", "updated": "2026-08-18", "locale": "en", "name": "STERIA", "title": "AI CSSD Specialist Assistant", "event": "International Sterile Processing Week 2026", "tagline": "Technology Meets Precision. Patient Safety Leads the Future.", "coreMessage": "Technology supports us. Knowledge empowers us. Together, we protect what matters most — our patients.", "author": "Bodoor Megbel Alharbi — Sterilization Specialist, CSSD", "outOfScope": "That question is outside my Sterilization Passport journey. One of our CSSD specialists will be happy to assist you.", "welcome": "Hello and welcome. I'm STERIA, your AI CSSD Specialist. I'll be your digital guide through the Sterilization Passport Journey. Together we'll discover what happens to a reusable medical instrument before it can safely return to patient care."}, "categories": [{"id": "basics", "label": "CSSD basics", "code": "BAS"}, {"id": "decon", "label": "Decontamination", "code": "DEC"}, {"id": "inspection", "label": "Inspection & assembly", "code": "INS"}, {"id": "packaging", "label": "Packaging", "code": "PKG"}, {"id": "sterilizing", "label": "Sterilization", "code": "STE"}, {"id": "monitoring", "label": "Monitoring", "code": "MON"}, {"id": "trace", "label": "Traceability & storage", "code": "TRC"}, {"id": "digital", "label": "AI & digital", "code": "DIG"}, {"id": "about", "label": "About STERIA", "code": "STA"}], "stations": [{"id": "s01", "code": "01", "slug": "point-of-use", "title": "Point-of-use handling", "zone": "Operating room / procedure area", "lead": "Our journey starts where the instrument was used.", "narrative": ["Appropriate point-of-use handling helps prevent contamination from drying on instruments, and it supports safe transportation for reprocessing.", "The instrument is then transferred to the decontamination area according to approved procedures — contained, identified, and handled so that the next stage can succeed."], "takeaways": ["Reprocessing begins the moment the instrument is put down, not when it reaches CSSD.", "Dried soil is far harder to remove and can compromise every step that follows."], "challenge": {"prompt": "Why is appropriate point-of-use handling important?", "options": [{"id": "a", "label": "It keeps soil from drying on the instrument", "correct": true}, {"id": "b", "label": "It replaces the need for cleaning", "correct": false}, {"id": "c", "label": "It shortens the sterilization cycle", "correct": false}], "response": "Correct. It supports effective cleaning and safer handling during the next stage.", "responseIncorrect": "Not quite. Point-of-use handling keeps soil from drying so that cleaning can do its job — it never replaces a later step."}, "media": {"hls": "media/s01-point-of-use/master.m3u8", "mp4": "media/s01-point-of-use/720p.mp4", "captions": "media/s01-point-of-use/captions.en.vtt", "poster": "media/s01-point-of-use/poster.webp", "duration": 42}}, {"id": "s02", "code": "02", "slug": "decontamination", "title": "Decontamination", "zone": "Decontamination area", "lead": "Welcome to the decontamination area.", "narrative": ["This is where contaminated reusable instruments are received and cleaned using appropriate validated methods.", "Cleaning is a critical step, because sterilization cannot compensate for inadequate cleaning. Everything downstream depends on what happens here."], "takeaways": ["Cleaning is a prerequisite for sterilization, never an alternative to it.", "Validated methods and approved procedures govern how cleaning is performed and verified."], "challenge": {"prompt": "True or false: cleaning can be skipped if the instrument will be sterilized afterward.", "options": [{"id": "a", "label": "True", "correct": false}, {"id": "b", "label": "False", "correct": true}], "response": "False — exactly right. Cleaning is essential before sterilization.", "responseIncorrect": "It's false. Soil shields microorganisms and interferes with the process, so cleaning always comes first."}, "media": {"hls": "media/s02-decontamination/master.m3u8", "mp4": "media/s02-decontamination/720p.mp4", "captions": "media/s02-decontamination/captions.en.vtt", "poster": "media/s02-decontamination/poster.webp", "duration": 48}}, {"id": "s03", "code": "03", "slug": "inspection-assembly", "title": "Inspection & assembly", "zone": "Clean preparation area", "lead": "Now that the instrument is clean, it moves to inspection and assembly.", "narrative": ["CSSD professionals inspect instruments for cleanliness, integrity, condition and functionality before preparing the set.", "Some delicate instruments require magnification and particularly careful handling. This is where trained human judgement carries the most weight."], "takeaways": ["An instrument that fails acceptance criteria does not simply continue down the line.", "Magnification supports inspection of fine details on small or delicate instruments."], "challenge": {"prompt": "Would you sterilize an instrument that is still visibly contaminated?", "options": [{"id": "a", "label": "Yes — the cycle will handle it", "correct": false}, {"id": "b", "label": "No — it goes back for reprocessing", "correct": true}], "response": "Excellent. An instrument that does not meet acceptance criteria should not proceed to packaging and sterilization.", "responseIncorrect": "No. Visible contamination means the item must be managed according to approved procedure before it can continue."}, "media": {"hls": "media/s03-inspection-assembly/master.m3u8", "mp4": "media/s03-inspection-assembly/720p.mp4", "captions": "media/s03-inspection-assembly/captions.en.vtt", "poster": "media/s03-inspection-assembly/poster.webp", "duration": 51}}, {"id": "s04", "code": "04", "slug": "packaging", "title": "Packaging", "zone": "Packaging & preparation", "lead": "The next step is packaging.", "narrative": ["An appropriate packaging system protects the device and allows the selected sterilization process to reach the item.", "Packaging and preparation must follow validated procedures and the relevant manufacturer's instructions."], "takeaways": ["Packaging has two jobs: let the sterilant in, then keep contamination out.", "The packaging system has to be compatible with the sterilization method chosen."], "challenge": {"prompt": "What is one purpose of sterilization packaging?", "options": [{"id": "a", "label": "To allow the sterilant to reach the item", "correct": true}, {"id": "b", "label": "To make the set easier to label", "correct": false}, {"id": "c", "label": "To speed up drying", "correct": false}], "response": "Right. Packaging allows sterilant penetration during processing and helps maintain the integrity of the sterile item afterwards, when appropriately handled and stored.", "responseIncorrect": "Close, but the core purpose is to allow sterilant penetration and then protect the processed item."}, "media": {"hls": "media/s04-packaging/master.m3u8", "mp4": "media/s04-packaging/720p.mp4", "captions": "media/s04-packaging/captions.en.vtt", "poster": "media/s04-packaging/poster.webp", "duration": 45}}, {"id": "s05", "code": "05", "slug": "sterilization", "title": "Sterilization", "zone": "Sterilizer bay", "lead": "The method is selected to match the device, not the other way round.", "narrative": ["The sterilization method is selected according to the medical device, its compatibility, validated processing requirements and the manufacturer's instructions.", "Steam sterilization is widely used for compatible heat- and moisture-resistant devices. Low-temperature sterilization may be used for compatible devices that cannot tolerate certain high-temperature processes."], "takeaways": ["Cycle parameters come from the validated cycle, approved policy and the IFU — never from memory.", "Device compatibility drives method selection."], "challenge": {"prompt": "A visitor asks: what temperature do you use?", "options": [{"id": "a", "label": "It depends on the validated cycle and the IFU", "correct": true}, {"id": "b", "label": "The same setting for every load", "correct": false}], "response": "Correct. Cycle parameters depend on the validated sterilizer cycle, device requirements, load configuration, approved policy and the manufacturer's IFU. These should always be verified rather than assumed.", "responseIncorrect": "Loads are not interchangeable. Parameters come from the validated cycle, approved policy and the manufacturer's IFU."}, "media": {"hls": "media/s05-sterilization/master.m3u8", "mp4": "media/s05-sterilization/720p.mp4", "captions": "media/s05-sterilization/captions.en.vtt", "poster": "media/s05-sterilization/poster.webp", "duration": 56}}, {"id": "s06", "code": "06", "slug": "monitoring", "title": "Monitoring", "zone": "Process control", "lead": "Sterilization isn't just about running a sterilizer.", "narrative": ["CSSD professionals monitor and document the process using appropriate physical, chemical and biological monitoring methods, according to applicable requirements and policies.", "Each monitoring type answers a different question. Together they form one quality system."], "takeaways": ["Physical, chemical and biological monitoring are complementary, not interchangeable.", "Monitoring results are part of the release decision and the permanent record."], "challenge": {"prompt": "Do chemical and biological indicators have exactly the same role?", "options": [{"id": "a", "label": "Yes, they are interchangeable", "correct": false}, {"id": "b", "label": "No, they provide different information", "correct": true}], "response": "No — they provide different types of information and are used as part of an overall quality monitoring system.", "responseIncorrect": "They aren't interchangeable. Each provides a different type of information within the monitoring system."}, "media": {"hls": "media/s06-monitoring/master.m3u8", "mp4": "media/s06-monitoring/720p.mp4", "captions": "media/s06-monitoring/captions.en.vtt", "poster": "media/s06-monitoring/poster.webp", "duration": 53}}, {"id": "s07", "code": "07", "slug": "traceability", "title": "Traceability & documentation", "zone": "Records & tracking", "lead": "If it wasn't documented, it can't be traced.", "narrative": ["Documentation supports quality assurance, accountability, investigation and traceability throughout sterile processing.", "Digital systems can help connect information across different stages of the instrument journey — barcode and RFID identification, electronic records and real-time visibility."], "takeaways": ["Traceability links instrument, process, load and record into one chain.", "Digital documentation supports investigation and continuous improvement."], "challenge": {"prompt": "What can digital traceability connect?", "options": [{"id": "a", "label": "Instrument, process, load and documentation", "correct": true}, {"id": "b", "label": "Only the sterilizer cycle printout", "correct": false}], "response": "Yes — instrument, process, load, documentation and traceability information across the sterile processing journey.", "responseIncorrect": "It reaches further than the printout: instrument, process, load and documentation all connect."}, "media": {"hls": "media/s07-traceability/master.m3u8", "mp4": "media/s07-traceability/720p.mp4", "captions": "media/s07-traceability/captions.en.vtt", "poster": "media/s07-traceability/poster.webp", "duration": 49}}, {"id": "s08", "code": "08", "slug": "storage-distribution", "title": "Storage & distribution", "zone": "Sterile store", "lead": "The journey does not end when the sterilizer door opens.", "narrative": ["After successful processing and release according to approved procedures, sterile items must be handled and stored appropriately to protect package integrity until they are needed.", "Handling, transport and storage conditions all continue to matter right up to the moment of use."], "takeaways": ["Package integrity is protected by how items are handled, stored and transported.", "Release follows approved procedures before an item is distributed."], "challenge": {"prompt": "Does the sterilization journey end when the sterilizer door opens?", "options": [{"id": "a", "label": "Yes — the cycle is complete", "correct": false}, {"id": "b", "label": "No — handling and storage still matter", "correct": true}], "response": "No. Proper handling, storage, distribution and maintaining package integrity remain essential.", "responseIncorrect": "Not yet. Release, handling, storage and distribution all still lie ahead."}, "media": {"hls": "media/s08-storage-distribution/master.m3u8", "mp4": "media/s08-storage-distribution/720p.mp4", "captions": "media/s08-storage-distribution/captions.en.vtt", "poster": "media/s08-storage-distribution/poster.webp", "duration": 44}}, {"id": "s09", "code": "09", "slug": "patient-safety", "title": "Patient safety", "zone": "Final station", "final": true, "lead": "Every instrument matters. Every process contributes to patient safety.", "narrative": ["You followed the instrument from point-of-use handling through decontamination, inspection, packaging, sterilization, monitoring, documentation, storage and distribution.", "Behind every safe procedure there is a team you rarely see. In CSSD, patient safety is supported by consistently performing and verifying each required reprocessing step."], "takeaways": ["Every step counts, and every step is somebody's responsibility.", "Technology supports professional judgement — it does not replace it."], "challenge": {"prompt": "Who protects the patient at every one of these stations?", "options": [{"id": "a", "label": "The CSSD professional", "correct": true}, {"id": "b", "label": "The sterilizer", "correct": false}], "response": "The CSSD professional. Technology supports us. Knowledge empowers us. Together, we protect what matters most — our patients.", "responseIncorrect": "Equipment performs the process; people own the outcome. The CSSD professional protects the patient at every station."}, "media": {"hls": "media/s09-patient-safety/master.m3u8", "mp4": "media/s09-patient-safety/720p.mp4", "captions": "media/s09-patient-safety/captions.en.vtt", "poster": "media/s09-patient-safety/poster.webp", "duration": 38}}], "knowledgeBase": [{"id": 1, "cat": "basics", "q": "What is CSSD?", "a": "CSSD is the Central Sterile Services Department. It supports healthcare delivery by reprocessing reusable medical devices according to validated procedures and applicable requirements.", "k": ["cssd", "central", "sterile", "services", "department", "meaning", "stand for", "what is"]}, {"id": 2, "cat": "basics", "q": "Why is CSSD important?", "a": "CSSD supports safe patient care by ensuring reusable medical devices are appropriately cleaned, inspected, prepared, processed, documented, stored and distributed.", "k": ["important", "why", "matter", "role", "purpose", "value"]}, {"id": 3, "cat": "decon", "q": "What is decontamination?", "a": "It is an important stage in reprocessing where contaminated devices are handled and cleaned according to established procedures before further processing.", "k": ["decontamination", "decon", "contaminated", "dirty", "soiled"]}, {"id": 4, "cat": "decon", "q": "Why is cleaning important?", "a": "Soil and contamination can interfere with subsequent processing. Effective cleaning is therefore a fundamental prerequisite to successful reprocessing.", "k": ["cleaning", "clean", "wash", "soil", "important", "why"]}, {"id": 5, "cat": "decon", "q": "Can sterilization replace cleaning?", "a": "No. Proper cleaning is required before sterilization.", "k": ["replace", "skip", "instead", "cleaning", "sterilization", "shortcut"]}, {"id": 6, "cat": "decon", "q": "What happens after cleaning?", "a": "Instruments generally proceed to inspection, function checks, assembly and preparation according to their processing requirements.", "k": ["after", "next", "cleaning", "then", "sequence", "order"]}, {"id": 7, "cat": "inspection", "q": "Why are instruments inspected?", "a": "To identify remaining contamination, damage, defects or functional problems before further processing.", "k": ["inspect", "inspection", "check", "examine", "why", "defect"]}, {"id": 8, "cat": "inspection", "q": "What happens if an instrument is damaged?", "a": "It should be managed according to the facility's approved procedure rather than automatically returning to use.", "k": ["damaged", "broken", "faulty", "defective", "repair", "rejected"]}, {"id": 9, "cat": "inspection", "q": "Why use magnification?", "a": "Magnification can assist inspection of fine details, particularly with small or delicate instruments.", "k": ["magnification", "magnifier", "lens", "loupe", "microscope", "delicate", "small"]}, {"id": 10, "cat": "inspection", "q": "What is instrument assembly?", "a": "It is the organized preparation of instruments or sets according to approved specifications before packaging and processing.", "k": ["assembly", "assemble", "set", "tray", "prepare", "build"]}, {"id": 11, "cat": "packaging", "q": "What is packaging?", "a": "Packaging provides an appropriate system for sterilization and subsequent protection of the processed item when properly handled.", "k": ["packaging", "package", "wrap", "pouch", "container", "barrier"]}, {"id": 12, "cat": "packaging", "q": "Why is package integrity important?", "a": "Damage or compromised integrity can affect the protection of the processed item and requires appropriate assessment according to policy.", "k": ["integrity", "torn", "damaged", "package", "wet", "hole", "seal"]}, {"id": 13, "cat": "sterilizing", "q": "What is steam sterilization?", "a": "A validated sterilization method using saturated steam under controlled conditions for compatible devices.", "k": ["steam", "autoclave", "moist heat", "saturated"]}, {"id": 14, "cat": "sterilizing", "q": "What is low-temperature sterilization?", "a": "It refers to validated sterilization technologies designed for compatible devices that may not tolerate certain high-temperature processes.", "k": ["low temperature", "low-temp", "plasma", "peroxide", "gas", "heat sensitive"]}, {"id": 15, "cat": "sterilizing", "q": "Who determines which method is appropriate?", "a": "Device compatibility, validated processing instructions, sterilizer requirements, facility policy and the manufacturer's IFU guide the decision.", "k": ["who decides", "method", "choose", "select", "ifu", "policy", "which"]}, {"id": 16, "cat": "monitoring", "q": "What is a chemical indicator?", "a": "A chemical indicator provides information about exposure to one or more process conditions, depending on the indicator type.", "k": ["chemical indicator", "ci", "strip", "tape", "colour change", "color change"]}, {"id": 17, "cat": "monitoring", "q": "What is a biological indicator?", "a": "A biological indicator uses highly resistant microorganisms or spores to provide information about the effectiveness of a sterilization process under defined conditions.", "k": ["biological indicator", "bi", "spore", "microorganism", "vial", "test"]}, {"id": 18, "cat": "monitoring", "q": "Are BI and CI the same?", "a": "No. They serve different monitoring functions.", "k": ["bi", "ci", "same", "difference", "compare", "indicator"]}, {"id": 19, "cat": "monitoring", "q": "What is physical monitoring?", "a": "It involves reviewing relevant sterilizer cycle information and physical process parameters according to the system and approved procedures.", "k": ["physical monitoring", "printout", "gauge", "chart", "parameters", "cycle data"]}, {"id": 20, "cat": "trace", "q": "What is traceability?", "a": "Traceability is the ability to follow relevant information about an item or process through documented stages of reprocessing and use, according to the system in place.", "k": ["traceability", "trace", "track", "follow", "history", "recall"]}, {"id": 21, "cat": "trace", "q": "Why is documentation important?", "a": "Documentation supports traceability, quality assurance, accountability, investigation and continuous improvement.", "k": ["documentation", "record", "log", "paperwork", "why", "important"]}, {"id": 22, "cat": "sterilizing", "q": "What happens after sterilization?", "a": "Items undergo the required release and handling processes and are stored and distributed according to approved procedures.", "k": ["after sterilization", "release", "next", "cooling", "unload"]}, {"id": 23, "cat": "trace", "q": "Why is storage important?", "a": "Appropriate storage and handling help protect packaging and maintain the integrity of processed items until use.", "k": ["storage", "store", "shelf", "sterile store", "keep", "why"]}, {"id": 24, "cat": "decon", "q": "What is point-of-use handling?", "a": "It refers to appropriate actions taken after use to support safe handling and subsequent effective reprocessing.", "k": ["point of use", "point-of-use", "theatre", "or", "after use", "pre-treatment"]}, {"id": 25, "cat": "basics", "q": "What is patient safety?", "a": "In CSSD, patient safety is supported by consistently performing and verifying each required reprocessing step.", "k": ["patient safety", "safe", "harm", "infection", "protect"]}, {"id": 26, "cat": "digital", "q": "Can AI sterilize instruments?", "a": "AI itself does not physically sterilize instruments. It may support areas such as monitoring, education, analytics, documentation and process visibility.", "k": ["ai sterilize", "robot", "machine", "can ai", "automatic"]}, {"id": 27, "cat": "digital", "q": "Will AI replace CSSD professionals?", "a": "No. The purpose of this concept is to demonstrate how technology can support CSSD professionals while professional expertise and judgement remain essential.", "k": ["replace", "job", "redundant", "lose", "ai", "future of work"]}, {"id": 28, "cat": "digital", "q": "How can AI help CSSD?", "a": "Potential applications include identifying trends, supporting monitoring, education, analytics, workflow visibility and quality improvement.", "k": ["how ai help", "benefit", "use case", "support", "application"]}, {"id": 29, "cat": "digital", "q": "What is smart tracking?", "a": "Technologies such as barcode or RFID-based systems can help improve identification and traceability of instruments, sets and processing information.", "k": ["smart tracking", "barcode", "rfid", "scan", "tag", "qr"]}, {"id": 30, "cat": "digital", "q": "What is digital documentation?", "a": "It means recording relevant processing information electronically rather than relying solely on manual documentation.", "k": ["digital documentation", "paperless", "electronic", "record", "software"]}, {"id": 31, "cat": "digital", "q": "What are real-time dashboards?", "a": "Dashboards can present selected operational or quality information in a visual format to support monitoring and decision-making.", "k": ["dashboard", "real time", "screen", "visual", "kpi", "monitor"]}, {"id": 32, "cat": "digital", "q": "What is predictive analytics?", "a": "Predictive analytics uses historical data and analytical models to identify patterns that may help support planning and informed decision-making.", "k": ["predictive", "analytics", "forecast", "trend", "model", "data"]}, {"id": 33, "cat": "digital", "q": "Can AI make sterilization decisions by itself?", "a": "Technology can support professionals, but validated processes, approved policies, manufacturer's instructions and professional judgement remain essential.", "k": ["ai decide", "autonomous", "by itself", "alone", "decision", "judgement"]}, {"id": 34, "cat": "basics", "q": "What is a Sterilization Passport?", "a": "It is an educational experience that allows visitors to follow the journey of a reusable medical instrument through different CSSD stages.", "k": ["passport", "journey", "what is this", "experience", "stations"]}, {"id": 35, "cat": "basics", "q": "Is this a real passport?", "a": "No. It is an interactive educational concept designed to make learning about sterile processing more engaging.", "k": ["real passport", "travel", "document", "official", "is this real"]}, {"id": 36, "cat": "about", "q": "What is STERIA?", "a": "I'm STERIA, your AI CSSD Specialist and digital guide through the Sterilization Passport Journey.", "k": ["steria", "who are you", "your name", "what are you"]}, {"id": 37, "cat": "about", "q": "Are you a real CSSD specialist?", "a": "I'm an AI educational assistant designed to represent and support the educational experience. Real CSSD professionals remain the experts responsible for sterile processing practice.", "k": ["real person", "human", "specialist", "are you real", "bot"]}, {"id": 38, "cat": "about", "q": "Can I ask you medical questions?", "a": "I can answer educational questions related to sterile processing and patient safety, but I don't provide patient-specific medical advice.", "k": ["medical advice", "diagnosis", "my condition", "treatment", "doctor"]}, {"id": 39, "cat": "about", "q": "What if you don't know an answer?", "a": "I won't guess. I'll recommend checking the appropriate approved source or speaking with one of our CSSD specialists.", "k": ["don't know", "unsure", "guess", "wrong", "not sure"]}, {"id": 40, "cat": "about", "q": "What is your main message?", "a": "Technology supports us. Knowledge empowers us. Together, we protect what matters most — our patients.", "k": ["message", "motto", "slogan", "core", "main", "tagline"]}]};
+const IMG = document.getElementById("hero-img").src;
+
+/* Flip to true once the character clips are encoded and uploaded. */
+const MEDIA_READY = false;
+
+const $  = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const KB = CONTENT.knowledgeBase, STATIONS = CONTENT.stations, CATS = CONTENT.categories;
+
+/* ------------------------------------------------------------
+   1. Storage — resume support, degrades to memory
+   ------------------------------------------------------------ */
+const mem = {};
+const store = {
+  async get(k){
+    try{ if(window.storage){ const r = await window.storage.get(k); return r ? JSON.parse(r.value) : (mem[k] ?? null); } }
+    catch(e){ /* key missing or unavailable */ }
+    return mem[k] ?? null;
+  },
+  async set(k,v){
+    mem[k]=v;
+    try{ if(window.storage) await window.storage.set(k, JSON.stringify(v)); }catch(e){}
+  }
+};
+
+/* ------------------------------------------------------------
+   2. Analytics — one funnel, one sink
+   ------------------------------------------------------------ */
+window.dataLayer = window.dataLayer || [];
+const evEl = $('#evlog');
+function track(name, params={}){
+  const ev = { event:name, ...params, ts:Date.now(), session:SESSION };
+  window.dataLayer.push(ev);
+  const row = document.createElement('div');
+  row.innerHTML = `<span class="t">${new Date().toLocaleTimeString('en-GB')}</span> <b>${name}</b> ${Object.entries(params).map(([k,v])=>`${k}=${v}`).join(' ')}`;
+  evEl.prepend(row);
+  while(evEl.children.length>60) evEl.lastChild.remove();
+}
+const SESSION = 'S'+Math.random().toString(36).slice(2,8).toUpperCase();
+
+/* ------------------------------------------------------------
+   3. Guilloche background + parallax   ▸COMPONENT <GuillocheField/>
+   ------------------------------------------------------------ */
+function hypo(R,r,d,turns,steps){
+  let p='';
+  for(let i=0;i<=steps;i++){
+    const t=(i/steps)*turns*Math.PI*2;
+    const x=(R-r)*Math.cos(t)+d*Math.cos((R-r)/r*t);
+    const y=(R-r)*Math.sin(t)-d*Math.sin((R-r)/r*t);
+    p += (i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1);
+  }
+  return p+'Z';
+}
+function buildBG(){
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','-260 -260 520 520');
+  /* petals = R/gcd(R,r); each layer is redrawn 5x with a drifting radius — engine turning */
+  const specs=[[.22,210,30,95,.30],[.5,192,24,78,.42],[.85,176,16,62,.24]];
+  specs.forEach(([depth,R,r,d,op])=>{
+    const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','g-layer'); g.dataset.depth=depth; g.style.opacity=op;
+    for(let k=0;k<5;k++){
+      const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d',hypo(R,r,d+k*3.5,1,900));
+      path.setAttribute('stroke-width','.3');
+      path.setAttribute('transform',`rotate(${(k*2.2).toFixed(1)})`);
+      g.appendChild(path);
+    }
+    svg.appendChild(g);
+  });
+  $('#bg').appendChild(svg);
+}
+function buildRosette(el){
+  el.innerHTML='';
+  [[70,10,34],[56,7,26]].forEach(([R,r,d])=>{
+    for(let k=0;k<4;k++){
+      const p=document.createElementNS('http://www.w3.org/2000/svg','path');
+      p.setAttribute('d',hypo(R,r,d+k*2.2,1,700));
+      p.setAttribute('transform',`translate(100,100) rotate(${k*3})`);
+      el.appendChild(p);
+    }
+  });
+}
+let px=0,py=0,tx=0,ty=0,rafOn=false;
+function parallax(){
+  tx += (px-tx)*.06; ty += (py-ty)*.06;
+  $$('#bg .g-layer').forEach(g=>{
+    const d=parseFloat(g.dataset.depth);
+    g.setAttribute('transform',`translate(${(tx*38*d).toFixed(2)} ${(ty*38*d).toFixed(2)}) rotate(${(tx*4*d).toFixed(2)})`);
+  });
+  if(rafOn) requestAnimationFrame(parallax);
+}
+function startParallax(){
+  if(reduced()||rafOn) return;
+  rafOn=true; requestAnimationFrame(parallax);
+  window.addEventListener('pointermove',onMove,{passive:true});
+  window.addEventListener('scroll',onScroll,{passive:true});
+}
+function stopParallax(){ rafOn=false; window.removeEventListener('pointermove',onMove); window.removeEventListener('scroll',onScroll); }
+const onMove=e=>{ px=(e.clientX/innerWidth-.5)*2; py=(e.clientY/innerHeight-.5)*2; };
+const onScroll=()=>{ py=(scrollY/Math.max(1,innerHeight))*1.2-.5; };
+const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.dataset.motion==='off';
+
+/* ------------------------------------------------------------
+   4. Router + character mood   ▸COMPONENT <ViewRouter/> <SteriaAvatar/>
+   ------------------------------------------------------------ */
+let currentView='home';
+function mood(m,ms=2200){
+  document.body.dataset.mood=m;
+  if(m!=='idle') setTimeout(()=>{ if(document.body.dataset.mood===m) document.body.dataset.mood='idle'; },ms);
+}
+function go(view,opts={}){
+  if(view===currentView && !opts.force) return;
+  $$('.view').forEach(v=>v.classList.remove('is-active'));
+  const el=$('#view-'+view); el.classList.add('is-active');
+  currentView=view;
+  $('#btn-home').hidden = view==='home';
+  window.scrollTo({top:0,behavior:reduced()?'auto':'smooth'});
+  const h=el.querySelector('[tabindex="-1"]'); if(h) h.focus({preventScroll:true});
+  updateMRZ();
+  if(!opts.silent) track('view_change',{view});
+}
+
+/* ------------------------------------------------------------
+   5. MRZ strip   ▸COMPONENT <MachineReadableZone/>
+   ------------------------------------------------------------ */
+function updateMRZ(){
+  const done = STATIONS.filter(s=>state.done[s.id]).length;
+  const codes = STATIONS.map(s=>state.done[s.id]?s.code:'<<').join('');
+  const line = `P<CSSD<STERIA<<STERILIZATION<PASSPORT<<${CONTENT.meta.event.replace(/\s/g,'<')}`;
+  $('#mrz').textContent = `${line}\u00A0\u00A0${codes}<<${String(done).padStart(2,'0')}OF09<<${SESSION}<<${currentView.toUpperCase()}`
+    .toUpperCase().replace(/\s/g,'<');
+}
+
+/* ============================================================
+   CHOICE A — ASK STERIA
+   ============================================================ */
+const STOP = new Set('a an the is are was were do does did can could will would should i you it we they of in on at to for from with about what why how when which who that this these those my your our their me us and or if as be been being have has had not no yes please tell explain'.split(' '));
+const SYN = {
+  autoclave:'steam', sterilise:'sterilization', sterilisation:'sterilization', sterilized:'sterilization',
+  clean:'cleaning', cleaned:'cleaning', wash:'cleaning', washing:'cleaning', decon:'decontamination',
+  ci:'chemical indicator', bi:'biological indicator', ifu:'manufacturer instructions',
+  rfid:'smart tracking', barcode:'smart tracking', qr:'smart tracking',
+  robot:'ai', 'artificial':'ai', job:'replace', jobs:'replace', tray:'set', trays:'set',
+  pouch:'packaging', wrap:'packaging', store:'storage', stored:'storage', record:'documentation',
+  records:'documentation', paperwork:'documentation', track:'traceability', tracking:'traceability'
+};
+function norm(s){
+  return s.toLowerCase().replace(/[^a-z0-9\s'-]/g,' ')
+    .split(/\s+/).filter(Boolean)
+    .flatMap(w=>{ const r=SYN[w]; return r?[w,...r.split(' ')]:[w]; })
+    .filter(w=>!STOP.has(w) && w.length>1);
+}
+/* inverse document frequency so common CSSD words don't dominate */
+const DF={};
+KB.forEach(e=>{ new Set(norm(e.q+' '+e.a+' '+e.k.join(' '))).forEach(t=>DF[t]=(DF[t]||0)+1); });
+const idf=t=>Math.log(1+KB.length/(1+(DF[t]||0)));
+
+function match(query){
+  const qt=norm(query); if(!qt.length) return {best:null,alts:[]};
+  const scored=KB.map(e=>{
+    const hay=(e.q+' '+e.k.join(' ')+' '+e.a).toLowerCase();
+    const ht=new Set(norm(e.q+' '+e.k.join(' ')+' '+e.a));
+    let s=0;
+    qt.forEach(t=>{
+      if(ht.has(t)) s+=idf(t)*1.0;
+      else if(hay.includes(t)) s+=idf(t)*.45;              /* partial / substring */
+    });
+    for(let i=0;i<qt.length-1;i++) if(hay.includes(qt[i]+' '+qt[i+1])) s+=1.1;  /* bigram bonus */
+    if(e.q.toLowerCase().includes(query.trim().toLowerCase())) s+=2.5;
+    return {e,s:s/Math.sqrt(qt.length)};
+  }).sort((a,b)=>b.s-a.s);
+  const THRESH=1.15;
+  return { best: scored[0].s>=THRESH?scored[0]:null, alts: scored.slice(0,3).filter(x=>x.s>.35) };
+}
+
+let turns=0;
+function say(who, html, meta){
+  const el=document.createElement('div');
+  el.className='msg '+who;
+  el.innerHTML=`<span class="who">${who==='steria'?'STERIA':'You'}</span>${html}${meta?`<span class="src">${meta}</span>`:''}`;
+  $('#chat-log').append(el);
+  $('#chat-log').scrollTop=$('#chat-log').scrollHeight;
+  return el;
+}
+function typing(){
+  const el=say('steria','<span class="typing"><i></i><i></i><i></i></span>');
+  el.querySelector('.who').textContent='STERIA';
+  return el;
+}
+function answer(query,{fromList=false}={}){
+  say('user',`<p>${escapeHTML(query)}</p>`);
+  turns++; $('#turn-count').textContent=`${turns} turn${turns===1?'':'s'}`;
+  track('ask_query',{q:query.slice(0,60),source:fromList?'list':'typed'});
+  mood('thinking',1400);
+  const ghost=typing();
+  setTimeout(()=>{
+    ghost.remove();
+    const {best,alts}=match(query);
+    if(best){
+      const cat=CATS.find(c=>c.id===best.e.cat);
+      say('steria',`<p>${best.e.a}</p>`,`Q${String(best.e.id).padStart(2,'0')} · ${cat.label}`);
+      track('ask_match',{id:best.e.id,cat:best.e.cat,score:best.s.toFixed(2)});
+      mood('greeting',1200);
+    }else{
+      say('steria',`<p>${CONTENT.meta.outOfScope}</p>`);
+      track('ask_no_match',{q:query.slice(0,60)});
+      if(alts.length) renderSuggests(alts.map(a=>a.e), 'Did you mean');
+      else renderSuggests(sample(KB,3),'Try one of these');
+      return;
+    }
+    renderSuggests(related(best.e),'Related');
+  }, 480);
+}
+const related=e=>KB.filter(x=>x.cat===e.cat && x.id!==e.id).slice(0,3);
+const sample=(arr,n)=>[...arr].sort(()=>Math.random()-.5).slice(0,n);
+function renderSuggests(list,label){
+  const box=$('#suggests'); box.innerHTML='';
+  if(!list.length) return;
+  const l=document.createElement('span');
+  l.className='eyebrow'; l.style.cssText='margin:0;width:100%';
+  l.textContent=label; box.append(l);
+  list.forEach(e=>{
+    const b=document.createElement('button');
+    b.className='sug'; b.type='button'; b.textContent=e.q;
+    b.onclick=()=>answer(e.q,{fromList:true});
+    box.append(b);
+  });
+}
+const escapeHTML=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* browse: search + category + pagination   ▸COMPONENT <KnowledgeBrowser/> */
+const PAGE=6; let kbPage=0, kbCat='all', kbQuery='';
+function kbFiltered(){
+  let list=KB;
+  if(kbCat!=='all') list=list.filter(e=>e.cat===kbCat);
+  if(kbQuery.trim()){
+    const qt=norm(kbQuery);
+    list=list.filter(e=>{
+      const hay=(e.q+' '+e.a+' '+e.k.join(' ')).toLowerCase();
+      return qt.every(t=>hay.includes(t));
+    });
+  }
+  return list;
+}
+function renderKB(){
+  const list=kbFiltered(), pages=Math.max(1,Math.ceil(list.length/PAGE));
+  kbPage=Math.min(kbPage,pages-1);
+  const slice=list.slice(kbPage*PAGE,kbPage*PAGE+PAGE);
+  const ul=$('#kb-list'); ul.innerHTML='';
+  if(!slice.length){
+    ul.innerHTML=`<li class="kb-empty">No question matches that yet. Try a different word, or ask STERIA directly — she'll point you to a CSSD specialist if it's outside scope.</li>`;
+  }
+  slice.forEach(e=>{
+    const li=document.createElement('li');
+    const b=document.createElement('button');
+    b.className='kb-item'; b.type='button';
+    b.innerHTML=`<span class="n">${String(e.id).padStart(2,'0')}</span><span class="qt">${e.q}</span>`;
+    b.onclick=()=>{ answer(e.q,{fromList:true}); $('#q-input').focus(); };
+    li.append(b); ul.append(li);
+  });
+  $('#kb-pos').textContent=`Page ${kbPage+1} of ${pages}`;
+  $('#kb-count').textContent=`${list.length} question${list.length===1?'':'s'}`;
+  $('#kb-prev').disabled=kbPage===0;
+  $('#kb-next').disabled=kbPage>=pages-1;
+}
+function buildCats(){
+  const box=$('#cats');
+  const all=[{id:'all',label:'All',code:'ALL'},...CATS];
+  all.forEach(c=>{
+    const b=document.createElement('button');
+    b.className='cat'; b.type='button'; b.textContent=c.label;
+    b.setAttribute('aria-pressed', c.id===kbCat);
+    b.onclick=()=>{
+      kbCat=c.id; kbPage=0;
+      $$('.cat',box).forEach(x=>x.setAttribute('aria-pressed','false'));
+      b.setAttribute('aria-pressed','true');
+      track('kb_category',{cat:c.id}); renderKB();
+    };
+    box.append(b);
+  });
+}
+
+/* ============================================================
+   CHOICE B — PASSPORT JOURNEY
+   ============================================================ */
+const state={ idx:0, done:{}, answers:{}, mode:'read' };
+const STATE_KEY='steria:passport:v1';
+
+async function loadState(){
+  const saved=await store.get(STATE_KEY);
+  if(saved && Object.keys(saved.done||{}).length){
+    const n=Object.keys(saved.done).length;
+    $('#resume-detail').textContent=`${n} of ${STATIONS.length} stamps collected — last seen at station ${STATIONS[saved.idx]?.code||'01'}.`;
+    $('#resume-banner').hidden=false;
+    $('#resume-continue').onclick=()=>{ Object.assign(state,saved); $('#resume-banner').hidden=true; renderStation(); track('resume_accept',{stamps:n}); };
+    $('#resume-restart').onclick=()=>{ resetJourney(); $('#resume-banner').hidden=true; track('resume_decline'); };
+    track('resume_offer',{stamps:n});
+  }
+}
+const saveState=()=>store.set(STATE_KEY,{idx:state.idx,done:state.done,answers:state.answers});
+function resetJourney(){
+  state.idx=0; state.done={}; state.answers={}; state.mode='read';
+  saveState(); renderStation(); track('journey_reset');
+}
+
+function renderStamps(){
+  const box=$('#pp-stamps'); box.innerHTML='';
+  STATIONS.forEach((s,i)=>{
+    const d=document.createElement('span');
+    d.className='slot'; d.textContent=s.code;
+    d.dataset.state = state.done[s.id] ? 'done' : (i===state.idx ? 'current' : 'todo');
+    box.append(d);
+  });
+  box.setAttribute('aria-label',`${Object.keys(state.done).length} of ${STATIONS.length} passport stamps collected`);
+}
+
+function renderStation(){
+  const s=STATIONS[state.idx];
+  $('#pp-code').textContent=`Station ${s.code} of ${String(STATIONS.length).padStart(2,'0')} — ${s.title}`;
+  $('#st-num').textContent=s.code;
+  $('#st-zone').textContent=s.zone;
+  $('#st-lead').textContent=s.lead;
+  $('#st-title-sr').textContent=`Station ${s.code}: ${s.title}`;
+  $('#st-narrative').innerHTML=s.narrative.map(p=>`<p>${p}</p>`).join('');
+  $('#st-takeaways').innerHTML=s.takeaways.map(t=>`<li>${t}</li>`).join('');
+
+  /* stamp mark */
+  const holder=$('#stamp-holder'); holder.innerHTML='';
+  if(state.done[s.id]){
+    const m=document.createElement('div');
+    m.className='stamp-mark';
+    m.innerHTML=`<span>Station<b>${s.code}</b>Complete</span>`;
+    holder.append(m);
+  }
+
+  renderStamps(); renderChallenge(s); setMode(state.mode,true); updateMRZ();
+  $('#nav-prev').disabled=state.idx===0;
+  const last=state.idx===STATIONS.length-1;
+  $('#nav-next').textContent = state.done[s.id]
+    ? (last ? 'Finish my passport →' : 'Next station →')
+    : (last ? 'Stamp & finish →' : 'Stamp & continue →');
+  track('station_view',{station:s.code,slug:s.slug});
+}
+
+function renderChallenge(s){
+  $('#ch-q').textContent=s.challenge.prompt;
+  const box=$('#ch-opts'); box.innerHTML=''; $('#ch-verdict').innerHTML='';
+  const prev=state.answers[s.id];
+  s.challenge.options.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.type='button'; b.textContent=o.label;
+    if(prev){
+      b.disabled=true;
+      if(o.correct) b.dataset.verdict='right';
+      if(prev.pick===o.id && !o.correct) b.dataset.verdict='wrong';
+    }
+    b.onclick=()=>pick(s,o);
+    box.append(b);
+  });
+  if(prev) showVerdict(s,prev.correct);
+}
+function pick(s,o){
+  state.answers[s.id]={pick:o.id,correct:!!o.correct};
+  track('challenge_answer',{station:s.code,correct:!!o.correct});
+  mood(o.correct?'greeting':'thinking',1400);
+  renderChallenge(s); saveState();
+}
+function showVerdict(s,correct){
+  const text = correct ? s.challenge.response : s.challenge.responseIncorrect;
+  $('#ch-verdict').innerHTML=`<div class="verdict" style="border-left-color:${correct?'var(--verdigris)':'var(--stamp)'}"><span class="who">STERIA</span>${text}</div>`;
+}
+
+/* Read / Watch tabs   ▸COMPONENT <StationMedia/> */
+function setMode(m,silent){
+  state.mode=m;
+  const isRead=m==='read';
+  $('#tab-read').setAttribute('aria-selected',isRead);
+  $('#tab-watch').setAttribute('aria-selected',!isRead);
+  $('#pane-read').hidden=!isRead;
+  $('#pane-watch').hidden=isRead;
+  stopNarration();
+  if(!isRead) renderPlayer(STATIONS[state.idx]);
+  if(!silent) track('station_media_toggle',{station:STATIONS[state.idx].code,mode:m});
+  saveState();
+}
+
+function renderPlayer(s){
+  const p=$('#player');
+  if(MEDIA_READY){
+    p.innerHTML=`
+      <video id="clip" controls playsinline autoplay muted preload="metadata"
+             poster="${s.media.poster}" crossorigin="anonymous">
+        <source src="${s.media.hls}" type="application/vnd.apple.mpegurl">
+        <source src="${s.media.mp4}" type="video/mp4">
+        <track kind="captions" srclang="en" label="English" src="${s.media.captions}" default>
+        Your browser can't play this clip. Switch to the Read tab for the full text.
+      </video>`;
+    const v=$('#clip');
+    v.addEventListener('play',()=>track('video_play',{station:s.code}));
+    v.addEventListener('ended',()=>track('video_complete',{station:s.code}));
+  }else{
+    p.innerHTML=`
+      <div class="player-fallback">
+        <img src="${IMG}" alt="" aria-hidden="true">
+        <div>
+          <p class="pf-label">Clip pending · station ${s.code}</p>
+          <h4>${s.title}</h4>
+          <p>Clip not uploaded yet. Add <code>${s.media.mp4}</code> and <code>${s.media.captions}</code>, then set <code>MEDIA_READY = true</code>.</p>
+          <p>Until then: play the narration, or open the transcript.</p>
+        </div>
+      </div>`;
+  }
+  const tools=$('#media-tools');
+  tools.innerHTML='';
+  if(!MEDIA_READY){
+    const b=document.createElement('button');
+    b.className='btn ghost'; b.type='button'; b.textContent='▶ Play narration';
+    b.onclick=()=>narrate(s,b);
+    tools.append(b);
+  }
+  const r=document.createElement('button');
+  r.className='btn ghost'; r.type='button'; r.textContent='Read this station instead';
+  r.onclick=()=>{ setMode('read'); $('#tab-read').focus(); };
+  tools.append(r);
+
+  $('#transcript-body').innerHTML=cues(s).map(c=>`<div class="cue"><span class="t">${c.t}</span><span>${c.text}</span></div>`).join('');
+}
+/* WebVTT cue list — same source of truth the .vtt files are generated from */
+function cues(s){
+  const lines=[s.lead,...s.narrative,...s.takeaways];
+  const step=Math.max(4,Math.floor(s.media.duration/lines.length));
+  return lines.map((text,i)=>{
+    const from=i*step, to=(i+1)*step;
+    const f=n=>`${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
+    return {t:`${f(from)}–${f(to)}`,text};
+  });
+}
+let utter=null;
+function narrate(s,btn){
+  if(!('speechSynthesis' in window)){ btn.textContent='Narration unavailable'; btn.disabled=true; return; }
+  if(speechSynthesis.speaking){ stopNarration(); btn.textContent='▶ Play narration'; return; }
+  utter=new SpeechSynthesisUtterance([s.lead,...s.narrative].join(' '));
+  utter.rate=.98; utter.pitch=1.05; utter.lang='en-GB';
+  utter.onend=()=>{ btn.textContent='▶ Play narration'; mood('idle'); };
+  btn.textContent='■ Stop narration';
+  mood('thinking',60000);
+  speechSynthesis.speak(utter);
+  track('narration_play',{station:s.code});
+}
+function stopNarration(){ try{ speechSynthesis.cancel(); }catch(e){} }
+
+/* navigation */
+function advance(){
+  const s=STATIONS[state.idx];
+  const first=!state.done[s.id];
+  if(first){
+    state.done[s.id]=true;
+    track('station_complete',{station:s.code,stamps:Object.keys(state.done).length});
+    renderStamps();
+    const holder=$('#stamp-holder');
+    holder.innerHTML=`<div class="stamp-mark"><span>Station<b>${s.code}</b>Complete</span></div>`;
+    mood('celebrating',1900);
+    saveState(); updateMRZ();
+    $('#nav-next').textContent = state.idx===STATIONS.length-1 ? 'Finish my passport →' : 'Next station →';
+    return; /* let the stamp land before moving on */
+  }
+  if(state.idx===STATIONS.length-1){ complete(); return; }
+  state.idx++; saveState(); renderStation();
+  $('#pp-code').focus?.();
+}
+function back(){ if(state.idx>0){ state.idx--; saveState(); renderStation(); } }
+
+function complete(){
+  const correct=STATIONS.filter(s=>state.answers[s.id]?.correct).length;
+  $('#cert-grade').textContent = correct>=8 ? 'CSSD Champion' : correct>=5 ? 'CSSD Specialist' : 'CSSD Explorer';
+  $('#cert-score').textContent = `${Object.keys(state.done).length} of ${STATIONS.length} stamps · ${correct} of ${STATIONS.length} challenges correct · ${SESSION}`;
+  const box=$('#cert-stamps'); box.innerHTML='';
+  STATIONS.forEach(s=>{
+    const d=document.createElement('span'); d.className='slot'; d.textContent=s.code;
+    d.dataset.state=state.done[s.id]?'done':'todo'; box.append(d);
+  });
+  go('complete'); mood('celebrating',2600);
+  track('journey_complete',{stamps:Object.keys(state.done).length,correct});
+}
+
+/* touch gestures */
+let sx=0,sy=0;
+function bindSwipe(el){
+  el.addEventListener('touchstart',e=>{ sx=e.changedTouches[0].clientX; sy=e.changedTouches[0].clientY; },{passive:true});
+  el.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)<60||Math.abs(dy)>Math.abs(dx)) return;
+    track('swipe',{dir:dx<0?'next':'prev'});
+    dx<0?advance():back();
+  },{passive:true});
+}
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+function boot(){
+  buildBG(); buildRosette($('#rosette')); buildRosette($('#rosette-2'));
+  startParallax();
+  buildCats(); renderKB();
+  say('steria',`<p>${CONTENT.meta.welcome}</p>`);
+  renderSuggests(sample(KB,3),'Popular right now');
+  renderStation();
+  loadState();
+  updateMRZ();
+  mood('greeting',1600);
+
+  $$('.choice').forEach(b=>b.onclick=()=>{
+    track('choice_select',{choice:b.dataset.choice});
+    const dest=b.dataset.go;
+    go(dest);
+    if(dest==='journey') track('journey_start',{});
+    if(dest==='ask') setTimeout(()=>$('#q-input').focus(),320);
+  });
+  $('#btn-home').onclick=()=>{ stopNarration(); go('home'); mood('greeting',1400); };
+  $('#composer').onsubmit=e=>{
+    e.preventDefault();
+    const v=$('#q-input').value.trim(); if(!v) return;
+    $('#q-input').value=''; answer(v);
+  };
+  $('#kb-search').oninput=e=>{ kbQuery=e.target.value; kbPage=0; renderKB(); };
+  $('#kb-search').onchange=e=>track('kb_search',{q:e.target.value.slice(0,40)});
+  $('#kb-prev').onclick=()=>{ kbPage--; renderKB(); track('kb_page',{page:kbPage+1}); };
+  $('#kb-next').onclick=()=>{ kbPage++; renderKB(); track('kb_page',{page:kbPage+1}); };
+  $('#tab-read').onclick=()=>setMode('read');
+  $('#tab-watch').onclick=()=>setMode('watch');
+  $('#nav-next').onclick=advance;
+  $('#nav-prev').onclick=back;
+  $('#cert-restart').onclick=()=>{ resetJourney(); go('journey'); };
+  $('#cert-ask').onclick=()=>{ go('ask'); setTimeout(()=>$('#q-input').focus(),320); };
+  $('#ch-avatar').src = IMG;
+  bindSwipe($('#spread'));
+
+  /* roving arrows on the tablist + station nav */
+  document.addEventListener('keydown',e=>{
+    if(currentView!=='journey') return;
+    if(e.target.matches('input,textarea')) return;
+    if(e.target.matches('[role="tab"]')){
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+        e.preventDefault();
+        const other = e.target.id==='tab-read' ? $('#tab-watch') : $('#tab-read');
+        setMode(other.id==='tab-read'?'read':'watch'); other.focus();
+      }
+      return;
+    }
+    if(e.key==='ArrowRight'){ advance(); }
+    if(e.key==='ArrowLeft'){ back(); }
+  });
+
+  $('#btn-motion').onclick=()=>{
+    const off=document.documentElement.dataset.motion!=='off';
+    document.documentElement.dataset.motion=off?'off':'on';
+    $('#btn-motion').setAttribute('aria-pressed',off);
+    $('#btn-motion').textContent=off?'Restore motion':'Reduce motion';
+    off?stopParallax():startParallax();
+    document.body.style.setProperty('--anim', off?'none':'');
+    $$('.steria,.badge-float').forEach(el=>el.style.animation=off?'none':'');
+    track('motion_pref',{reduced:off});
+  };
+  $('#log-toggle').onclick=()=>{
+    const open=$('#evlog').hidden;
+    $('#evlog').hidden=!open;
+    $('#log-toggle').setAttribute('aria-expanded',open);
+  };
+
+  track('session_start',{ua:navigator.userAgent.slice(0,40)});
+}
+document.addEventListener('DOMContentLoaded',boot);
+</script>
+</body>
+</html>
