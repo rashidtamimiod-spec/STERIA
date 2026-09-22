@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>STERIA — AI CSSD Specialist | Sterilization Passport Journey</title>
+<meta name="description" content="STERIA, the AI CSSD Specialist guide for the Sterilization Passport Journey. International Sterile Processing Week 2026.">
+<meta name="theme-color" content="#0F3160">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — KKESH clinical blues, white surfaces, soft edges
+   ============================================================ */
+:root{
+  --bg:#F2F7FC;
+  --surface:#FFFFFF;
+  --sky:#E8F1FA;         /* pale tint panels */
+  --navy:#0F3160;        /* KKESH deep navy */
+  --blue:#1E6BB8;        /* primary action */
+  --blue-soft:#8FBEE6;
+  --teal:#0F9D8F;        /* completion, correct */
+  --text:#16283F;
+  --muted:#5A7391;
+  --line:#DFEAF4;
+  --warn:#B4552F;
+
+  --r:14px;
+  --r-lg:22px;
+  --shadow:0 1px 2px rgba(15,49,96,.05), 0 8px 24px rgba(15,49,96,.07);
+  --shadow-lg:0 2px 4px rgba(15,49,96,.06), 0 18px 44px rgba(15,49,96,.12);
+  --tap:52px;
+  --sp:clamp(1rem,.6rem + 1.6vw,2rem);
+
+  --f:"Cairo","Segoe UI",system-ui,-apple-system,sans-serif;
+  --t-sm:clamp(.85rem,.82rem + .15vw,.94rem);
+  --t-md:clamp(1rem,.95rem + .3vw,1.13rem);
+  --t-lg:clamp(1.15rem,1.05rem + .5vw,1.4rem);
+  --t-xl:clamp(1.5rem,1.2rem + 1.4vw,2.3rem);
+  --t-2xl:clamp(2.1rem,1.5rem + 3vw,3.6rem);
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:var(--t-md);line-height:1.7;
+  min-height:100svh;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{margin:0;line-height:1.25;font-weight:700;color:var(--navy)}
+p{margin:0 0 .75em}
+button{font:inherit;color:inherit}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:10px;top:-70px;z-index:99;background:var(--navy);color:#fff;
+  padding:12px 20px;border-radius:0 0 var(--r) var(--r);font-weight:600;transition:top .18s}
+.skip:focus{top:0}
+
+/* ============================================================
+   BACKGROUND — soft gradient, iris watermark, curved band
+   ============================================================ */
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:linear-gradient(180deg,#FFFFFF 0%,#F4F9FD 45%,#E8F1FA 100%)}
+#iris{position:absolute;top:-16vmax;right:-14vmax;width:min(78vmax,1100px);height:auto;
+  opacity:.4;will-change:transform}
+#iris .ring{fill:none;stroke:#BFD9EE}
+#iris .tick{stroke:#CFE3F3}
+#wave{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;opacity:.85}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.topbar{
+  position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:.85rem;
+  padding:.7rem var(--sp);background:rgba(255,255,255,.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.mark{width:34px;height:34px;flex:0 0 auto}
+.mark circle{fill:none;stroke:var(--navy);stroke-width:1.6}
+.wordmark{font-weight:700;font-size:1.05rem;color:var(--navy);letter-spacing:.01em;line-height:1.2}
+.wordmark small{display:block;font-weight:400;font-size:.7rem;color:var(--muted);letter-spacing:.02em}
+.grow{flex:1}
+.link-btn{min-height:44px;padding:.4rem 1rem;background:transparent;border:1px solid var(--line);
+  border-radius:999px;cursor:pointer;color:var(--navy);font-weight:600;font-size:var(--t-sm);
+  transition:background .15s,border-color .15s}
+.link-btn:hover{background:var(--sky);border-color:var(--blue-soft)}
+
+main{position:relative;z-index:1}
+.view{display:none;padding:0 var(--sp) 4.5rem}
+.view.on{display:block;animation:in .35s ease-out both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.wrap{max-width:1120px;margin:0 auto}
+.narrow{max-width:820px;margin:0 auto}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  min-height:var(--tap);padding:.75rem 1.5rem;border-radius:999px;cursor:pointer;
+  font-weight:700;font-size:var(--t-md);border:2px solid transparent;
+  background:var(--blue);color:#fff;transition:background .15s,transform .1s,box-shadow .15s}
+.btn:hover{background:#175CA3;box-shadow:0 6px 18px rgba(30,107,184,.28)}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.btn.soft{background:#fff;color:var(--navy);border-color:var(--line)}
+.btn.soft:hover{background:var(--sky);border-color:var(--blue-soft);box-shadow:none}
+.btn.go{background:var(--teal)}
+.btn.go:hover{background:#0C8577;box-shadow:0 6px 18px rgba(15,157,143,.28)}
+
+/* ============================================================
+   HOME
+   ============================================================ */
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+  gap:clamp(1rem,3vw,3rem);align-items:center;padding:clamp(1.5rem,4vh,3.5rem) 0}
+.kicker{display:inline-block;background:var(--sky);color:var(--navy);font-weight:600;
+  font-size:var(--t-sm);padding:.35rem 1rem;border-radius:999px;margin-bottom:1.1rem}
+.hero h1{font-size:var(--t-2xl);letter-spacing:-.01em;margin-bottom:.15rem}
+.hero .sub{font-size:var(--t-lg);color:var(--blue);font-weight:600;margin-bottom:1rem}
+.hero .lede{font-size:var(--t-lg);color:var(--muted);max-width:44ch;margin-bottom:1.8rem}
+
+.choices{display:grid;gap:1rem;max-width:560px}
+.choice{display:flex;align-items:center;gap:1.1rem;text-align:left;width:100%;
+  padding:1.35rem 1.5rem;cursor:pointer;background:var(--surface);border:2px solid var(--line);
+  border-radius:var(--r-lg);box-shadow:var(--shadow);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.choice:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--blue-soft)}
+.choice .ico{flex:0 0 auto;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+  background:var(--sky);color:var(--blue)}
+.choice[data-go="journey"] .ico{background:#DCF3F0;color:var(--teal)}
+.choice .ico svg{width:26px;height:26px}
+.choice b{display:block;font-size:var(--t-lg);color:var(--navy);line-height:1.3}
+.choice span{display:block;font-size:var(--t-sm);color:var(--muted);margin-top:.15rem}
+.choice .arrow{margin-left:auto;font-size:1.4rem;color:var(--blue-soft)}
+
+.stage{position:relative;display:flex;justify-content:center;align-items:flex-end}
+.steria{position:relative;z-index:2;height:min(62svh,620px);width:auto;max-width:100%;display:block;
+  filter:drop-shadow(0 22px 30px rgba(15,49,96,.18));animation:float 7s ease-in-out infinite;
+  transform-origin:50% 100%}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(-.4deg)}}
+body[data-mood="hi"] .steria{animation:hi 1.1s cubic-bezier(.3,1.4,.4,1) 1,float 7s ease-in-out 1.1s infinite}
+@keyframes hi{0%{transform:translateY(0)}35%{transform:translateY(-22px) rotate(-2deg)}100%{transform:translateY(0)}}
+body[data-mood="yay"] .steria{animation:yay .9s cubic-bezier(.25,1.5,.4,1) 2,float 7s ease-in-out 1.8s infinite}
+@keyframes yay{0%{transform:translateY(0) scale(1)}40%{transform:translateY(-26px) scale(1.02)}100%{transform:translateY(0)}}
+.glow{position:absolute;bottom:1%;left:50%;width:min(80%,360px);aspect-ratio:2.8/1;transform:translateX(-50%);
+  background:radial-gradient(50% 50% at 50% 50%,rgba(15,49,96,.16),rgba(15,49,96,0) 70%);z-index:1}
+
+/* ============================================================
+   CARDS / PANELS
+   ============================================================ */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:var(--shadow);overflow:hidden}
+.card-top{display:flex;align-items:center;gap:.7rem;padding:1rem 1.25rem;border-bottom:1px solid var(--line)}
+.card-top h3{font-size:var(--t-md)}
+.card-top .tag{margin-left:auto;font-size:var(--t-sm);color:var(--muted)}
+.card-top .mini{margin-left:auto;display:inline-flex;align-items:center;gap:.45rem}
+.card-top .mini svg{width:15px;height:15px}
+.page-head{padding:2rem 0 1.4rem;max-width:60ch}
+.page-head h2{font-size:var(--t-xl);margin-bottom:.4rem}
+.page-head p{color:var(--muted);margin:0}
+
+/* ============================================================
+   ASK STERIA
+   ============================================================ */
+.ask{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:1.25rem;align-items:start}
+.log{height:clamp(320px,45svh,470px);overflow-y:auto;padding:1.15rem;display:flex;
+  flex-direction:column;gap:.9rem;scroll-behavior:smooth}
+.msg{max-width:86%;padding:.85rem 1.1rem;font-size:var(--t-md);animation:pop .28s ease-out both}
+@keyframes pop{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.msg.bot{background:var(--sky);border-radius:var(--r) var(--r) var(--r) 4px;align-self:flex-start}
+.msg.me{background:var(--navy);color:#EAF2FA;border-radius:var(--r) var(--r) 4px var(--r);align-self:flex-end}
+.msg p{margin:0}
+.msg .tag{display:block;margin-top:.45rem;font-size:.78rem;color:var(--muted)}
+.dots3{display:inline-flex;gap:5px;align-items:center;height:1.2em}
+.dots3 i{width:7px;height:7px;background:var(--blue);border-radius:50%;animation:blip 1.1s infinite}
+.dots3 i:nth-child(2){animation-delay:.15s}.dots3 i:nth-child(3){animation-delay:.3s}
+@keyframes blip{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;padding:0 1.15rem 1rem}
+.chips .lbl{width:100%;font-size:var(--t-sm);color:var(--muted);margin:0}
+.chip{min-height:44px;padding:.45rem 1rem;background:#fff;border:1px solid var(--line);
+  border-radius:999px;font-size:var(--t-sm);cursor:pointer;text-align:left;transition:.15s}
+.chip:hover{background:var(--sky);border-color:var(--blue-soft)}
+
+.composer{display:flex;gap:.6rem;padding:1rem 1.15rem;border-top:1px solid var(--line);background:#FBFDFF}
+.composer input{flex:1;min-width:0;min-height:var(--tap);padding:.7rem 1.1rem;background:#fff;
+  border:1px solid var(--line);border-radius:999px;font:inherit;color:var(--text)}
+.composer input::placeholder{color:#9BB0C6}
+.composer input:focus{border-color:var(--blue)}
+
+.search{padding:1rem 1.15rem;border-bottom:1px solid var(--line)}
+.search input{width:100%;min-height:var(--tap);padding:.7rem 1.1rem;background:#FBFDFF;
+  border:1px solid var(--line);border-radius:999px;font:inherit;color:var(--text)}
+.cats{display:flex;gap:.4rem;overflow-x:auto;padding:.9rem 1.15rem;border-bottom:1px solid var(--line);
+  scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.cat{flex:0 0 auto;min-height:40px;padding:.35rem .95rem;background:#fff;border:1px solid var(--line);
+  border-radius:999px;font-size:var(--t-sm);cursor:pointer;white-space:nowrap;color:var(--muted)}
+.cat[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:600}
+.qlist{list-style:none;margin:0;padding:.6rem;display:grid;gap:.3rem;min-height:250px}
+.qlist button{width:100%;text-align:left;min-height:var(--tap);padding:.7rem .9rem;background:transparent;
+  border:1px solid transparent;border-radius:var(--r);cursor:pointer;font-size:var(--t-sm);line-height:1.5}
+.qlist button:hover{background:var(--sky)}
+.empty{padding:1.6rem 1.15rem;color:var(--muted);font-size:var(--t-sm)}
+.pager{display:flex;align-items:center;gap:.6rem;padding:.9rem 1.15rem;border-top:1px solid var(--line)}
+.pager .pos{margin-left:auto;font-size:var(--t-sm);color:var(--muted)}
+.mini{min-height:44px;padding:.4rem 1rem;border-radius:999px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;font-size:var(--t-sm);color:var(--navy)}
+.mini:hover:not(:disabled){background:var(--sky)}
+.mini:disabled{opacity:.35;cursor:not-allowed}
+
+/* ============================================================
+   JOURNEY — one simple column
+   ============================================================ */
+.prog{padding:1.1rem 1.35rem;border-bottom:1px solid var(--line);background:#FBFDFF}
+.pbar{height:8px;border-radius:999px;background:var(--sky);overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--teal);border-radius:999px;transition:width .45s ease}
+.pmeta{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-top:.7rem;
+  font-size:var(--t-sm);color:var(--muted)}
+.dots{display:flex;gap:.35rem;margin-left:auto}
+.dot{width:11px;height:11px;border-radius:50%;background:#D8E6F2;transition:.3s}
+.dot[data-s="done"]{background:var(--teal)}
+.dot[data-s="now"]{background:var(--blue);box-shadow:0 0 0 4px rgba(30,107,184,.16)}
+
+.station{padding:1.5rem 1.35rem}
+.st-head{display:flex;align-items:center;gap:1rem;margin-bottom:1.3rem}
+.st-no{flex:0 0 auto;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
+  background:var(--navy);color:#fff;font-weight:700;font-size:1.35rem}
+.st-head h3{font-size:var(--t-lg)}
+.st-head .zone{font-size:var(--t-sm);color:var(--muted);margin:0}
+.stamped{margin-left:auto;display:inline-flex;align-items:center;gap:.4rem;background:#DCF3F0;
+  color:#0B7A6F;font-weight:700;font-size:var(--t-sm);padding:.4rem .9rem;border-radius:999px;
+  animation:stamp .55s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes stamp{0%{transform:scale(1.7);opacity:0}60%{opacity:1}100%{transform:scale(1);opacity:1}}
+
+.seg{display:inline-flex;background:var(--sky);border-radius:999px;padding:4px;gap:4px;margin-bottom:1.3rem}
+.seg button{min-height:46px;padding:.5rem 1.4rem;border:0;background:transparent;border-radius:999px;
+  cursor:pointer;font-weight:600;font-size:var(--t-sm);color:var(--muted);display:inline-flex;
+  align-items:center;gap:.45rem;transition:.18s}
+.seg button svg{width:17px;height:17px}
+.seg button[aria-selected="true"]{background:#fff;color:var(--navy);box-shadow:0 1px 4px rgba(15,49,96,.14)}
+
+.pane[hidden]{display:none}
+.lead-line{font-size:var(--t-lg);font-weight:600;color:var(--navy);margin-bottom:.9rem}
+.body-copy p{font-size:var(--t-md);max-width:66ch;color:var(--text)}
+.points{list-style:none;margin:1.3rem 0 0;padding:1rem 1.2rem;background:var(--sky);
+  border-radius:var(--r);display:grid;gap:.6rem;max-width:66ch}
+.points li{position:relative;padding-left:1.7rem;font-size:var(--t-sm);color:var(--navy)}
+.points li::before{content:"";position:absolute;left:0;top:.5em;width:9px;height:9px;
+  border-radius:50%;background:var(--teal)}
+
+/* video */
+.player{position:relative;background:var(--navy);border-radius:var(--r);overflow:hidden;
+  aspect-ratio:16/9;display:block}
+.player video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pf{position:absolute;inset:0;display:grid;grid-template-columns:clamp(110px,24%,180px) minmax(0,1fr);
+  gap:clamp(.7rem,2vw,1.5rem);align-items:center;padding:clamp(.9rem,2.4vw,1.7rem);color:#DCE9F7;overflow:hidden}
+.pf img{height:100%;width:100%;object-fit:contain;object-position:bottom center}
+.pf>div{min-width:0}
+.pf b{display:block;font-size:var(--t-md);color:#fff;margin-bottom:.35rem}
+.pf p{font-size:.82rem;line-height:1.55;color:#AFC8E2;margin-bottom:.4rem;max-width:44ch}
+.pf code{background:rgba(255,255,255,.1);padding:.08rem .35rem;border-radius:4px;font-size:.76rem;color:#9EE6DA}
+.mtools{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.9rem}
+.tscript{margin-top:1rem;border:1px solid var(--line);border-radius:var(--r);background:#FBFDFF}
+.tscript summary{cursor:pointer;padding:.85rem 1.1rem;min-height:48px;display:flex;align-items:center;
+  font-weight:600;font-size:var(--t-sm);color:var(--navy)}
+.tscript .tb{padding:0 1.1rem 1rem;font-size:var(--t-sm);color:var(--muted)}
+.cue{display:grid;grid-template-columns:auto 1fr;gap:.9rem;padding:.4rem 0;border-top:1px solid var(--line)}
+.cue .t{color:#93A9C0;font-variant-numeric:tabular-nums}
+
+/* challenge */
+.quiz{margin-top:1.6rem;padding:1.3rem;background:#FBFDFF;border:1px solid var(--line);
+  border-radius:var(--r-lg);display:grid;grid-template-columns:auto minmax(0,1fr);
+  column-gap:1.2rem;align-items:start;overflow:hidden}
+.quiz-av{grid-column:1;grid-row:1/span 3;width:clamp(70px,7vw,96px);height:auto;align-self:end;
+  margin-bottom:-1.3rem;animation:float 7s ease-in-out infinite;transform-origin:50% 100%}
+.quiz .q,.quiz .opts,.quiz .fb{grid-column:2}
+.quiz .q{font-weight:700;color:var(--navy);font-size:var(--t-md);margin-bottom:.9rem}
+.opts{display:grid;gap:.55rem}
+.opt{text-align:left;min-height:var(--tap);padding:.75rem 1.1rem;background:#fff;border:2px solid var(--line);
+  border-radius:var(--r);cursor:pointer;font-size:var(--t-sm);line-height:1.5;transition:.15s}
+.opt:hover:not(:disabled){border-color:var(--blue-soft);background:var(--sky)}
+.opt[data-v="ok"]{border-color:var(--teal);background:#EAF8F6}
+.opt[data-v="no"]{border-color:var(--warn);background:#FBF0EC}
+.opt:disabled{cursor:default}
+.fb{margin-top:.9rem;padding:.9rem 1.1rem;border-radius:var(--r);font-size:var(--t-sm);
+  background:var(--sky);animation:pop .3s both}
+.fb b{display:block;color:var(--navy);margin-bottom:.15rem}
+
+.foot{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;padding:1.1rem 1.35rem;
+  border-top:1px solid var(--line);background:#FBFDFF}
+.foot .grow{flex:1}
+.tip{font-size:var(--t-sm);color:#93A9C0}
+
+.resume{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem;
+  padding:1.1rem 1.3rem;background:#fff;border:1px solid var(--line);border-left:5px solid var(--teal);
+  border-radius:var(--r-lg);box-shadow:var(--shadow)}
+.resume p{margin:0;font-size:var(--t-sm)}
+
+/* completion */
+.done{text-align:center;padding:clamp(2rem,6vw,3.5rem) clamp(1.2rem,4vw,3rem)}
+.done .tick{width:96px;height:96px;margin:0 auto 1.3rem;border-radius:50%;background:#DCF3F0;
+  display:grid;place-items:center;animation:stamp .7s cubic-bezier(.2,1.6,.4,1) both}
+.done .tick svg{width:46px;height:46px;stroke:var(--teal);fill:none;stroke-width:3;stroke-linecap:round}
+.done h2{font-size:var(--t-xl);margin-bottom:.5rem}
+.done .grade{display:inline-block;margin:1.1rem 0 .4rem;padding:.55rem 1.6rem;border-radius:999px;
+  background:var(--navy);color:#fff;font-weight:700;font-size:var(--t-lg)}
+.done .score{color:var(--muted);font-size:var(--t-sm)}
+.dots-big{display:flex;justify-content:center;gap:.45rem;margin:1.4rem 0}
+.dots-big .dot{width:16px;height:16px}
+.core{max-width:38ch;margin:1.6rem auto 0;font-weight:600;color:var(--navy);font-size:var(--t-lg);line-height:1.5}
+.done-actions{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;margin-top:1.8rem}
+
+/* chat rows with avatar */
+.row{display:flex;gap:.55rem;align-items:flex-end}
+.row.me{justify-content:flex-end}
+.row .av{width:34px;height:34px;border-radius:50%;flex:0 0 auto;border:2px solid #fff;
+  box-shadow:0 1px 4px rgba(15,49,96,.18);background:var(--sky)}
+.row .msg{max-width:86%}
+.msg b{color:var(--navy)}
+.fb-row{display:flex;align-items:center;gap:.4rem;margin-top:.6rem;padding-top:.55rem;
+  border-top:1px solid rgba(15,49,96,.08);font-size:.8rem;color:var(--muted)}
+.fb-row button{min-width:40px;min-height:40px;border:1px solid var(--line);background:#fff;
+  border-radius:999px;cursor:pointer;font-size:1rem;line-height:1}
+.fb-row button:hover{background:#fff;border-color:var(--blue-soft)}
+
+/* movable chat core */
+#chat-core{display:flex;flex-direction:column;min-height:0}
+#widget-slot{flex:1;min-height:0;display:flex;flex-direction:column}
+#widget-slot #chat-core{flex:1}
+#widget-slot .chat-head{display:none}
+#widget-slot .log{flex:1;height:auto;min-height:0}
+#widget-slot .chips{max-height:30%;overflow-y:auto;padding:.6rem .9rem .7rem;gap:.4rem}
+#widget-slot .chip{min-height:38px;padding:.3rem .8rem;font-size:.82rem}
+#widget-slot .msg{font-size:.95rem;padding:.7rem .95rem}
+#widget-slot .log{padding:.9rem}
+#widget-slot .composer{padding:.8rem}
+
+/* floating chat bubble */
+.fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));
+  z-index:45;display:flex;align-items:center;gap:.65rem;padding:6px 20px 6px 6px;border:0;border-radius:999px;
+  background:var(--navy);color:#fff;cursor:pointer;box-shadow:var(--shadow-lg);font-weight:700;font-size:var(--t-sm);
+  animation:fabIn .5s cubic-bezier(.2,1.4,.4,1) .6s both;transition:background .15s,transform .15s}
+.fab:hover{background:#163F7A;transform:translateY(-2px)}
+.fab img{width:48px;height:48px;border-radius:50%;border:2px solid #fff}
+@keyframes fabIn{from{opacity:0;transform:translateY(20px) scale(.8)}to{opacity:1;transform:none}}
+.widget{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));
+  z-index:46;width:min(410px,calc(100vw - 36px));height:min(640px,calc(100svh - 100px));
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:0 24px 64px rgba(15,49,96,.28);
+  display:flex;flex-direction:column;overflow:hidden;transform-origin:bottom right;animation:wIn .24s ease-out both}
+@keyframes wIn{from{opacity:0;transform:scale(.92) translateY(12px)}to{opacity:1;transform:none}}
+.w-head{display:flex;align-items:center;gap:.7rem;padding:.75rem .8rem .75rem 1rem;background:var(--navy);color:#fff}
+.w-head img{width:42px;height:42px;border-radius:50%;border:2px solid #fff}
+.w-head b{display:block;font-size:1.02rem;line-height:1.2;color:#fff}
+.w-head small{display:flex;align-items:center;gap:.4rem;font-size:.76rem;color:#B9D2EC}
+.w-head small::before{content:"";width:8px;height:8px;border-radius:50%;background:#4ADE9B}
+.w-head div{flex:1;min-width:0}
+.w-ico{width:44px;height:44px;display:grid;place-items:center;border:0;border-radius:50%;
+  background:transparent;color:#fff;cursor:pointer}
+.w-ico:hover{background:rgba(255,255,255,.12)}
+.w-ico svg{width:20px;height:20px}
+
+/* debug drawer — only with ?debug=1 */
+.dbg-btn{position:fixed;left:14px;bottom:14px;z-index:40;min-height:40px;padding:.4rem .9rem;
+  background:var(--navy);color:#fff;border:0;border-radius:999px;cursor:pointer;font-size:.75rem;opacity:.6}
+.dbg-btn:hover{opacity:1}
+.dbg{position:fixed;left:14px;bottom:64px;z-index:40;width:min(380px,calc(100vw - 28px));
+  max-height:44svh;overflow:auto;background:var(--navy);color:#CFE0F4;border-radius:var(--r);
+  padding:.8rem .9rem;font-family:ui-monospace,monospace;font-size:.7rem;line-height:1.5;box-shadow:var(--shadow-lg)}
+.dbg b{color:#7FE3D2;font-weight:400}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:920px){
+  #iris{opacity:.22;width:min(120vmax,760px);top:-10vmax;right:-34vmax}
+  .hero{grid-template-columns:1fr;gap:.5rem;padding-top:.5rem}
+  .stage{order:-1}
+  .steria{height:min(32svh,290px)}
+  .ask{grid-template-columns:1fr}
+  .msg{max-width:94%}
+  .quiz{grid-template-columns:minmax(0,1fr)}
+  .quiz .q,.quiz .opts,.quiz .fb{grid-column:1}
+  .quiz-av{display:none}
+  .pf{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;text-align:center;gap:.5rem}
+  .pf img{height:100%;width:auto;max-height:120px;justify-self:center;object-position:center}
+  .pf p{margin-inline:auto}
+  .player{aspect-ratio:4/3}
+  .st-head{flex-wrap:wrap}
+  .stamped{margin-left:0}
+  .foot .btn{flex:1 1 auto}
+}
+@media (max-width:560px){
+  .wordmark small{display:none}
+  .fab{padding:5px}
+  .fab span{display:none}
+  .widget{inset:0;width:auto;height:auto;border-radius:0;border:0}
+  .station,.prog,.foot{padding-left:1.05rem;padding-right:1.05rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  #iris{transform:none!important}
+}
+@media print{#bg,.topbar,.dbg-btn,.dbg,.done-actions{display:none!important}body{background:#fff}}
+</style>
+</head>
+<body data-mood="idle">
+<a class="skip" href="#main">Skip to main content</a>
+
+<div id="bg" aria-hidden="true">
+  <svg id="iris" viewBox="0 0 400 400" fill="none"></svg>
+  <svg id="wave" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 120 C 240 40 480 40 720 100 C 960 160 1200 170 1440 110 L1440 220 L0 220 Z" fill="#DCEAF7"/>
+    <path d="M0 160 C 260 100 520 110 760 150 C 1000 190 1220 195 1440 160 L1440 220 L0 220 Z" fill="#CFE2F3" opacity=".7"/>
+  </svg>
+</div>
+
+<header class="topbar">
+  <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+    <circle cx="20" cy="20" r="17"/><circle cx="20" cy="20" r="11"/><circle cx="20" cy="20" r="4.5"/>
+  </svg>
+  <div class="wordmark">STERIA<small>AI CSSD Specialist · KKESH</small></div>
+  <div class="grow"></div>
+  <button class="link-btn" id="btn-home" hidden>← Home</button>
+</header>
+
+<main id="main">
+
+  <!-- ═════ HOME ═════ -->
+  <section class="view on" id="v-home" aria-labelledby="h-home">
+    <div class="wrap hero">
+      <div>
+        <span class="kicker">International Sterile Processing Week 2026</span>
+        <h1 id="h-home" tabindex="-1">Hello, I'm STERIA</h1>
+        <p class="sub">Your AI CSSD Specialist</p>
+        <p class="lede">Every reusable instrument takes a journey before it can safely return to patient care. Pick how you'd like to explore it.</p>
+        <div class="choices">
+          <button class="choice" data-go="journey">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></span>
+            <span><b>Start the passport journey</b><span>9 short stops — read it or watch me explain</span></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </button>
+          <button class="choice" data-go="ask">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+            <span><b>Ask me a question</b><span>40 answers about sterile processing</span></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="glow" aria-hidden="true"></div>
+        <img class="steria" id="hero-img" src="data:image/webp;base64,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" width="400" height="812" fetchpriority="high"
+             alt="STERIA, an illustrated CSSD specialist in navy scrubs, cap, mask and blue gloves, holding a tablet and gesturing in welcome.">
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════ ASK ═════ -->
+  <section class="view" id="v-ask" aria-labelledby="h-ask">
+    <div class="wrap">
+      <div class="page-head">
+        <h2 id="h-ask" tabindex="-1">Ask STERIA</h2>
+        <p>Chat with me in your own words — spelling mistakes are fine. I answer only from the list our CSSD team approved, and I never give medical advice.</p>
+      </div>
+      <div class="ask">
+        <div class="card" id="ask-slot">
+          <div id="chat-core">
+          <div class="card-top chat-head">
+            <h3>Conversation</h3>
+            <button class="mini" id="clear" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+              New conversation
+            </button>
+          </div>
+          <div class="log" id="log" role="log" aria-live="polite" aria-label="Conversation with STERIA"></div>
+          <div class="chips" id="chips"></div>
+          <form class="composer" id="composer" autocomplete="off">
+            <label class="sr" for="q">Ask STERIA a question</label>
+            <input id="q" type="text" placeholder="Type a message…" maxlength="180">
+            <button class="btn" type="submit">Send</button>
+          </form>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top"><h3>Browse questions</h3><span class="tag" id="qcount">40</span></div>
+          <div class="search">
+            <label class="sr" for="kbq">Search questions</label>
+            <input id="kbq" type="search" placeholder="Search…">
+          </div>
+          <div class="cats" id="cats" role="group" aria-label="Filter by topic"></div>
+          <ul class="qlist" id="qlist"></ul>
+          <div class="pager">
+            <button class="mini" id="prev">← Back</button>
+            <button class="mini" id="next">More →</button>
+            <span class="pos" id="pos"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════ JOURNEY ═════ -->
+  <section class="view" id="v-journey" aria-labelledby="h-journey">
+    <div class="wrap narrow">
+      <div class="page-head">
+        <h2 id="h-journey" tabindex="-1">Sterilization Passport Journey</h2>
+        <p>Follow one instrument from the moment it is put down to the moment it is safe to use again.</p>
+      </div>
+
+      <div class="resume" id="resume" hidden>
+        <p><strong>You have a journey in progress.</strong> <span id="resume-txt"></span></p>
+        <div class="grow"></div>
+        <button class="btn soft" id="r-restart">Start over</button>
+        <button class="btn go" id="r-continue">Continue</button>
+      </div>
+
+      <div class="card">
+        <div class="prog">
+          <div class="pbar"><i id="pbar" style="width:0%"></i></div>
+          <div class="pmeta">
+            <span id="pmeta">Station 1 of 9</span>
+            <span class="dots" id="dots" role="img" aria-label="Progress"></span>
+          </div>
+        </div>
+
+        <div class="station" id="station">
+          <div class="st-head">
+            <span class="st-no" id="st-no" aria-hidden="true">1</span>
+            <div><h3 id="st-title"></h3><p class="zone" id="st-zone"></p></div>
+            <span class="stamped" id="st-done" hidden>✓ Stamped</span>
+          </div>
+
+          <div class="seg" role="tablist" aria-label="Choose how to view this station">
+            <button role="tab" id="t-read" aria-controls="p-read" aria-selected="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg>Read</button>
+            <button role="tab" id="t-watch" aria-controls="p-watch" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>Watch</button>
+          </div>
+
+          <div class="pane" id="p-read" role="tabpanel" aria-labelledby="t-read" tabindex="0">
+            <p class="lead-line" id="st-lead"></p>
+            <div class="body-copy" id="st-body"></div>
+            <ul class="points" id="st-points"></ul>
+          </div>
+
+          <div class="pane" id="p-watch" role="tabpanel" aria-labelledby="t-watch" tabindex="0" hidden>
+            <div class="player" id="player"></div>
+            <div class="mtools" id="mtools"></div>
+            <details class="tscript"><summary>Read the transcript</summary><div class="tb" id="tb"></div></details>
+          </div>
+
+          <div class="quiz" id="quiz">
+            <img class="quiz-av" id="quiz-av" alt="" aria-hidden="true">
+            <p class="q" id="qq"></p>
+            <div class="opts" id="qopts"></div>
+            <div id="qfb"></div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <button class="btn soft" id="prev-st">← Back</button>
+          <span class="grow"></span>
+          <button class="btn go" id="next-st">Next →</button>
+        </div>
+      </div>
+      <p class="tip" style="margin-top:.8rem;text-align:center">Swipe left or right to move between stations.</p>
+    </div>
+  </section>
+
+  <!-- ═════ DONE ═════ -->
+  <section class="view" id="v-done" aria-labelledby="h-done">
+    <div class="wrap narrow">
+      <div class="card done">
+        <div class="tick"><svg viewBox="0 0 24 24"><path d="M4 13l6 6L20 6"/></svg></div>
+        <h2 id="h-done" tabindex="-1">Journey complete</h2>
+        <p style="color:var(--muted);max-width:48ch;margin-inline:auto">You followed the instrument through every stage — from point-of-use handling all the way to safe reuse.</p>
+        <div class="grade" id="grade">CSSD Champion</div>
+        <p class="score" id="score"></p>
+        <div class="dots-big" id="done-dots"></div>
+        <p class="core">Technology supports us. Knowledge empowers us. Together, we protect what matters most — our patients.</p>
+        <div class="done-actions">
+          <button class="btn" id="d-ask">Ask STERIA a question</button>
+          <button class="btn soft" id="d-restart">Start again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<button class="fab" id="fab" aria-controls="widget" aria-expanded="false" hidden>
+  <img data-face alt=""><span>Chat with STERIA</span>
+</button>
+<div class="widget" id="widget" role="dialog" aria-labelledby="w-title" hidden>
+  <div class="w-head">
+    <img data-face alt="">
+    <div><b id="w-title">STERIA</b><small>AI CSSD Specialist</small></div>
+    <button class="w-ico" id="w-new" type="button" aria-label="Start a new conversation" title="New conversation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+    <button class="w-ico" id="w-close" type="button" aria-label="Close chat" title="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div id="widget-slot"></div>
+</div>
+
+<button class="dbg-btn" id="dbg-btn" aria-expanded="false" aria-controls="dbg" hidden>Events</button>
+<div class="dbg" id="dbg" hidden role="region" aria-label="Analytics event log"></div>
+
+<script>
+/* ============================================================
+   STERIA kiosk prototype — v2 (simplified, KKESH styling)
+   ============================================================ */
+const CONTENT = {"$schema": "./steria-content.schema.json", "meta": {"id": "steria", "version": "2.2.0", "updated": "2026-08-18", "locale": "en", "name": "STERIA", "title": "AI CSSD Specialist Assistant", "event": "International Sterile Processing Week 2026", "tagline": "Technology Meets Precision. Patient Safety Leads the Future.", "coreMessage": "Technology supports us. Knowledge empowers us. Together, we protect what matters most — our patients.", "author": "Bodoor Megbel Alharbi — Sterilization Specialist, CSSD", "outOfScope": "That question is outside my Sterilization Passport journey. One of our CSSD specialists will be happy to assist you.", "welcome": "Hello and welcome. I'm STERIA, your AI CSSD Specialist. I'll be your digital guide through the Sterilization Passport Journey. Together we'll discover what happens to a reusable medical instrument before it can safely return to patient care."}, "categories": [{"id": "basics", "label": "CSSD basics", "code": "BAS"}, {"id": "decon", "label": "Decontamination", "code": "DEC"}, {"id": "inspection", "label": "Inspection & assembly", "code": "INS"}, {"id": "packaging", "label": "Packaging", "code": "PKG"}, {"id": "sterilizing", "label": "Sterilization", "code": "STE"}, {"id": "monitoring", "label": "Monitoring", "code": "MON"}, {"id": "trace", "label": "Traceability & storage", "code": "TRC"}, {"id": "digital", "label": "AI & digital", "code": "DIG"}, {"id": "about", "label": "About STERIA", "code": "STA"}], "stations": [{"id": "s01", "code": "01", "slug": "point-of-use", "title": "Point-of-use handling", "zone": "Operating room / procedure area", "lead": "Our journey starts where the instrument was used.", "narrative": ["Appropriate point-of-use handling helps prevent contamination from drying on instruments, and it supports safe transportation for reprocessing.", "The instrument is then transferred to the decontamination area according to approved procedures — contained, identified, and handled so that the next stage can succeed."], "takeaways": ["Reprocessing begins the moment the instrument is put down, not when it reaches CSSD.", "Dried soil is far harder to remove and can compromise every step that follows."], "challenge": {"prompt": "Why is appropriate point-of-use handling important?", "options": [{"id": "a", "label": "It keeps soil from drying on the instrument", "correct": true}, {"id": "b", "label": "It replaces the need for cleaning", "correct": false}, {"id": "c", "label": "It shortens the sterilization cycle", "correct": false}], "response": "Correct. It supports effective cleaning and safer handling during the next stage.", "responseIncorrect": "Not quite. Point-of-use handling keeps soil from drying so that cleaning can do its job — it never replaces a later step."}, "media": {"hls": "media/s01-point-of-use/master.m3u8", "mp4": "media/s01-point-of-use/720p.mp4", "captions": "media/s01-point-of-use/captions.en.vtt", "poster": "media/s01-point-of-use/poster.webp", "duration": 42, "audio": "media/s01-point-of-use/narration.mp3"}}, {"id": "s02", "code": "02", "slug": "decontamination", "title": "Decontamination", "zone": "Decontamination area", "lead": "Welcome to the decontamination area.", "narrative": ["This is where contaminated reusable instruments are received and cleaned using appropriate validated methods.", "Cleaning is a critical step, because sterilization cannot compensate for inadequate cleaning. Everything downstream depends on what happens here."], "takeaways": ["Cleaning is a prerequisite for sterilization, never an alternative to it.", "Validated methods and approved procedures govern how cleaning is performed and verified."], "challenge": {"prompt": "True or false: cleaning can be skipped if the instrument will be sterilized afterward.", "options": [{"id": "a", "label": "True", "correct": false}, {"id": "b", "label": "False", "correct": true}], "response": "False — exactly right. Cleaning is essential before sterilization.", "responseIncorrect": "It's false. Soil shields microorganisms and interferes with the process, so cleaning always comes first."}, "media": {"hls": "media/s02-decontamination/master.m3u8", "mp4": "media/s02-decontamination/720p.mp4", "captions": "media/s02-decontamination/captions.en.vtt", "poster": "media/s02-decontamination/poster.webp", "duration": 48, "audio": "media/s02-decontamination/narration.mp3"}}, {"id": "s03", "code": "03", "slug": "inspection-assembly", "title": "Inspection & assembly", "zone": "Clean preparation area", "lead": "Now that the instrument is clean, it moves to inspection and assembly.", "narrative": ["CSSD professionals inspect instruments for cleanliness, integrity, condition and functionality before preparing the set.", "Some delicate instruments require magnification and particularly careful handling. This is where trained human judgement carries the most weight."], "takeaways": ["An instrument that fails acceptance criteria does not simply continue down the line.", "Magnification supports inspection of fine details on small or delicate instruments."], "challenge": {"prompt": "Would you sterilize an instrument that is still visibly contaminated?", "options": [{"id": "a", "label": "Yes — the cycle will handle it", "correct": false}, {"id": "b", "label": "No — it goes back for reprocessing", "correct": true}], "response": "Excellent. An instrument that does not meet acceptance criteria should not proceed to packaging and sterilization.", "responseIncorrect": "No. Visible contamination means the item must be managed according to approved procedure before it can continue."}, "media": {"hls": "media/s03-inspection-assembly/master.m3u8", "mp4": "media/s03-inspection-assembly/720p.mp4", "captions": "media/s03-inspection-assembly/captions.en.vtt", "poster": "media/s03-inspection-assembly/poster.webp", "duration": 51, "audio": "media/s03-inspection-assembly/narration.mp3"}}, {"id": "s04", "code": "04", "slug": "packaging", "title": "Packaging", "zone": "Packaging & preparation", "lead": "The next step is packaging.", "narrative": ["An appropriate packaging system protects the device and allows the selected sterilization process to reach the item.", "Packaging and preparation must follow validated procedures and the relevant manufacturer's instructions."], "takeaways": ["Packaging has two jobs: let the sterilant in, then keep contamination out.", "The packaging system has to be compatible with the sterilization method chosen."], "challenge": {"prompt": "What is one purpose of sterilization packaging?", "options": [{"id": "a", "label": "To allow the sterilant to reach the item", "correct": true}, {"id": "b", "label": "To make the set easier to label", "correct": false}, {"id": "c", "label": "To speed up drying", "correct": false}], "response": "Right. Packaging allows sterilant penetration during processing and helps maintain the integrity of the sterile item afterwards, when appropriately handled and stored.", "responseIncorrect": "Close, but the core purpose is to allow sterilant penetration and then protect the processed item."}, "media": {"hls": "media/s04-packaging/master.m3u8", "mp4": "media/s04-packaging/720p.mp4", "captions": "media/s04-packaging/captions.en.vtt", "poster": "media/s04-packaging/poster.webp", "duration": 45, "audio": "media/s04-packaging/narration.mp3"}}, {"id": "s05", "code": "05", "slug": "sterilization", "title": "Sterilization", "zone": "Sterilizer bay", "lead": "The method is selected to match the device, not the other way round.", "narrative": ["The sterilization method is selected according to the medical device, its compatibility, validated processing requirements and the manufacturer's instructions.", "Steam sterilization is widely used for compatible heat- and moisture-resistant devices. Low-temperature sterilization may be used for compatible devices that cannot tolerate certain high-temperature processes."], "takeaways": ["Cycle parameters come from the validated cycle, approved policy and the IFU — never from memory.", "Device compatibility drives method selection."], "challenge": {"prompt": "A visitor asks: what temperature do you use?", "options": [{"id": "a", "label": "It depends on the validated cycle and the IFU", "correct": true}, {"id": "b", "label": "The same setting for every load", "correct": false}], "response": "Correct. Cycle parameters depend on the validated sterilizer cycle, device requirements, load configuration, approved policy and the manufacturer's IFU. These should always be verified rather than assumed.", "responseIncorrect": "Loads are not interchangeable. Parameters come from the validated cycle, approved policy and the manufacturer's IFU."}, "media": {"hls": "media/s05-sterilization/master.m3u8", "mp4": "media/s05-sterilization/720p.mp4", "captions": "media/s05-sterilization/captions.en.vtt", "poster": "media/s05-sterilization/poster.webp", "duration": 56, "audio": "media/s05-sterilization/narration.mp3"}}, {"id": "s06", "code": "06", "slug": "monitoring", "title": "Monitoring", "zone": "Process control", "lead": "Sterilization isn't just about running a sterilizer.", "narrative": ["CSSD professionals monitor and document the process using appropriate physical, chemical and biological monitoring methods, according to applicable requirements and policies.", "Each monitoring type answers a different question. Together they form one quality system."], "takeaways": ["Physical, chemical and biological monitoring are complementary, not interchangeable.", "Monitoring results are part of the release decision and the permanent record."], "challenge": {"prompt": "Do chemical and biological indicators have exactly the same role?", "options": [{"id": "a", "label": "Yes, they are interchangeable", "correct": false}, {"id": "b", "label": "No, they provide different information", "correct": true}], "response": "No — they provide different types of information and are used as part of an overall quality monitoring system.", "responseIncorrect": "They aren't interchangeable. Each provides a different type of information within the monitoring system."}, "media": {"hls": "media/s06-monitoring/master.m3u8", "mp4": "media/s06-monitoring/720p.mp4", "captions": "media/s06-monitoring/captions.en.vtt", "poster": "media/s06-monitoring/poster.webp", "duration": 53, "audio": "media/s06-monitoring/narration.mp3"}}, {"id": "s07", "code": "07", "slug": "traceability", "title": "Traceability & documentation", "zone": "Records & tracking", "lead": "If it wasn't documented, it can't be traced.", "narrative": ["Documentation supports quality assurance, accountability, investigation and traceability throughout sterile processing.", "Digital systems can help connect information across different stages of the instrument journey — barcode and RFID identification, electronic records and real-time visibility."], "takeaways": ["Traceability links instrument, process, load and record into one chain.", "Digital documentation supports investigation and continuous improvement."], "challenge": {"prompt": "What can digital traceability connect?", "options": [{"id": "a", "label": "Instrument, process, load and documentation", "correct": true}, {"id": "b", "label": "Only the sterilizer cycle printout", "correct": false}], "response": "Yes — instrument, process, load, documentation and traceability information across the sterile processing journey.", "responseIncorrect": "It reaches further than the printout: instrument, process, load and documentation all connect."}, "media": {"hls": "media/s07-traceability/master.m3u8", "mp4": "media/s07-traceability/720p.mp4", "captions": "media/s07-traceability/captions.en.vtt", "poster": "media/s07-traceability/poster.webp", "duration": 49, "audio": "media/s07-traceability/narration.mp3"}}, {"id": "s08", "code": "08", "slug": "storage-distribution", "title": "Storage & distribution", "zone": "Sterile store", "lead": "The journey does not end when the sterilizer door opens.", "narrative": ["After successful processing and release according to approved procedures, sterile items must be handled and stored appropriately to protect package integrity until they are needed.", "Handling, transport and storage conditions all continue to matter right up to the moment of use."], "takeaways": ["Package integrity is protected by how items are handled, stored and transported.", "Release follows approved procedures before an item is distributed."], "challenge": {"prompt": "Does the sterilization journey end when the sterilizer door opens?", "options": [{"id": "a", "label": "Yes — the cycle is complete", "correct": false}, {"id": "b", "label": "No — handling and storage still matter", "correct": true}], "response": "No. Proper handling, storage, distribution and maintaining package integrity remain essential.", "responseIncorrect": "Not yet. Release, handling, storage and distribution all still lie ahead."}, "media": {"hls": "media/s08-storage-distribution/master.m3u8", "mp4": "media/s08-storage-distribution/720p.mp4", "captions": "media/s08-storage-distribution/captions.en.vtt", "poster": "media/s08-storage-distribution/poster.webp", "duration": 44, "audio": "media/s08-storage-distribution/narration.mp3"}}, {"id": "s09", "code": "09", "slug": "patient-safety", "title": "Patient safety", "zone": "Final station", "final": true, "lead": "Every instrument matters. Every process contributes to patient safety.", "narrative": ["You followed the instrument from point-of-use handling through decontamination, inspection, packaging, sterilization, monitoring, documentation, storage and distribution.", "Behind every safe procedure there is a team you rarely see. In CSSD, patient safety is supported by consistently performing and verifying each required reprocessing step."], "takeaways": ["Every step counts, and every step is somebody's responsibility.", "Technology supports professional judgement — it does not replace it."], "challenge": {"prompt": "Who protects the patient at every one of these stations?", "options": [{"id": "a", "label": "The CSSD professional", "correct": true}, {"id": "b", "label": "The sterilizer", "correct": false}], "response": "The CSSD professional. Technology supports us. Knowledge empowers us. Together, we protect what matters most — our patients.", "responseIncorrect": "Equipment performs the process; people own the outcome. The CSSD professional protects the patient at every station."}, "media": {"hls": "media/s09-patient-safety/master.m3u8", "mp4": "media/s09-patient-safety/720p.mp4", "captions": "media/s09-patient-safety/captions.en.vtt", "poster": "media/s09-patient-safety/poster.webp", "duration": 38, "audio": "media/s09-patient-safety/narration.mp3"}}], "knowledgeBase": [{"id": 1, "cat": "basics", "q": "What is CSSD?", "a": "CSSD is the Central Sterile Services Department. It supports healthcare delivery by reprocessing reusable medical devices according to validated procedures and applicable requirements.", "k": ["cssd", "central", "sterile", "services", "department", "meaning", "stand for", "what is"]}, {"id": 2, "cat": "basics", "q": "Why is CSSD important?", "a": "CSSD supports safe patient care by ensuring reusable medical devices are appropriately cleaned, inspected, prepared, processed, documented, stored and distributed.", "k": ["important", "why", "matter", "role", "purpose", "value"]}, {"id": 3, "cat": "decon", "q": "What is decontamination?", "a": "It is an important stage in reprocessing where contaminated devices are handled and cleaned according to established procedures before further processing.", "k": ["decontamination", "decon", "contaminated", "dirty", "soiled"]}, {"id": 4, "cat": "decon", "q": "Why is cleaning important?", "a": "Soil and contamination can interfere with subsequent processing. Effective cleaning is therefore a fundamental prerequisite to successful reprocessing.", "k": ["cleaning", "clean", "wash", "soil", "important", "why"]}, {"id": 5, "cat": "decon", "q": "Can sterilization replace cleaning?", "a": "No. Proper cleaning is required before sterilization.", "k": ["replace", "skip", "instead", "cleaning", "sterilization", "shortcut"]}, {"id": 6, "cat": "decon", "q": "What happens after cleaning?", "a": "Instruments generally proceed to inspection, function checks, assembly and preparation according to their processing requirements.", "k": ["after", "next", "cleaning", "then", "sequence", "order"]}, {"id": 7, "cat": "inspection", "q": "Why are instruments inspected?", "a": "To identify remaining contamination, damage, defects or functional problems before further processing.", "k": ["inspect", "inspection", "check", "examine", "why", "defect"]}, {"id": 8, "cat": "inspection", "q": "What happens if an instrument is damaged?", "a": "It should be managed according to the facility's approved procedure rather than automatically returning to use.", "k": ["damaged", "broken", "faulty", "defective", "repair", "rejected"]}, {"id": 9, "cat": "inspection", "q": "Why use magnification?", "a": "Magnification can assist inspection of fine details, particularly with small or delicate instruments.", "k": ["magnification", "magnifier", "lens", "loupe", "microscope", "delicate", "small"]}, {"id": 10, "cat": "inspection", "q": "What is instrument assembly?", "a": "It is the organized preparation of instruments or sets according to approved specifications before packaging and processing.", "k": ["assembly", "assemble", "set", "tray", "prepare", "build"]}, {"id": 11, "cat": "packaging", "q": "What is packaging?", "a": "Packaging provides an appropriate system for sterilization and subsequent protection of the processed item when properly handled.", "k": ["packaging", "package", "wrap", "pouch", "container", "barrier"]}, {"id": 12, "cat": "packaging", "q": "Why is package integrity important?", "a": "Damage or compromised integrity can affect the protection of the processed item and requires appropriate assessment according to policy.", "k": ["integrity", "torn", "damaged", "package", "wet", "hole", "seal"]}, {"id": 13, "cat": "sterilizing", "q": "What is steam sterilization?", "a": "A validated sterilization method using saturated steam under controlled conditions for compatible devices.", "k": ["steam", "autoclave", "moist heat", "saturated"]}, {"id": 14, "cat": "sterilizing", "q": "What is low-temperature sterilization?", "a": "It refers to validated sterilization technologies designed for compatible devices that may not tolerate certain high-temperature processes.", "k": ["low temperature", "low-temp", "plasma", "peroxide", "gas", "heat sensitive"]}, {"id": 15, "cat": "sterilizing", "q": "Who determines which method is appropriate?", "a": "Device compatibility, validated processing instructions, sterilizer requirements, facility policy and the manufacturer's IFU guide the decision.", "k": ["who decides", "method", "choose", "select", "ifu", "policy", "which"]}, {"id": 16, "cat": "monitoring", "q": "What is a chemical indicator?", "a": "A chemical indicator provides information about exposure to one or more process conditions, depending on the indicator type.", "k": ["chemical indicator", "ci", "strip", "tape", "colour change", "color change"]}, {"id": 17, "cat": "monitoring", "q": "What is a biological indicator?", "a": "A biological indicator uses highly resistant microorganisms or spores to provide information about the effectiveness of a sterilization process under defined conditions.", "k": ["biological indicator", "bi", "spore", "microorganism", "vial", "test"]}, {"id": 18, "cat": "monitoring", "q": "Are BI and CI the same?", "a": "No. They serve different monitoring functions.", "k": ["bi", "ci", "same", "difference", "compare", "indicator"]}, {"id": 19, "cat": "monitoring", "q": "What is physical monitoring?", "a": "It involves reviewing relevant sterilizer cycle information and physical process parameters according to the system and approved procedures.", "k": ["physical monitoring", "printout", "gauge", "chart", "parameters", "cycle data"]}, {"id": 20, "cat": "trace", "q": "What is traceability?", "a": "Traceability is the ability to follow relevant information about an item or process through documented stages of reprocessing and use, according to the system in place.", "k": ["traceability", "trace", "track", "follow", "history", "recall"]}, {"id": 21, "cat": "trace", "q": "Why is documentation important?", "a": "Documentation supports traceability, quality assurance, accountability, investigation and continuous improvement.", "k": ["documentation", "record", "log", "paperwork", "why", "important"]}, {"id": 22, "cat": "sterilizing", "q": "What happens after sterilization?", "a": "Items undergo the required release and handling processes and are stored and distributed according to approved procedures.", "k": ["after sterilization", "release", "next", "cooling", "unload"]}, {"id": 23, "cat": "trace", "q": "Why is storage important?", "a": "Appropriate storage and handling help protect packaging and maintain the integrity of processed items until use.", "k": ["storage", "store", "shelf", "sterile store", "keep", "why"]}, {"id": 24, "cat": "decon", "q": "What is point-of-use handling?", "a": "It refers to appropriate actions taken after use to support safe handling and subsequent effective reprocessing.", "k": ["point of use", "point-of-use", "theatre", "or", "after use", "pre-treatment"]}, {"id": 25, "cat": "basics", "q": "What is patient safety?", "a": "In CSSD, patient safety is supported by consistently performing and verifying each required reprocessing step.", "k": ["patient safety", "safe", "harm", "infection", "protect"]}, {"id": 26, "cat": "digital", "q": "Can AI sterilize instruments?", "a": "AI itself does not physically sterilize instruments. It may support areas such as monitoring, education, analytics, documentation and process visibility.", "k": ["ai sterilize", "robot", "machine", "can ai", "automatic"]}, {"id": 27, "cat": "digital", "q": "Will AI replace CSSD professionals?", "a": "No. The purpose of this concept is to demonstrate how technology can support CSSD professionals while professional expertise and judgement remain essential.", "k": ["replace", "job", "redundant", "lose", "ai", "future of work"]}, {"id": 28, "cat": "digital", "q": "How can AI help CSSD?", "a": "Potential applications include identifying trends, supporting monitoring, education, analytics, workflow visibility and quality improvement.", "k": ["how ai help", "benefit", "use case", "support", "application"]}, {"id": 29, "cat": "digital", "q": "What is smart tracking?", "a": "Technologies such as barcode or RFID-based systems can help improve identification and traceability of instruments, sets and processing information.", "k": ["smart tracking", "barcode", "rfid", "scan", "tag", "qr"]}, {"id": 30, "cat": "digital", "q": "What is digital documentation?", "a": "It means recording relevant processing information electronically rather than relying solely on manual documentation.", "k": ["digital documentation", "paperless", "electronic", "record", "software"]}, {"id": 31, "cat": "digital", "q": "What are real-time dashboards?", "a": "Dashboards can present selected operational or quality information in a visual format to support monitoring and decision-making.", "k": ["dashboard", "real time", "screen", "visual", "kpi", "monitor"]}, {"id": 32, "cat": "digital", "q": "What is predictive analytics?", "a": "Predictive analytics uses historical data and analytical models to identify patterns that may help support planning and informed decision-making.", "k": ["predictive", "analytics", "forecast", "trend", "model", "data"]}, {"id": 33, "cat": "digital", "q": "Can AI make sterilization decisions by itself?", "a": "Technology can support professionals, but validated processes, approved policies, manufacturer's instructions and professional judgement remain essential.", "k": ["ai decide", "autonomous", "by itself", "alone", "decision", "judgement"]}, {"id": 34, "cat": "basics", "q": "What is a Sterilization Passport?", "a": "It is an educational experience that allows visitors to follow the journey of a reusable medical instrument through different CSSD stages.", "k": ["passport", "journey", "what is this", "experience", "stations"]}, {"id": 35, "cat": "basics", "q": "Is this a real passport?", "a": "No. It is an interactive educational concept designed to make learning about sterile processing more engaging.", "k": ["real passport", "travel", "document", "official", "is this real"]}, {"id": 36, "cat": "about", "q": "What is STERIA?", "a": "I'm STERIA, your AI CSSD Specialist and digital guide through the Sterilization Passport Journey.", "k": ["steria", "who are you", "your name", "what are you"]}, {"id": 37, "cat": "about", "q": "Are you a real CSSD specialist?", "a": "I'm an AI educational assistant designed to represent and support the educational experience. Real CSSD professionals remain the experts responsible for sterile processing practice.", "k": ["real person", "human", "specialist", "are you real", "bot"]}, {"id": 38, "cat": "about", "q": "Can I ask you medical questions?", "a": "I can answer educational questions related to sterile processing and patient safety, but I don't provide patient-specific medical advice.", "k": ["medical advice", "diagnosis", "my condition", "treatment", "doctor"]}, {"id": 39, "cat": "about", "q": "What if you don't know an answer?", "a": "I won't guess. I'll recommend checking the appropriate approved source or speaking with one of our CSSD specialists.", "k": ["don't know", "unsure", "guess", "wrong", "not sure"]}, {"id": 40, "cat": "about", "q": "What is your main message?", "a": "Technology supports us. Knowledge empowers us. Together, we protect what matters most — our patients.", "k": ["message", "motto", "slogan", "core", "main", "tagline"]}], "chat": {"greeting": "Hi, I'm STERIA 👋 Ask me anything about sterile processing — type in your own words, or tap a question below to get started.", "openers": ["", "", "", "Good question. ", "Sure — ", "Happy to explain. ", "Here's what I can tell you: "], "clarify": "I have two answers that could fit. Which one did you mean?", "multi": "You asked a few things — let me take them one at a time.", "more": "Here's something related you might find useful:", "noMore": "That's everything I have on that topic. Try another question, or tap one below.", "noContext": "Happy to — what would you like to know more about? You can type a question or tap one below.", "feedbackAsk": "Was this helpful?", "feedbackYes": "Glad it helped!", "feedbackNo": "Thanks for telling me. One of our CSSD specialists at the stand will be happy to go into more detail.", "smallTalk": [{"id": "greet", "when": "hi · hello · hey · good morning · salam · assalamu alaikum · marhaba · السلام عليكم · مرحبا", "pattern": "^(hi+|hello|hey|hiya|salam|salaam|assalam\\w*|as-?salamu? ?alaikum|marhaba|good (morning|afternoon|evening)|السلام عليكم|مرحبا|اهلا|أهلا)(?=[\\s,!.?؟،]|$)", "replies": ["Hello! What would you like to know about sterile processing?", "Hi there — ask me anything about how CSSD keeps instruments safe.", "Welcome! I'm here to answer your questions about the instrument journey."]}, {"id": "howareyou", "when": "how are you · how's it going · كيف حالك", "pattern": "(how are (you|u)|how r u|how's it going|كيف حالك)", "replies": ["I'm doing well, thank you — and ready to talk sterile processing. What would you like to know?"]}, {"id": "nicetomeet", "when": "nice to meet you · pleased to meet you", "pattern": "\\b(nice|pleased|good|great) to (meet|see) (you|u)\\b", "replies": ["Lovely to meet you too! What brings you to the CSSD stand today?"]}, {"id": "name", "when": "what does STERIA mean · why are you called STERIA · what's your name", "pattern": "(what does (steria|your name) mean|why (are you|r u) called|(what('s| is) your|your) name|who are you)(?=[\\s,!.?؟،]|$)", "replies": ["I'm STERIA — the name comes from sterilization, the work at the heart of CSSD. I'm the digital guide for the Sterilization Passport Journey."], "chips": [36, 34]}, {"id": "whomade", "when": "who made you · who created you · who built you · who is behind this", "pattern": "\\bwho ((made|created|built|designed|developed|invented|programmed) (you|u|this|steria)|is behind (you|this))\\b", "replies": ["I was created by the CSSD team at King Khaled Eye Specialist Hospital. The concept and content were developed by Bodoor Megbel Alharbi, Sterilization Specialist — and the real experts are the CSSD professionals right here at the stand."]}, {"id": "robot", "when": "are you a robot · are you a bot · are you real · are you human · is this AI", "pattern": "\\b((are (you|u)|r u) (a |an )?(robot|bot|chatbot|ai|computer|machine|program|human( being)?|person|real( (person|human|one|cssd specialist|specialist|nurse|doctor))?|alive)|is this (a |an )?(robot|bot|chatbot|ai))\\b", "replies": ["I'm an AI educational assistant — not a person, and not a replacement for one. The real CSSD specialists are right here at the stand, and they know far more than I do."], "chips": [37, 27, 26]}, {"id": "feelings", "when": "do you have feelings · are you happy · do you get tired · do you sleep · do you eat", "pattern": "\\b(do (you|u) (have feelings|get tired|sleep|eat|dream|get bored)|are (you|u) (happy|sad|tired|bored|lonely))\\b", "replies": ["I don't have feelings, but I do have endless enthusiasm for clean instruments! What would you like to know?"]}, {"id": "age", "when": "how old are you · when were you born · when were you made", "pattern": "\\b(how old are (you|u)|when were (you|u) (born|made|created)|your birthday)\\b", "replies": ["I'm brand new — created for International Sterile Processing Week 2026. Young, but I know my way around a CSSD."]}, {"id": "nurse", "when": "are you a nurse · are you a doctor · are you a technician", "pattern": "\\b(are (you|u)|r u|you're|you are) (a |an )?(nurse|doctor|technician|tech|specialist|surgeon)\\b", "replies": ["I'm a digital CSSD specialist — an educational assistant that represents the sterile processing team. Every real decision about an instrument is made by trained CSSD professionals."], "chips": [37, 2]}, {"id": "favourite", "when": "what's your favourite station · favourite part · favourite instrument", "pattern": "\\b(favou?rite|favorite|best) (station|part|step|stage|instrument|topic)\\b|\\bwhat('s| is) your favou?rite\\b", "replies": ["My favourite station is Decontamination — nothing downstream works if cleaning isn't done well. Which station is your favourite?"], "chips": [3, 4, 5]}, {"id": "photo", "when": "can I take a photo with you · selfie · picture", "pattern": "\\b(selfie|(take|get|have) a (photo|picture|pic|selfie)|photo with (you|u))\\b", "replies": ["Of course — I'd be honoured! The team at the stand can show you the best spot. Smile: clean instruments make everyone happy."]}, {"id": "arabic_speak", "when": "do you speak Arabic · can you speak Arabic · English only?", "pattern": "\\b(speak|talk|understand|know) (arabic|arabi|english|other languages?)\\b|\\bin arabic\\b", "replies": ["At the moment I chat in English. Our CSSD specialists at the stand will gladly help you in Arabic."]}, {"id": "event", "when": "what is this event · what's happening here · what is this stand · why sterile processing week · what are you celebrating", "pattern": "\\b(what('s| is) (this|the) (event|stand|booth|exhibition|display|activity)|what('s| is) (going on|happening|this)( here)?|sterile processing week|what are (you|we) celebrating|why (celebrate|is there a week))\\b", "replies": ["This is International Sterile Processing Week 2026 — a week to celebrate the CSSD professionals who make every instrument safe before it reaches a patient. The stand shows what happens behind the scenes, and I'm your guide."], "chips": [34, 1, 2]}, {"id": "when", "when": "when is sterile processing week · what are the dates · what's the schedule", "pattern": "\\b(when is (sterile processing week|the event|this)|what (are the )?dates?|schedule|programme|program of)\\b", "replies": ["It's happening right now — this week! The team at the stand can share the full schedule of activities."]}, {"id": "where_cssd", "when": "where is the CSSD · can I visit the department · can I see the sterilizers", "pattern": "\\b(where('s| is) (the )?(cssd|sterile services|sterilization department|department)|(visit|see|tour|go to|enter) (the )?(cssd|department|sterilizers?))\\b", "replies": ["Our CSSD is inside the hospital, but it's a controlled area — visitors can't walk in. This stand is the next best thing: the whole instrument journey, without the scrubs!"]}, {"id": "howjourney", "when": "how does this work · how does the passport work · how long does it take · how many stations", "pattern": "\\b(how (does|do) (this|the passport|the journey|it) work|how long (does|will) (it|this|the journey) take|how many (stations|stops|steps|questions))\\b", "replies": ["The Passport Journey has 9 short stations — about five minutes if you read, a little longer if you watch. At each one you answer a question and collect a stamp. Tap 'Start the passport journey' on the home screen to begin."], "chips": [34, 35]}, {"id": "prize", "when": "is there a prize · what do I get · gift · giveaway · certificate", "pattern": "\\b(prizes?|gifts?|giveaways?|rewards?|certificates?|what do i (get|win)|can i win|free stuff|goodies?)\\b", "replies": ["Finish all nine stations and you earn the CSSD Champion badge. Ask the team at the stand about anything else on offer this week!"]}, {"id": "im_clinical", "when": "I'm a nurse · I'm a doctor · I'm a surgeon · I work in the OR / theatre / clinic", "pattern": "\\b((i'm|im|i am) (a |an )?(nurse|doctor|surgeon|physician|anaesthetist|anesthesiologist|technician|tech|pharmacist|dentist|optometrist|ophthalmologist)|i work in (the )?(or|ot|theatre|theater|operating|icu|clinic|ward|opd))\\b", "replies": ["Wonderful — you're one of the people we do this for. Every instrument you receive has passed through all nine stations. Ask me about any of them; traceability and monitoring are the ones that matter most at point of use."], "chips": [20, 18, 24]}, {"id": "im_cssd", "when": "I work in CSSD · I'm a sterilization technician · I'm from CSSD", "pattern": "\\b(i work in (the )?cssd|(i'm|im|i am) (a |an )?(cssd|sterilization|sterile processing|sterile services) (specialist|tech|technician|staff|nurse|supervisor)|(i'm|im|i am) from (the )?cssd)\\b", "replies": ["Then you're the expert here, not me! Thank you for what you do. Test me — ask something tricky and see whether my answers match your experience. Anything I get wrong, tell the team at the stand so we can fix it."], "chips": [28, 33, 32]}, {"id": "im_student", "when": "I'm a student · I'm a trainee · I'm an intern · I'm studying", "pattern": "\\b((i'm|im|i am) (a |an )?(student|trainee|intern|resident|graduate)|(i'm|im|i am) studying|i study)\\b", "replies": ["Welcome! The Passport Journey is a great way to learn the whole reprocessing cycle in a few minutes. Start with 'What is CSSD?' and work through the stations — and ask me anything along the way."], "chips": [1, 3, 7]}, {"id": "im_patient", "when": "I'm a patient · I'm a visitor · my mother is a patient here", "pattern": "\\b((i'm|im|i am) (a |an )?(patient|visitor|relative|family member|guest)|my (mother|father|mum|dad|son|daughter|husband|wife|child|brother|sister) (is|has|had) )", "replies": ["Thank you for visiting. Everything here is about keeping patients safe — every instrument used in care is cleaned, inspected, sterilized and tracked before it reaches you. For questions about your own care, please speak with your care team."], "chips": [25, 2]}, {"id": "im_it", "when": "I'm from IT · I work in innovation · I'm in digital health", "pattern": "\\b((i'm|im|i am) (from|in|with) (it|innovation|digital|informatics|data|technology|the innovation)|i work in (it|innovation|informatics))\\b", "replies": ["Then you'll enjoy the 'AI & digital' topics — smart tracking, digital documentation, dashboards and predictive analytics. Ask me how technology can support CSSD without replacing the people."], "chips": [29, 31, 32]}, {"id": "career", "when": "how do I become a sterilization specialist · how can I join CSSD · career in CSSD", "pattern": "\\b(how (do|can|could) i (become|join|work|get a job|start)|career|want to (work|be|join)|how to become|job (in|at) cssd|hiring|vacanc)\\b", "replies": ["That's great to hear — CSSD is a specialised, growing field. Speak with the CSSD team at the stand; they can tell you about training and pathways at the hospital."]}, {"id": "compliment", "when": "you're smart · you're cute · this is cool · I love you · good job · well done", "pattern": "\\b(you('re| are) (so |very |really )?(cute|smart|clever|amazing|awesome|great|cool|nice|helpful|beautiful|pretty|funny|brilliant|the best)|i (love|like) (you|this|it)|good (bot|job)|well done|this is (so |very |really )?(cool|amazing|great|nice|awesome|fun))\\b", "replies": ["Thank you! I'll pass that on to the team — they did all the hard work. What would you like to know next?", "That's kind of you! Now, let's put my knowledge to the test — ask me something."]}, {"id": "complaint", "when": "you're useless · you're wrong · this is bad · you don't understand · you're not helpful", "pattern": "\\b(you('re| are) (useless|stupid|dumb|bad|wrong|not helpful|unhelpful|boring|slow|broken)|this (is )?(sucks|is bad|doesn't work|is useless)|(you|u) don'?t (understand|get it)|that('s| is) (wrong|not right|incorrect))\\b", "replies": ["Sorry about that. I only know the questions our CSSD team approved, so I do miss things. Try rephrasing, tap one of the suggested questions, or ask one of the specialists at the stand — and your feedback helps us improve."]}, {"id": "confused", "when": "I don't understand · I'm confused · explain it simply · what do you mean", "pattern": "\\b(i don'?t (understand|get it|follow)|(i'm|im|i am) confused|i ?m confused|confusing|what do (you|u) mean|explain (it |that )?(again|simply|simpler|in simple words|like i'm)|too (complicated|technical))\\b", "replies": ["Let me put it simply: an instrument used on one patient is cleaned, checked, wrapped, sterilized, monitored, recorded and stored before it can be used again — and CSSD does every one of those steps. Which part would you like me to go into?"], "chips": [3, 11, 13]}, {"id": "bored", "when": "I'm bored · I'm tired · this is boring", "pattern": "\\b((i'm|im|i am) (bored|tired|sleepy|exhausted)|(this|it)('s| is) boring)\\b", "replies": ["Then let's make it quick and fun — take the challenge: nine stations, nine questions, one badge. Or ask me anything and I'll keep it short."]}, {"id": "joke", "when": "tell me a joke · make me laugh · say something funny", "pattern": "\\b(jokes?|make me laugh|something funny|be funny|are (you|u) funny)\\b", "replies": ["Why did the instrument go to CSSD? It needed a clean start.", "What's a sterilizer's favourite music? Steam-punk.", "Why do instruments never skip cleaning? Because sterilization can't fix what cleaning missed — and that's not a joke, that's the rule."]}, {"id": "flirt", "when": "will you marry me · are you single · be my girlfriend", "pattern": "\\b(marry me|be my (girlfriend|wife|valentine)|are (you|u) single|go on a date|date me|(i'm|im|i am) in love with (you|u))\\b", "replies": ["I'm flattered, but I'm married to my work — sterile processing, around the clock. What would you like to know about it?"]}, {"id": "rude", "when": "insults or bad language", "pattern": "\\b(shut up|idiot|stupid bot|damn|hell|crap|f+u+c*k+\\w*|sh[i1]t+|b[i1]tch|ass(hole)?|wtf|stfu)\\b", "replies": ["Let's keep it friendly — I'm here to help. What would you like to know about sterile processing?"], "stop": true}, {"id": "medical", "when": "my eye hurts · I need an appointment · my prescription · I feel sick · emergency", "pattern": "\\b(my (eyes?|vision|sight|eyesight|pain|condition|surgery|operation|results?)|i (have|feel|am|'m) (pain|sick|dizzy|unwell|ill|not well)|appointments?|prescriptions?|my medication|medicine for|emergency|(see|need|find) a doctor|it hurts|hurts)\\b", "replies": ["I can't help with medical questions, appointments or personal care — I only cover sterile processing. Please speak with hospital staff or the information desk, and they'll point you to the right place."], "chips": [38, 25], "stop": true}, {"id": "directions", "when": "where is the toilet · cafeteria · pharmacy · parking · prayer room · information desk · exit", "pattern": "\\b(where('s| is| are) (the |a )?(toilets?|bathrooms?|restrooms?|washrooms?|cafeteria|cafe|coffee|restaurant|pharmacy|parking|car park|exit|entrance|elevators?|lifts?|prayer room|mosque|musalla|information desk|reception|main desk|atm)|how do i get to)\\b", "replies": ["I'm afraid I don't know my way around the building — I only know my way around a CSSD! The team at the stand or the information desk can point you in the right direction."], "stop": true}, {"id": "hospital_general", "when": "hospital opening hours · visiting hours · how to contact the hospital · services · complaints", "pattern": "\\b(opening hours|visiting hours|working hours|contact (the )?hospital|hospital (number|phone|email|website|services)|make a complaint|patient (relations|experience|affairs))\\b", "replies": ["That's a question for the hospital rather than for me. The information desk or the hospital website can help — I'm only an expert on what happens to instruments!"], "stop": true}, {"id": "thanks", "when": "thanks · thank you · shukran · شكرا", "pattern": "(^|\\s)(thanks?|thank you|thx|ty|shukran|appreciated?|شكرا)(?=[\\s,!.?؟،]|$)", "replies": ["You're very welcome! Anything else you'd like to know?", "My pleasure. Feel free to ask another question.", "Happy to help — every question helps protect patients."]}, {"id": "bye", "when": "bye · goodbye · see you · ma'a salama · مع السلامة", "pattern": "^(bye|goodbye|see (you|ya)|ma ?a?salama|مع السلامة|good ?night|take care|i have to go|gotta go)(?=[\\s,!.?؟،]|$)", "replies": ["Thank you for visiting! Remember: technology supports us, knowledge empowers us. Goodbye!", "Goodbye — and thank you for caring about patient safety. Enjoy the rest of the event!"]}, {"id": "help", "when": "help · menu · what can I ask · what do you know", "pattern": "^(help|menu|options|topics|what can (you|i) (do|ask)( you)?|what do you know|what can you help with)\\W*$", "replies": ["I can answer questions about CSSD — cleaning, inspection, packaging, sterilization, monitoring, traceability, storage, and how AI and digital tools support the team. Pick a topic below, or just type your question."]}, {"id": "ack", "when": "ok · okay · cool · great · got it · I see · interesting", "pattern": "^(ok|okay|k|cool|great|nice|good|got it|i see|sure|alright|perfect|wow|interesting|makes sense|understood)\\W*$", "replies": ["Great! What else would you like to know?", "Glad that's clear. Anything else on your mind?"]}, {"id": "arabic", "when": "any message written in Arabic that isn't a greeting or thanks", "pattern": "[\\u0600-\\u06FF]", "replies": ["أهلاً وسهلاً! At the moment I chat in English, but our CSSD specialists at the stand will gladly help you in Arabic."], "stop": true}], "followUpPattern": "^(tell me more|more|more info|go on|and\\??|why\\??|explain( more)?|what else|continue|elaborate|anything else)\\W*$", "guardrails": [{"id": "parameters", "note": "Rules 2 and 3 of the master prompt: never state temperatures, times, pressures, concentrations or other process values.", "pattern": "\\b(what|which)\\b.*\\b(temp[a-z]*|degrees?|pressure|minutes?|seconds?|concentration|settings?|parameters?)\\b|\\bhow (long|hot|many minutes|much time)\\b|\\b(degrees?|celsius|fahrenheit|psi|kpa|ppm|mbar)\\b|°|\\b\\d+\\s?(c|f)\\b|\\bexposure times?\\b|\\bcycle (times?|temp[a-z]*|parameters?|settings?)\\b", "unless": "low[- ]?temp", "reply": "Specific values — temperatures, times, pressures, concentrations or storage limits — depend on the validated process, approved hospital policy and the manufacturer's Instructions for Use (IFU). They should always be verified rather than assumed, so I don't give numbers. One of our CSSD specialists will be happy to explain how this is managed in practice."}]}};
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const IMG=$('#hero-img').src;
+const KB=CONTENT.knowledgeBase, STATIONS=CONTENT.stations, CATS=CONTENT.categories;
+
+/* Flip these on once the files exist (see IMPLEMENTATION.md §6) */
+const MEDIA_READY = false;      // media/sXX-slug/720p.mp4 + captions.en.vtt
+const NARRATION_READY = false;  // media/sXX-slug/narration.mp3  (recorded human voice)
+
+/* ---------- storage (resume) ---------- */
+const mem={};
+const store={
+  async get(k){ try{ if(window.storage){const r=await window.storage.get(k); return r?JSON.parse(r.value):(mem[k]??null);} }catch(e){} return mem[k]??null; },
+  async set(k,v){ mem[k]=v; try{ if(window.storage) await window.storage.set(k,JSON.stringify(v)); }catch(e){} }
+};
+
+/* ---------- analytics ---------- */
+const SESSION='S'+Math.random().toString(36).slice(2,8).toUpperCase();
+window.dataLayer=window.dataLayer||[];
+const DEBUG=new URLSearchParams(location.search).get('debug')==='1';
+function track(name,p={}){
+  window.dataLayer.push({event:name,...p,ts:Date.now(),session:SESSION});
+  if(!DEBUG) return;
+  const r=document.createElement('div');
+  r.innerHTML=`<b>${name}</b> ${Object.entries(p).map(([k,v])=>k+'='+v).join(' ')}`;
+  $('#dbg').prepend(r); while($('#dbg').children.length>60) $('#dbg').lastChild.remove();
+}
+
+/* ---------- background: iris watermark + soft parallax ---------- */
+function buildIris(){
+  const svg=$('#iris'), NS='http://www.w3.org/2000/svg';
+  [190,150,112,78,50,28].forEach((r,i)=>{
+    const c=document.createElementNS(NS,'circle');
+    c.setAttribute('cx',200); c.setAttribute('cy',200); c.setAttribute('r',r);
+    c.setAttribute('class','ring'); c.setAttribute('stroke-width', i%2?1:1.6);
+    svg.appendChild(c);
+  });
+  for(let a=0;a<72;a++){                       /* iris striations */
+    const rad=a*(Math.PI*2/72), l=document.createElementNS(NS,'line');
+    l.setAttribute('x1',200+Math.cos(rad)*115); l.setAttribute('y1',200+Math.sin(rad)*115);
+    l.setAttribute('x2',200+Math.cos(rad)*150); l.setAttribute('y2',200+Math.sin(rad)*150);
+    l.setAttribute('class','tick'); l.setAttribute('stroke-width',a%3?.7:1.4);
+    svg.appendChild(l);
+  }
+}
+let mx=0,my=0,cx=0,cy=0,raf=false;
+const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+function loop(){ cx+=(mx-cx)*.05; cy+=(my-cy)*.05;
+  $('#iris').style.transform=`translate3d(${(cx*22).toFixed(1)}px,${(cy*22).toFixed(1)}px,0) rotate(${(cx*3).toFixed(2)}deg)`;
+  if(raf) requestAnimationFrame(loop); }
+function startBG(){ if(reduced()||raf) return; raf=true; requestAnimationFrame(loop);
+  addEventListener('pointermove',e=>{mx=(e.clientX/innerWidth-.5)*2; my=(e.clientY/innerHeight-.5)*2;},{passive:true}); }
+
+/* ---------- router + character mood ---------- */
+let view='home';
+function mood(m,ms=1800){ document.body.dataset.mood=m;
+  if(m!=='idle') setTimeout(()=>{ if(document.body.dataset.mood===m) document.body.dataset.mood='idle'; },ms); }
+function go(v){
+  if(v===view) return;
+  $$('.view').forEach(s=>s.classList.remove('on'));
+  const el=$('#v-'+v); el.classList.add('on'); view=v;
+  $('#btn-home').hidden = v==='home';
+  if(v==='ask') closeWidget(false);
+  $('#fab').hidden = v==='ask' || widgetOpen;
+  scrollTo({top:0,behavior:reduced()?'auto':'smooth'});
+  el.querySelector('[tabindex="-1"]')?.focus({preventScroll:true});
+  track('view_change',{view:v});
+}
+
+/* ============================================================
+   ASK STERIA
+   ============================================================ */
+const STOP=new Set('a an the is are was were do does did can could will would should i you it we they of in on at to for from with about what why how when which who that this these those my your our their me us and or if as be been being have has had not no yes please tell explain there here any some more also just really very much many like get got want need know think thing things something anything im dont'.split(' '));
+const SYN={autoclave:'steam',sterilise:'sterilization',sterilisation:'sterilization',sterilized:'sterilization',
+ clean:'cleaning',cleaned:'cleaning',wash:'cleaning',washing:'cleaning',decon:'decontamination',
+ ci:'chemical indicator',bi:'biological indicator',ifu:'manufacturer instructions',
+ rfid:'smart tracking',barcode:'smart tracking',qr:'smart tracking',robot:'ai',artificial:'ai',
+ job:'replace',jobs:'replace',tray:'set',trays:'set',pouch:'packaging',wrap:'packaging',
+ store:'storage',stored:'storage',record:'documentation',records:'documentation',
+ paperwork:'documentation',track:'traceability',tracking:'traceability'};
+const norm=s=>s.toLowerCase().replace(/[^a-z0-9\s'-]/g,' ').split(/\s+/).filter(Boolean)
+  .flatMap(w=>{const r=SYN[w];return r?[w,...r.split(' ')]:[w];}).filter(w=>!STOP.has(w)&&w.length>1);
+const DF={}; KB.forEach(e=>new Set(norm(e.q+' '+e.a+' '+e.k.join(' '))).forEach(t=>DF[t]=(DF[t]||0)+1));
+const idf=t=>Math.log(1+KB.length/(1+(DF[t]||0)));
+const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+/* ============================================================
+   CONVERSATION ENGINE
+   Replies come ONLY from the approved answers and the approved
+   chat lines in steria-content.json. Nothing is generated.
+   ============================================================ */
+const CHAT=CONTENT.chat;
+const FACE="data:image/webp;base64,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";
+const VOCAB=Object.keys(DF);
+const scrollLog=()=>{const l=$('#log'); l.scrollTop=l.scrollHeight;};
+
+/* typo tolerance: "sterlization" → "sterilization", "biologcal" → "biological" */
+function lev(a,b){
+  let prev=Array.from({length:b.length+1},(_,j)=>j);
+  for(let i=1;i<=a.length;i++){ const cur=[i];
+    for(let j=1;j<=b.length;j++) cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    prev=cur; }
+  return prev[b.length];
+}
+const typoCache={};
+const COMMON=new Set('about after again best better could every first found great house large later little never other place point right small sound still their there these thing think three where which while world would write years young water under'.split(' '));
+function fixTypo(w){
+  /* only fix longer words, and only to a word with the same first letter —
+     otherwise ordinary English gets "corrected" into CSSD terms (best → test) */
+  if(w.length<5||DF[w]||SYN[w]||STOP.has(w)||COMMON.has(w)) return w;
+  if(w in typoCache) return typoCache[w];
+  const lim=w.length>6?2:1; let best=w,bd=lim+1;
+  for(const v of VOCAB){ if(v[0]!==w[0]||Math.abs(v.length-w.length)>lim) continue;
+    const d=lev(w,v); if(d<bd){bd=d;best=v;} }
+  return typoCache[w]=(bd<=lim?best:w);
+}
+const normQ=s=>norm(s.toLowerCase().replace(/[^a-z0-9\s'-]/g,' ').split(/\s+/).filter(Boolean).map(fixTypo).join(' '));
+
+const T=1.15;
+const QWORDS={}; KB.forEach(e=>QWORDS[e.id]=new Set(e.q.toLowerCase().replace(/[^a-z0-9\s'-]/g,' ').split(/\s+/).filter(Boolean)));
+function match(query,ctx){
+  const qt=normQ(query); if(!qt.length) return {best:null,second:null,alts:[]};
+  const raw=query.trim().toLowerCase();
+  const scored=KB.map(e=>{
+    const hay=(e.q+' '+e.k.join(' ')+' '+e.a).toLowerCase(), ht=new Set(norm(hay));
+    let s=0;
+    const qs=QWORDS[e.id];   /* literal question words, no synonym expansion */
+    qt.forEach(t=>{ if(ht.has(t)) s+=idf(t); else if(t.length>=5&&!COMMON.has(t)&&hay.includes(t)) s+=idf(t)*.45; if(qs.has(t)) s+=idf(t)*.3; });
+    for(let i=0;i<qt.length-1;i++) if(hay.includes(qt[i]+' '+qt[i+1])) s+=1.1;
+    if(raw.length>3&&e.q.toLowerCase().includes(raw)) s+=2.5;
+    s=s/Math.sqrt(qt.length);
+    if(ctx&&e.cat===ctx&&s>=.6) s+=.3;          /* follow-up context */
+    return {e,s};
+  }).sort((a,b)=>b.s-a.s);
+  return {best:scored[0].s>=T?scored[0]:null, second:scored[1], alts:scored.slice(0,3).filter(x=>x.s>.35)};
+}
+
+const pickOne=a=>a[Math.floor(Math.random()*a.length)];
+const pick3=a=>[...a].sort(()=>Math.random()-.5).slice(0,3);
+const convo={lastCat:null,shown:new Set(),lastOpener:-1,gen:0};
+let queue=Promise.resolve();
+
+function say(who,html,tag){
+  const row=document.createElement('div'); row.className='row '+who;
+  if(who==='bot') row.innerHTML=`<img class="av" src="${FACE}" alt="" aria-hidden="true">`;
+  const el=document.createElement('div'); el.className='msg '+who;
+  el.innerHTML=`<p>${html}</p>${tag?`<span class="tag">${tag}</span>`:''}`;
+  row.append(el); $('#log').append(row); scrollLog(); return el;
+}
+function typingRow(){
+  const r=document.createElement('div'); r.className='row bot';
+  r.innerHTML=`<img class="av" src="${FACE}" alt="" aria-hidden="true"><div class="msg bot"><span class="dots3"><i></i><i></i><i></i></span><span class="sr">STERIA is typing</span></div>`;
+  $('#log').append(r); scrollLog(); return r;
+}
+/* messages are queued so several replies arrive one after another, each with its own typing pause */
+function botSay(html,{tag,feedback}={}){
+  const gen=convo.gen;
+  queue=queue.then(()=>new Promise(res=>{
+    if(gen!==convo.gen) return res(null);
+    const tr=typingRow();
+    const d=reduced()?60:Math.min(1300,380+html.replace(/<[^>]+>/g,'').length*6);
+    setTimeout(()=>{
+      tr.remove();
+      if(gen!==convo.gen) return res(null);
+      const el=say('bot',html,tag);
+      if(feedback) addFeedback(el,feedback);
+      res(el);
+    },d);
+  }));
+  return queue;
+}
+function addFeedback(el,e){
+  const r=document.createElement('div'); r.className='fb-row';
+  r.innerHTML=`<span>${CHAT.feedbackAsk}</span><button type="button" aria-label="Yes, this was helpful">👍</button><button type="button" aria-label="No, this was not helpful">👎</button>`;
+  const [y,n]=r.querySelectorAll('button');
+  const done=ok=>{ r.innerHTML=`<span>${ok?CHAT.feedbackYes:'Thanks — noted.'}</span>`;
+    track('answer_feedback',{id:e.id,helpful:ok}); if(!ok) botSay(CHAT.feedbackNo); };
+  y.onclick=()=>done(true); n.onclick=()=>done(false);
+  el.append(r); scrollLog();
+}
+function opener(e){
+  if(/^(no|yes|i'm|i |it |technology)/i.test(e.a)) return '';     /* "Sure — No." reads badly */
+  let i; do{ i=Math.floor(Math.random()*CHAT.openers.length); }
+  while(i===convo.lastOpener&&CHAT.openers[i]);
+  convo.lastOpener=i; return CHAT.openers[i];
+}
+function answerEntry(e,pre=''){
+  convo.lastCat=e.cat; convo.shown.add(e.id);
+  const cat=CATS.find(c=>c.id===e.cat);
+  track('ask_match',{id:e.id,cat:e.cat});
+  mood('hi',1100);
+  return botSay(pre+e.a,{tag:cat.label,feedback:e}).then(()=>{
+    const rel=KB.filter(x=>x.cat===e.cat&&!convo.shown.has(x.id)).slice(0,3);
+    showChips(rel.length?rel:pick3(KB.filter(x=>!convo.shown.has(x.id))),'You might also ask');
+  });
+}
+
+const ST=CHAT.smallTalk.map(s=>({...s,re:new RegExp(s.pattern,'i')}));
+const FOLLOW=new RegExp(CHAT.followUpPattern,'i');
+function smallTalk(q){
+  for(const s of ST){ const m=q.match(s.re);
+    if(m) return {s,rest:q.replace(m[0],'').replace(/^[\s,!.?؟،-]+/,'').trim()}; }
+  return null;
+}
+function followUp(){
+  if(!convo.lastCat) return botSay(CHAT.noContext).then(()=>showChips(pick3(KB),'Popular questions'));
+  const nxt=KB.find(x=>x.cat===convo.lastCat&&!convo.shown.has(x.id));
+  track('ask_followup',{found:!!nxt});
+  if(nxt) return answerEntry(nxt,`${CHAT.more}<br><b>${nxt.q}</b><br>`);
+  return botSay(CHAT.noMore).then(()=>showChips(pick3(KB.filter(x=>!convo.shown.has(x.id))),'Try one of these'));
+}
+const GUARD=(CHAT.guardrails||[]).map(g=>({...g,re:new RegExp(g.pattern,'i'),un:g.unless?new RegExp(g.unless,'i'):null}));
+function guardrail(q){ return GUARD.find(g=>g.re.test(q)&&!(g.un&&g.un.test(q))); }
+function handle(q,pre='',quiet=false){
+  const g=guardrail(q);
+  if(g){ track('guardrail',{id:g.id}); convo.lastCat='sterilizing';
+    return botSay(pre+g.reply).then(()=>showChips([15,13,14].map(id=>KB.find(e=>e.id===id)),'You might also ask')); }
+  const {best,second,alts}=match(q,convo.lastCat);
+  if(!best){
+    track('ask_no_match',{q:q.slice(0,60)});
+    return botSay(pre+CONTENT.meta.outOfScope).then(()=>showChips(alts.length?alts.map(a=>a.e):pick3(KB),'Did you mean'));
+  }
+  if(!quiet&&second&&second.s>=T&&second.s/best.s>=.9){        /* two answers fit about equally */
+    track('ask_clarify',{a:best.e.id,b:second.e.id});
+    return botSay(pre+CHAT.clarify).then(()=>showChips([best.e,second.e],'Choose one'));
+  }
+  return answerEntry(best.e,pre+opener(best.e));
+}
+const plain=s=>s.toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+const PREFIX={greet:'Hello! ',thanks:"You're welcome! ",ack:''};
+function respond(q,pre=''){
+  const exact=KB.find(e=>plain(e.q)===plain(q));
+  if(exact) return answerEntry(exact,pre);
+  const st=smallTalk(q);
+  if(st){
+    const rest=st.rest, more=!st.s.stop&&rest&&normQ(rest).length>0;
+    track('small_talk',{id:st.s.id});
+    if(more&&st.s.id in PREFIX) return respond(rest,pre+PREFIX[st.s.id]);
+    mood('hi',1000);
+    return botSay(pre+pickOne(st.s.replies)).then(()=>{
+      if(more) return respond(rest);
+      if(st.s.chips) showChips(st.s.chips.map(id=>KB.find(e=>e.id===id)),'You might also ask');
+      else if(st.s.id==='help') showChips(CATS.slice(0,6).map(c=>KB.find(e=>e.cat===c.id)),'Pick a topic');
+      else if(!st.s.stop&&st.s.id!=='bye') showChips(pick3(KB.filter(x=>!convo.shown.has(x.id))),'You could ask');
+    });
+  }
+  if(FOLLOW.test(q)) return followUp();
+  const parts=q.split(/[?؟]/).map(s=>s.trim()).filter(s=>normQ(s).length);
+  if(parts.length>1){
+    track('ask_multi',{n:parts.length});
+    return botSay(CHAT.multi).then(()=>parts.slice(0,3).reduce((p,s)=>p.then(()=>handle(s,'',true)),Promise.resolve()));
+  }
+  return handle(q,pre);
+}
+function ask(query,src='typed'){
+  const q=query.trim(); if(!q) return;
+  say('me',esc(q)); $('#chips').innerHTML='';
+  track('ask_query',{q:q.slice(0,60),src});
+  return respond(q);
+}
+/* tapping a suggested question answers it directly — no guessing needed */
+function askEntry(e,src){
+  say('me',esc(e.q)); $('#chips').innerHTML='';
+  track('ask_query',{q:e.q.slice(0,60),src});
+  answerEntry(e,'');
+}
+function showChips(list,label){
+  const box=$('#chips'); box.innerHTML='';
+  list=list.filter(Boolean); if(!list.length) return;
+  const l=document.createElement('p'); l.className='lbl'; l.textContent=label; box.append(l);
+  list.forEach(e=>{ const b=document.createElement('button'); b.className='chip'; b.type='button';
+    b.textContent=e.q; b.onclick=()=>askEntry(e,'chip'); box.append(b); });
+  requestAnimationFrame(scrollLog);    /* chips shrink the log — keep the latest reply in view */
+}
+
+/* ---------- floating chat widget: the same conversation, moved into a panel ---------- */
+let widgetOpen=false;
+function openWidget(){
+  $('#widget-slot').append($('#chat-core'));
+  $('#widget').hidden=false; $('#fab').hidden=true; widgetOpen=true;
+  $('#fab').setAttribute('aria-expanded','true');
+  scrollLog(); setTimeout(()=>$('#q').focus(),60);
+  track('widget_open',{view});
+}
+function closeWidget(restoreFocus=true){
+  if(!widgetOpen) return;
+  $('#ask-slot').prepend($('#chat-core'));
+  $('#widget').hidden=true; widgetOpen=false;
+  $('#fab').setAttribute('aria-expanded','false');
+  $('#fab').hidden=view==='ask';
+  if(restoreFocus&&!$('#fab').hidden) $('#fab').focus();
+  track('widget_close');
+}
+/* browse */
+const PAGE=6; let page=0,cat='all',qstr='';
+const filtered=()=>{
+  let l=KB;
+  if(cat!=='all') l=l.filter(e=>e.cat===cat);
+  if(qstr.trim()){ const t=norm(qstr);
+    l=l.filter(e=>{const h=(e.q+' '+e.a+' '+e.k.join(' ')).toLowerCase(); return t.every(x=>h.includes(x));}); }
+  return l;
+};
+function renderList(){
+  const l=filtered(), pages=Math.max(1,Math.ceil(l.length/PAGE));
+  page=Math.min(page,pages-1);
+  const ul=$('#qlist'); ul.innerHTML='';
+  if(!l.length) ul.innerHTML='<li class="empty">Nothing matches that word. Try another one, or type your question above.</li>';
+  l.slice(page*PAGE,page*PAGE+PAGE).forEach(e=>{
+    const li=document.createElement('li'), b=document.createElement('button');
+    b.type='button'; b.textContent=e.q; b.onclick=()=>{askEntry(e,'list'); $('#q').focus();};
+    li.append(b); ul.append(li);
+  });
+  $('#pos').textContent=`${page+1} / ${pages}`;
+  $('#qcount').textContent=l.length;
+  $('#prev').disabled=page===0; $('#next').disabled=page>=pages-1;
+}
+function buildCats(){
+  const box=$('#cats');
+  [{id:'all',label:'All topics'},...CATS].forEach(c=>{
+    const b=document.createElement('button'); b.className='cat'; b.type='button'; b.textContent=c.label;
+    b.setAttribute('aria-pressed',c.id===cat);
+    b.onclick=()=>{ cat=c.id; page=0; $$('.cat',box).forEach(x=>x.setAttribute('aria-pressed','false'));
+      b.setAttribute('aria-pressed','true'); track('kb_category',{cat:c.id}); renderList(); };
+    box.append(b);
+  });
+}
+
+/* ============================================================
+   JOURNEY
+   ============================================================ */
+const state={i:0,done:{},ans:{},mode:'read'};
+const KEY='steria:journey:v2';
+const save=()=>store.set(KEY,{i:state.i,done:state.done,ans:state.ans});
+
+async function loadSaved(){
+  const s=await store.get(KEY);
+  if(s&&Object.keys(s.done||{}).length){
+    const n=Object.keys(s.done).length;
+    $('#resume-txt').textContent=`${n} of ${STATIONS.length} stations done.`;
+    $('#resume').hidden=false;
+    $('#r-continue').onclick=()=>{Object.assign(state,s); $('#resume').hidden=true; render(); track('resume_accept',{n});};
+    $('#r-restart').onclick=()=>{reset(); $('#resume').hidden=true; track('resume_decline');};
+    track('resume_offer',{n});
+  }
+}
+function reset(){ state.i=0; state.done={}; state.ans={}; state.mode='read'; save(); render(); track('journey_reset'); }
+
+function renderProgress(){
+  const n=Object.keys(state.done).length;
+  $('#pbar').style.width=(n/STATIONS.length*100)+'%';
+  $('#pmeta').textContent=`Station ${state.i+1} of ${STATIONS.length} · ${n} done`;
+  const d=$('#dots'); d.innerHTML='';
+  STATIONS.forEach((s,i)=>{ const e=document.createElement('span'); e.className='dot';
+    e.dataset.s=state.done[s.id]?'done':(i===state.i?'now':'todo'); d.append(e); });
+  d.setAttribute('aria-label',`${n} of ${STATIONS.length} stations completed`);
+}
+function render(){
+  const s=STATIONS[state.i];
+  $('#st-no').textContent=state.i+1;
+  $('#st-title').textContent=s.title;
+  $('#st-zone').textContent=s.zone;
+  $('#st-done').hidden=!state.done[s.id];
+  $('#st-lead').textContent=s.lead;
+  $('#st-body').innerHTML=s.narrative.map(p=>`<p>${p}</p>`).join('');
+  $('#st-points').innerHTML=s.takeaways.map(t=>`<li>${t}</li>`).join('');
+  renderProgress(); renderQuiz(s); setMode(state.mode,true);
+  $('#prev-st').disabled=state.i===0;
+  const last=state.i===STATIONS.length-1;
+  $('#next-st').textContent = state.done[s.id] ? (last?'Finish →':'Next →') : (last?'Complete journey →':'Mark done →');
+  track('station_view',{station:s.code,slug:s.slug});
+}
+function renderQuiz(s){
+  $('#qq').textContent=s.challenge.prompt;
+  const box=$('#qopts'); box.innerHTML=''; $('#qfb').innerHTML='';
+  const prev=state.ans[s.id];
+  s.challenge.options.forEach(o=>{
+    const b=document.createElement('button'); b.className='opt'; b.type='button'; b.textContent=o.label;
+    if(prev){ b.disabled=true;
+      if(o.correct) b.dataset.v='ok';
+      if(prev.pick===o.id&&!o.correct) b.dataset.v='no'; }
+    b.onclick=()=>{ state.ans[s.id]={pick:o.id,correct:!!o.correct};
+      track('challenge_answer',{station:s.code,correct:!!o.correct});
+      mood(o.correct?'hi':'idle',1100); renderQuiz(s); save(); };
+    box.append(b);
+  });
+  if(prev) $('#qfb').innerHTML=`<div class="fb"><b>STERIA</b>${prev.correct?s.challenge.response:s.challenge.responseIncorrect}</div>`;
+}
+
+/* read / watch */
+function setMode(m,quiet){
+  state.mode=m;
+  const read=m==='read';
+  $('#t-read').setAttribute('aria-selected',read);
+  $('#t-watch').setAttribute('aria-selected',!read);
+  $('#p-read').hidden=!read; $('#p-watch').hidden=read;
+  stopAudio();
+  if(!read) renderPlayer(STATIONS[state.i]);
+  if(!quiet) track('station_media_toggle',{station:STATIONS[state.i].code,mode:m});
+  save();
+}
+function renderPlayer(s){
+  const p=$('#player');
+  if(MEDIA_READY){
+    p.innerHTML=`<video id="clip" controls playsinline autoplay muted preload="metadata" poster="${s.media.poster}">
+      <source src="${s.media.hls}" type="application/vnd.apple.mpegurl">
+      <source src="${s.media.mp4}" type="video/mp4">
+      <track kind="captions" srclang="en" label="English" src="${s.media.captions}" default>
+      Your browser can't play this clip — use the Read tab instead.
+    </video>`;
+    const v=$('#clip');
+    v.addEventListener('play',()=>track('video_play',{station:s.code}));
+    v.addEventListener('ended',()=>track('video_complete',{station:s.code}));
+  }else{
+    p.innerHTML=`<div class="pf"><img src="${IMG}" alt="" aria-hidden="true"><div>
+      <b>Video coming soon</b>
+      <p>Drop the clip at <code>${s.media.mp4}</code>, then set <code>MEDIA_READY = true</code>.</p>
+      <p>For now, listen to the narration or read the transcript.</p></div></div>`;
+  }
+  const t=$('#mtools'); t.innerHTML='';
+  if(!MEDIA_READY){
+    const b=document.createElement('button'); b.className='btn soft'; b.type='button';
+    b.textContent='▶ Listen'; b.onclick=()=>playNarration(s,b); t.append(b);
+  }
+  const r=document.createElement('button'); r.className='btn soft'; r.type='button';
+  r.textContent='Read instead'; r.onclick=()=>{setMode('read'); $('#t-read').focus();}; t.append(r);
+  $('#tb').innerHTML=cues(s).map(c=>`<div class="cue"><span class="t">${c.t}</span><span>${c.text}</span></div>`).join('');
+}
+function cues(s){
+  const lines=[s.lead,...s.narrative,...s.takeaways];
+  const step=Math.max(4,Math.floor(s.media.duration/lines.length));
+  const f=n=>`${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
+  return lines.map((text,i)=>({t:`${f(i*step)}–${f((i+1)*step)}`,text}));
+}
+
+/* ---------- narration: recorded file first, best neural voice second ---------- */
+let audioEl=null;
+/* Prefer a real recording. Falls back to the least robotic voice the device has. */
+const FEMALE=['aria','jenny','michelle','ana','sonia','libby','maisie','emily','clara',
+              'samantha','serena','allison','ava','susan','karen','moira','tessa','fiona',
+              'zira','hazel','google uk english female','google us english'];
+function bestVoice(){
+  const vs=speechSynthesis.getVoices().filter(v=>/^en(-|_|$)/i.test(v.lang));
+  const score=v=>{
+    const n=v.name.toLowerCase(); let s=0;
+    if(/natural|neural|online|premium|enhanced/.test(n)) s+=100;   /* modern neural voices */
+    if(FEMALE.some(f=>n.includes(f))) s+=50;
+    if(/en-gb/i.test(v.lang)) s+=6;
+    if(v.localService) s+=2;
+    if(/compact|espeak|novelty|whisper|zarvox/.test(n)) s-=100;
+    return s;
+  };
+  return vs.sort((a,b)=>score(b)-score(a))[0]||null;
+}
+function stopAudio(){ try{speechSynthesis.cancel();}catch(e){} if(audioEl){audioEl.pause(); audioEl=null;} }
+function playNarration(s,btn){
+  if(btn.dataset.on==='1'){ stopAudio(); btn.dataset.on='0'; btn.textContent='▶ Listen'; return; }
+  btn.dataset.on='1'; btn.textContent='■ Stop';
+  const finish=()=>{ btn.dataset.on='0'; btn.textContent='▶ Listen'; };
+  if(NARRATION_READY){
+    audioEl=new Audio(s.media.audio);
+    audioEl.onended=finish; audioEl.onerror=finish;
+    audioEl.play().catch(finish);
+    track('narration_play',{station:s.code,src:'recording'});
+    return;
+  }
+  if(!('speechSynthesis' in window)){ btn.disabled=true; btn.textContent='Not available'; return; }
+  const u=new SpeechSynthesisUtterance([s.lead,...s.narrative].join(' '));
+  const v=bestVoice(); if(v){ u.voice=v; u.lang=v.lang; } else u.lang='en-GB';
+  u.rate=.94; u.pitch=1.02;          /* slightly slow + level pitch reads calmer */
+  u.onend=finish;
+  speechSynthesis.speak(u);
+  track('narration_play',{station:s.code,src:'tts',voice:v?v.name:'default'});
+}
+
+/* nav */
+function next(){
+  const s=STATIONS[state.i];
+  if(!state.done[s.id]){
+    state.done[s.id]=true; $('#st-done').hidden=false;
+    renderProgress(); mood('yay',1600); save();
+    track('station_complete',{station:s.code,n:Object.keys(state.done).length});
+    $('#next-st').textContent = state.i===STATIONS.length-1?'Finish →':'Next →';
+    return;
+  }
+  if(state.i===STATIONS.length-1) return finish();
+  state.i++; save(); render();
+}
+function back(){ if(state.i>0){ state.i--; save(); render(); } }
+function finish(){
+  const ok=STATIONS.filter(s=>state.ans[s.id]?.correct).length;
+  $('#grade').textContent = ok>=8?'CSSD Champion':ok>=5?'CSSD Specialist':'CSSD Explorer';
+  $('#score').textContent = `${Object.keys(state.done).length} of ${STATIONS.length} stations · ${ok} of ${STATIONS.length} questions right`;
+  const d=$('#done-dots'); d.innerHTML='';
+  STATIONS.forEach(s=>{const e=document.createElement('span'); e.className='dot';
+    e.dataset.s=state.done[s.id]?'done':'todo'; d.append(e);});
+  go('done'); mood('yay',2400);
+  track('journey_complete',{n:Object.keys(state.done).length,correct:ok});
+}
+/* swipe */
+let sx=0,sy=0;
+function swipe(el){
+  el.addEventListener('touchstart',e=>{sx=e.changedTouches[0].clientX;sy=e.changedTouches[0].clientY;},{passive:true});
+  el.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)<60||Math.abs(dy)>Math.abs(dx)) return;
+    track('swipe',{dir:dx<0?'next':'prev'}); dx<0?next():back();
+  },{passive:true});
+}
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+function newConversation(announce){
+  convo.gen++; convo.lastCat=null; convo.shown.clear(); queue=Promise.resolve();
+  $('#log').innerHTML=''; $('#chips').innerHTML=''; $('#q').value='';
+  say('bot',CHAT.greeting);
+  showChips(pick3(KB),'Popular questions');
+  if(announce){ track('chat_cleared',{}); $('#q').focus(); mood('hi',1100); }
+}
+function boot(){
+  buildIris(); startBG(); buildCats(); renderList();
+  $('#quiz-av').src=IMG;
+  newConversation(false);
+  render(); loadSaved(); mood('hi',1500);
+
+  $$('.choice').forEach(b=>b.onclick=()=>{
+    track('choice_select',{choice:b.dataset.go}); go(b.dataset.go);
+    if(b.dataset.go==='ask') setTimeout(()=>$('#q').focus(),300);
+    if(b.dataset.go==='journey') track('journey_start',{});
+  });
+  $('#btn-home').onclick=()=>{stopAudio(); go('home'); mood('hi',1200);};
+  $('#clear').onclick=()=>newConversation(true);
+  $$('[data-face]').forEach(i=>i.src=FACE);
+  $('#fab').hidden=false;
+  $('#fab').onclick=openWidget;
+  $('#w-close').onclick=()=>closeWidget(true);
+  $('#w-new').onclick=()=>newConversation(true);
+  addEventListener('keydown',e=>{ if(e.key==='Escape'&&widgetOpen) closeWidget(true); });
+  $('#composer').onsubmit=e=>{e.preventDefault(); const v=$('#q').value.trim(); if(!v)return; $('#q').value=''; ask(v);};
+  $('#kbq').oninput=e=>{qstr=e.target.value; page=0; renderList();};
+  $('#kbq').onchange=e=>track('kb_search',{q:e.target.value.slice(0,40)});
+  $('#prev').onclick=()=>{page--; renderList(); track('kb_page',{page:page+1});};
+  $('#next').onclick=()=>{page++; renderList(); track('kb_page',{page:page+1});};
+  $('#t-read').onclick=()=>setMode('read');
+  $('#t-watch').onclick=()=>setMode('watch');
+  $('#next-st').onclick=next; $('#prev-st').onclick=back;
+  $('#d-restart').onclick=()=>{reset(); go('journey');};
+  $('#d-ask').onclick=()=>{go('ask'); setTimeout(()=>$('#q').focus(),300);};
+  swipe($('#station'));
+
+  addEventListener('keydown',e=>{
+    if(view!=='journey'||e.target.matches('input,textarea')) return;
+    if(e.target.matches('[role="tab"]')){
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){ e.preventDefault();
+        const o=e.target.id==='t-read'?$('#t-watch'):$('#t-read');
+        setMode(o.id==='t-read'?'read':'watch'); o.focus(); }
+      return;
+    }
+    if(e.key==='ArrowRight') next();
+    if(e.key==='ArrowLeft') back();
+  });
+
+  if(DEBUG){
+    $('#dbg-btn').hidden=false;
+    $('#dbg-btn').onclick=()=>{const o=$('#dbg').hidden; $('#dbg').hidden=!o; $('#dbg-btn').setAttribute('aria-expanded',o);};
+  }
+  if('speechSynthesis' in window) speechSynthesis.getVoices();  /* warm the voice list */
+  track('session_start',{});
+}
+document.addEventListener('DOMContentLoaded',boot);
+</script>
+</body>
+</html>

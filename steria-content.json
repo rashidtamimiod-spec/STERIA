@@ -1,0 +1,1408 @@
+{
+  "$schema": "./steria-content.schema.json",
+  "meta": {
+    "id": "steria",
+    "version": "2.2.0",
+    "updated": "2026-08-18",
+    "locale": "en",
+    "name": "STERIA",
+    "title": "AI CSSD Specialist Assistant",
+    "event": "International Sterile Processing Week 2026",
+    "tagline": "Technology Meets Precision. Patient Safety Leads the Future.",
+    "coreMessage": "Technology supports us. Knowledge empowers us. Together, we protect what matters most — our patients.",
+    "author": "Bodoor Megbel Alharbi — Sterilization Specialist, CSSD",
+    "outOfScope": "That question is outside my Sterilization Passport journey. One of our CSSD specialists will be happy to assist you.",
+    "welcome": "Hello and welcome. I'm STERIA, your AI CSSD Specialist. I'll be your digital guide through the Sterilization Passport Journey. Together we'll discover what happens to a reusable medical instrument before it can safely return to patient care."
+  },
+  "categories": [
+    {
+      "id": "basics",
+      "label": "CSSD basics",
+      "code": "BAS"
+    },
+    {
+      "id": "decon",
+      "label": "Decontamination",
+      "code": "DEC"
+    },
+    {
+      "id": "inspection",
+      "label": "Inspection & assembly",
+      "code": "INS"
+    },
+    {
+      "id": "packaging",
+      "label": "Packaging",
+      "code": "PKG"
+    },
+    {
+      "id": "sterilizing",
+      "label": "Sterilization",
+      "code": "STE"
+    },
+    {
+      "id": "monitoring",
+      "label": "Monitoring",
+      "code": "MON"
+    },
+    {
+      "id": "trace",
+      "label": "Traceability & storage",
+      "code": "TRC"
+    },
+    {
+      "id": "digital",
+      "label": "AI & digital",
+      "code": "DIG"
+    },
+    {
+      "id": "about",
+      "label": "About STERIA",
+      "code": "STA"
+    }
+  ],
+  "stations": [
+    {
+      "id": "s01",
+      "code": "01",
+      "slug": "point-of-use",
+      "title": "Point-of-use handling",
+      "zone": "Operating room / procedure area",
+      "lead": "Our journey starts where the instrument was used.",
+      "narrative": [
+        "Appropriate point-of-use handling helps prevent contamination from drying on instruments, and it supports safe transportation for reprocessing.",
+        "The instrument is then transferred to the decontamination area according to approved procedures — contained, identified, and handled so that the next stage can succeed."
+      ],
+      "takeaways": [
+        "Reprocessing begins the moment the instrument is put down, not when it reaches CSSD.",
+        "Dried soil is far harder to remove and can compromise every step that follows."
+      ],
+      "challenge": {
+        "prompt": "Why is appropriate point-of-use handling important?",
+        "options": [
+          {
+            "id": "a",
+            "label": "It keeps soil from drying on the instrument",
+            "correct": true
+          },
+          {
+            "id": "b",
+            "label": "It replaces the need for cleaning",
+            "correct": false
+          },
+          {
+            "id": "c",
+            "label": "It shortens the sterilization cycle",
+            "correct": false
+          }
+        ],
+        "response": "Correct. It supports effective cleaning and safer handling during the next stage.",
+        "responseIncorrect": "Not quite. Point-of-use handling keeps soil from drying so that cleaning can do its job — it never replaces a later step."
+      },
+      "media": {
+        "hls": "media/s01-point-of-use/master.m3u8",
+        "mp4": "media/s01-point-of-use/720p.mp4",
+        "captions": "media/s01-point-of-use/captions.en.vtt",
+        "poster": "media/s01-point-of-use/poster.webp",
+        "duration": 42,
+        "audio": "media/s01-point-of-use/narration.mp3"
+      }
+    },
+    {
+      "id": "s02",
+      "code": "02",
+      "slug": "decontamination",
+      "title": "Decontamination",
+      "zone": "Decontamination area",
+      "lead": "Welcome to the decontamination area.",
+      "narrative": [
+        "This is where contaminated reusable instruments are received and cleaned using appropriate validated methods.",
+        "Cleaning is a critical step, because sterilization cannot compensate for inadequate cleaning. Everything downstream depends on what happens here."
+      ],
+      "takeaways": [
+        "Cleaning is a prerequisite for sterilization, never an alternative to it.",
+        "Validated methods and approved procedures govern how cleaning is performed and verified."
+      ],
+      "challenge": {
+        "prompt": "True or false: cleaning can be skipped if the instrument will be sterilized afterward.",
+        "options": [
+          {
+            "id": "a",
+            "label": "True",
+            "correct": false
+          },
+          {
+            "id": "b",
+            "label": "False",
+            "correct": true
+          }
+        ],
+        "response": "False — exactly right. Cleaning is essential before sterilization.",
+        "responseIncorrect": "It's false. Soil shields microorganisms and interferes with the process, so cleaning always comes first."
+      },
+      "media": {
+        "hls": "media/s02-decontamination/master.m3u8",
+        "mp4": "media/s02-decontamination/720p.mp4",
+        "captions": "media/s02-decontamination/captions.en.vtt",
+        "poster": "media/s02-decontamination/poster.webp",
+        "duration": 48,
+        "audio": "media/s02-decontamination/narration.mp3"
+      }
+    },
+    {
+      "id": "s03",
+      "code": "03",
+      "slug": "inspection-assembly",
+      "title": "Inspection & assembly",
+      "zone": "Clean preparation area",
+      "lead": "Now that the instrument is clean, it moves to inspection and assembly.",
+      "narrative": [
+        "CSSD professionals inspect instruments for cleanliness, integrity, condition and functionality before preparing the set.",
+        "Some delicate instruments require magnification and particularly careful handling. This is where trained human judgement carries the most weight."
+      ],
+      "takeaways": [
+        "An instrument that fails acceptance criteria does not simply continue down the line.",
+        "Magnification supports inspection of fine details on small or delicate instruments."
+      ],
+      "challenge": {
+        "prompt": "Would you sterilize an instrument that is still visibly contaminated?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Yes — the cycle will handle it",
+            "correct": false
+          },
+          {
+            "id": "b",
+            "label": "No — it goes back for reprocessing",
+            "correct": true
+          }
+        ],
+        "response": "Excellent. An instrument that does not meet acceptance criteria should not proceed to packaging and sterilization.",
+        "responseIncorrect": "No. Visible contamination means the item must be managed according to approved procedure before it can continue."
+      },
+      "media": {
+        "hls": "media/s03-inspection-assembly/master.m3u8",
+        "mp4": "media/s03-inspection-assembly/720p.mp4",
+        "captions": "media/s03-inspection-assembly/captions.en.vtt",
+        "poster": "media/s03-inspection-assembly/poster.webp",
+        "duration": 51,
+        "audio": "media/s03-inspection-assembly/narration.mp3"
+      }
+    },
+    {
+      "id": "s04",
+      "code": "04",
+      "slug": "packaging",
+      "title": "Packaging",
+      "zone": "Packaging & preparation",
+      "lead": "The next step is packaging.",
+      "narrative": [
+        "An appropriate packaging system protects the device and allows the selected sterilization process to reach the item.",
+        "Packaging and preparation must follow validated procedures and the relevant manufacturer's instructions."
+      ],
+      "takeaways": [
+        "Packaging has two jobs: let the sterilant in, then keep contamination out.",
+        "The packaging system has to be compatible with the sterilization method chosen."
+      ],
+      "challenge": {
+        "prompt": "What is one purpose of sterilization packaging?",
+        "options": [
+          {
+            "id": "a",
+            "label": "To allow the sterilant to reach the item",
+            "correct": true
+          },
+          {
+            "id": "b",
+            "label": "To make the set easier to label",
+            "correct": false
+          },
+          {
+            "id": "c",
+            "label": "To speed up drying",
+            "correct": false
+          }
+        ],
+        "response": "Right. Packaging allows sterilant penetration during processing and helps maintain the integrity of the sterile item afterwards, when appropriately handled and stored.",
+        "responseIncorrect": "Close, but the core purpose is to allow sterilant penetration and then protect the processed item."
+      },
+      "media": {
+        "hls": "media/s04-packaging/master.m3u8",
+        "mp4": "media/s04-packaging/720p.mp4",
+        "captions": "media/s04-packaging/captions.en.vtt",
+        "poster": "media/s04-packaging/poster.webp",
+        "duration": 45,
+        "audio": "media/s04-packaging/narration.mp3"
+      }
+    },
+    {
+      "id": "s05",
+      "code": "05",
+      "slug": "sterilization",
+      "title": "Sterilization",
+      "zone": "Sterilizer bay",
+      "lead": "The method is selected to match the device, not the other way round.",
+      "narrative": [
+        "The sterilization method is selected according to the medical device, its compatibility, validated processing requirements and the manufacturer's instructions.",
+        "Steam sterilization is widely used for compatible heat- and moisture-resistant devices. Low-temperature sterilization may be used for compatible devices that cannot tolerate certain high-temperature processes."
+      ],
+      "takeaways": [
+        "Cycle parameters come from the validated cycle, approved policy and the IFU — never from memory.",
+        "Device compatibility drives method selection."
+      ],
+      "challenge": {
+        "prompt": "A visitor asks: what temperature do you use?",
+        "options": [
+          {
+            "id": "a",
+            "label": "It depends on the validated cycle and the IFU",
+            "correct": true
+          },
+          {
+            "id": "b",
+            "label": "The same setting for every load",
+            "correct": false
+          }
+        ],
+        "response": "Correct. Cycle parameters depend on the validated sterilizer cycle, device requirements, load configuration, approved policy and the manufacturer's IFU. These should always be verified rather than assumed.",
+        "responseIncorrect": "Loads are not interchangeable. Parameters come from the validated cycle, approved policy and the manufacturer's IFU."
+      },
+      "media": {
+        "hls": "media/s05-sterilization/master.m3u8",
+        "mp4": "media/s05-sterilization/720p.mp4",
+        "captions": "media/s05-sterilization/captions.en.vtt",
+        "poster": "media/s05-sterilization/poster.webp",
+        "duration": 56,
+        "audio": "media/s05-sterilization/narration.mp3"
+      }
+    },
+    {
+      "id": "s06",
+      "code": "06",
+      "slug": "monitoring",
+      "title": "Monitoring",
+      "zone": "Process control",
+      "lead": "Sterilization isn't just about running a sterilizer.",
+      "narrative": [
+        "CSSD professionals monitor and document the process using appropriate physical, chemical and biological monitoring methods, according to applicable requirements and policies.",
+        "Each monitoring type answers a different question. Together they form one quality system."
+      ],
+      "takeaways": [
+        "Physical, chemical and biological monitoring are complementary, not interchangeable.",
+        "Monitoring results are part of the release decision and the permanent record."
+      ],
+      "challenge": {
+        "prompt": "Do chemical and biological indicators have exactly the same role?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Yes, they are interchangeable",
+            "correct": false
+          },
+          {
+            "id": "b",
+            "label": "No, they provide different information",
+            "correct": true
+          }
+        ],
+        "response": "No — they provide different types of information and are used as part of an overall quality monitoring system.",
+        "responseIncorrect": "They aren't interchangeable. Each provides a different type of information within the monitoring system."
+      },
+      "media": {
+        "hls": "media/s06-monitoring/master.m3u8",
+        "mp4": "media/s06-monitoring/720p.mp4",
+        "captions": "media/s06-monitoring/captions.en.vtt",
+        "poster": "media/s06-monitoring/poster.webp",
+        "duration": 53,
+        "audio": "media/s06-monitoring/narration.mp3"
+      }
+    },
+    {
+      "id": "s07",
+      "code": "07",
+      "slug": "traceability",
+      "title": "Traceability & documentation",
+      "zone": "Records & tracking",
+      "lead": "If it wasn't documented, it can't be traced.",
+      "narrative": [
+        "Documentation supports quality assurance, accountability, investigation and traceability throughout sterile processing.",
+        "Digital systems can help connect information across different stages of the instrument journey — barcode and RFID identification, electronic records and real-time visibility."
+      ],
+      "takeaways": [
+        "Traceability links instrument, process, load and record into one chain.",
+        "Digital documentation supports investigation and continuous improvement."
+      ],
+      "challenge": {
+        "prompt": "What can digital traceability connect?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Instrument, process, load and documentation",
+            "correct": true
+          },
+          {
+            "id": "b",
+            "label": "Only the sterilizer cycle printout",
+            "correct": false
+          }
+        ],
+        "response": "Yes — instrument, process, load, documentation and traceability information across the sterile processing journey.",
+        "responseIncorrect": "It reaches further than the printout: instrument, process, load and documentation all connect."
+      },
+      "media": {
+        "hls": "media/s07-traceability/master.m3u8",
+        "mp4": "media/s07-traceability/720p.mp4",
+        "captions": "media/s07-traceability/captions.en.vtt",
+        "poster": "media/s07-traceability/poster.webp",
+        "duration": 49,
+        "audio": "media/s07-traceability/narration.mp3"
+      }
+    },
+    {
+      "id": "s08",
+      "code": "08",
+      "slug": "storage-distribution",
+      "title": "Storage & distribution",
+      "zone": "Sterile store",
+      "lead": "The journey does not end when the sterilizer door opens.",
+      "narrative": [
+        "After successful processing and release according to approved procedures, sterile items must be handled and stored appropriately to protect package integrity until they are needed.",
+        "Handling, transport and storage conditions all continue to matter right up to the moment of use."
+      ],
+      "takeaways": [
+        "Package integrity is protected by how items are handled, stored and transported.",
+        "Release follows approved procedures before an item is distributed."
+      ],
+      "challenge": {
+        "prompt": "Does the sterilization journey end when the sterilizer door opens?",
+        "options": [
+          {
+            "id": "a",
+            "label": "Yes — the cycle is complete",
+            "correct": false
+          },
+          {
+            "id": "b",
+            "label": "No — handling and storage still matter",
+            "correct": true
+          }
+        ],
+        "response": "No. Proper handling, storage, distribution and maintaining package integrity remain essential.",
+        "responseIncorrect": "Not yet. Release, handling, storage and distribution all still lie ahead."
+      },
+      "media": {
+        "hls": "media/s08-storage-distribution/master.m3u8",
+        "mp4": "media/s08-storage-distribution/720p.mp4",
+        "captions": "media/s08-storage-distribution/captions.en.vtt",
+        "poster": "media/s08-storage-distribution/poster.webp",
+        "duration": 44,
+        "audio": "media/s08-storage-distribution/narration.mp3"
+      }
+    },
+    {
+      "id": "s09",
+      "code": "09",
+      "slug": "patient-safety",
+      "title": "Patient safety",
+      "zone": "Final station",
+      "final": true,
+      "lead": "Every instrument matters. Every process contributes to patient safety.",
+      "narrative": [
+        "You followed the instrument from point-of-use handling through decontamination, inspection, packaging, sterilization, monitoring, documentation, storage and distribution.",
+        "Behind every safe procedure there is a team you rarely see. In CSSD, patient safety is supported by consistently performing and verifying each required reprocessing step."
+      ],
+      "takeaways": [
+        "Every step counts, and every step is somebody's responsibility.",
+        "Technology supports professional judgement — it does not replace it."
+      ],
+      "challenge": {
+        "prompt": "Who protects the patient at every one of these stations?",
+        "options": [
+          {
+            "id": "a",
+            "label": "The CSSD professional",
+            "correct": true
+          },
+          {
+            "id": "b",
+            "label": "The sterilizer",
+            "correct": false
+          }
+        ],
+        "response": "The CSSD professional. Technology supports us. Knowledge empowers us. Together, we protect what matters most — our patients.",
+        "responseIncorrect": "Equipment performs the process; people own the outcome. The CSSD professional protects the patient at every station."
+      },
+      "media": {
+        "hls": "media/s09-patient-safety/master.m3u8",
+        "mp4": "media/s09-patient-safety/720p.mp4",
+        "captions": "media/s09-patient-safety/captions.en.vtt",
+        "poster": "media/s09-patient-safety/poster.webp",
+        "duration": 38,
+        "audio": "media/s09-patient-safety/narration.mp3"
+      }
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "id": 1,
+      "cat": "basics",
+      "q": "What is CSSD?",
+      "a": "CSSD is the Central Sterile Services Department. It supports healthcare delivery by reprocessing reusable medical devices according to validated procedures and applicable requirements.",
+      "k": [
+        "cssd",
+        "central",
+        "sterile",
+        "services",
+        "department",
+        "meaning",
+        "stand for",
+        "what is"
+      ]
+    },
+    {
+      "id": 2,
+      "cat": "basics",
+      "q": "Why is CSSD important?",
+      "a": "CSSD supports safe patient care by ensuring reusable medical devices are appropriately cleaned, inspected, prepared, processed, documented, stored and distributed.",
+      "k": [
+        "important",
+        "why",
+        "matter",
+        "role",
+        "purpose",
+        "value"
+      ]
+    },
+    {
+      "id": 3,
+      "cat": "decon",
+      "q": "What is decontamination?",
+      "a": "It is an important stage in reprocessing where contaminated devices are handled and cleaned according to established procedures before further processing.",
+      "k": [
+        "decontamination",
+        "decon",
+        "contaminated",
+        "dirty",
+        "soiled"
+      ]
+    },
+    {
+      "id": 4,
+      "cat": "decon",
+      "q": "Why is cleaning important?",
+      "a": "Soil and contamination can interfere with subsequent processing. Effective cleaning is therefore a fundamental prerequisite to successful reprocessing.",
+      "k": [
+        "cleaning",
+        "clean",
+        "wash",
+        "soil",
+        "important",
+        "why"
+      ]
+    },
+    {
+      "id": 5,
+      "cat": "decon",
+      "q": "Can sterilization replace cleaning?",
+      "a": "No. Proper cleaning is required before sterilization.",
+      "k": [
+        "replace",
+        "skip",
+        "instead",
+        "cleaning",
+        "sterilization",
+        "shortcut"
+      ]
+    },
+    {
+      "id": 6,
+      "cat": "decon",
+      "q": "What happens after cleaning?",
+      "a": "Instruments generally proceed to inspection, function checks, assembly and preparation according to their processing requirements.",
+      "k": [
+        "after",
+        "next",
+        "cleaning",
+        "then",
+        "sequence",
+        "order"
+      ]
+    },
+    {
+      "id": 7,
+      "cat": "inspection",
+      "q": "Why are instruments inspected?",
+      "a": "To identify remaining contamination, damage, defects or functional problems before further processing.",
+      "k": [
+        "inspect",
+        "inspection",
+        "check",
+        "examine",
+        "why",
+        "defect"
+      ]
+    },
+    {
+      "id": 8,
+      "cat": "inspection",
+      "q": "What happens if an instrument is damaged?",
+      "a": "It should be managed according to the facility's approved procedure rather than automatically returning to use.",
+      "k": [
+        "damaged",
+        "broken",
+        "faulty",
+        "defective",
+        "repair",
+        "rejected"
+      ]
+    },
+    {
+      "id": 9,
+      "cat": "inspection",
+      "q": "Why use magnification?",
+      "a": "Magnification can assist inspection of fine details, particularly with small or delicate instruments.",
+      "k": [
+        "magnification",
+        "magnifier",
+        "lens",
+        "loupe",
+        "microscope",
+        "delicate",
+        "small"
+      ]
+    },
+    {
+      "id": 10,
+      "cat": "inspection",
+      "q": "What is instrument assembly?",
+      "a": "It is the organized preparation of instruments or sets according to approved specifications before packaging and processing.",
+      "k": [
+        "assembly",
+        "assemble",
+        "set",
+        "tray",
+        "prepare",
+        "build"
+      ]
+    },
+    {
+      "id": 11,
+      "cat": "packaging",
+      "q": "What is packaging?",
+      "a": "Packaging provides an appropriate system for sterilization and subsequent protection of the processed item when properly handled.",
+      "k": [
+        "packaging",
+        "package",
+        "wrap",
+        "pouch",
+        "container",
+        "barrier"
+      ]
+    },
+    {
+      "id": 12,
+      "cat": "packaging",
+      "q": "Why is package integrity important?",
+      "a": "Damage or compromised integrity can affect the protection of the processed item and requires appropriate assessment according to policy.",
+      "k": [
+        "integrity",
+        "torn",
+        "damaged",
+        "package",
+        "wet",
+        "hole",
+        "seal"
+      ]
+    },
+    {
+      "id": 13,
+      "cat": "sterilizing",
+      "q": "What is steam sterilization?",
+      "a": "A validated sterilization method using saturated steam under controlled conditions for compatible devices.",
+      "k": [
+        "steam",
+        "autoclave",
+        "moist heat",
+        "saturated"
+      ]
+    },
+    {
+      "id": 14,
+      "cat": "sterilizing",
+      "q": "What is low-temperature sterilization?",
+      "a": "It refers to validated sterilization technologies designed for compatible devices that may not tolerate certain high-temperature processes.",
+      "k": [
+        "low temperature",
+        "low-temp",
+        "plasma",
+        "peroxide",
+        "gas",
+        "heat sensitive"
+      ]
+    },
+    {
+      "id": 15,
+      "cat": "sterilizing",
+      "q": "Who determines which method is appropriate?",
+      "a": "Device compatibility, validated processing instructions, sterilizer requirements, facility policy and the manufacturer's IFU guide the decision.",
+      "k": [
+        "who decides",
+        "method",
+        "choose",
+        "select",
+        "ifu",
+        "policy",
+        "which"
+      ]
+    },
+    {
+      "id": 16,
+      "cat": "monitoring",
+      "q": "What is a chemical indicator?",
+      "a": "A chemical indicator provides information about exposure to one or more process conditions, depending on the indicator type.",
+      "k": [
+        "chemical indicator",
+        "ci",
+        "strip",
+        "tape",
+        "colour change",
+        "color change"
+      ]
+    },
+    {
+      "id": 17,
+      "cat": "monitoring",
+      "q": "What is a biological indicator?",
+      "a": "A biological indicator uses highly resistant microorganisms or spores to provide information about the effectiveness of a sterilization process under defined conditions.",
+      "k": [
+        "biological indicator",
+        "bi",
+        "spore",
+        "microorganism",
+        "vial",
+        "test"
+      ]
+    },
+    {
+      "id": 18,
+      "cat": "monitoring",
+      "q": "Are BI and CI the same?",
+      "a": "No. They serve different monitoring functions.",
+      "k": [
+        "bi",
+        "ci",
+        "same",
+        "difference",
+        "compare",
+        "indicator"
+      ]
+    },
+    {
+      "id": 19,
+      "cat": "monitoring",
+      "q": "What is physical monitoring?",
+      "a": "It involves reviewing relevant sterilizer cycle information and physical process parameters according to the system and approved procedures.",
+      "k": [
+        "physical monitoring",
+        "printout",
+        "gauge",
+        "chart",
+        "parameters",
+        "cycle data"
+      ]
+    },
+    {
+      "id": 20,
+      "cat": "trace",
+      "q": "What is traceability?",
+      "a": "Traceability is the ability to follow relevant information about an item or process through documented stages of reprocessing and use, according to the system in place.",
+      "k": [
+        "traceability",
+        "trace",
+        "track",
+        "follow",
+        "history",
+        "recall"
+      ]
+    },
+    {
+      "id": 21,
+      "cat": "trace",
+      "q": "Why is documentation important?",
+      "a": "Documentation supports traceability, quality assurance, accountability, investigation and continuous improvement.",
+      "k": [
+        "documentation",
+        "record",
+        "log",
+        "paperwork",
+        "why",
+        "important"
+      ]
+    },
+    {
+      "id": 22,
+      "cat": "sterilizing",
+      "q": "What happens after sterilization?",
+      "a": "Items undergo the required release and handling processes and are stored and distributed according to approved procedures.",
+      "k": [
+        "after sterilization",
+        "release",
+        "next",
+        "cooling",
+        "unload"
+      ]
+    },
+    {
+      "id": 23,
+      "cat": "trace",
+      "q": "Why is storage important?",
+      "a": "Appropriate storage and handling help protect packaging and maintain the integrity of processed items until use.",
+      "k": [
+        "storage",
+        "store",
+        "shelf",
+        "sterile store",
+        "keep",
+        "why"
+      ]
+    },
+    {
+      "id": 24,
+      "cat": "decon",
+      "q": "What is point-of-use handling?",
+      "a": "It refers to appropriate actions taken after use to support safe handling and subsequent effective reprocessing.",
+      "k": [
+        "point of use",
+        "point-of-use",
+        "theatre",
+        "or",
+        "after use",
+        "pre-treatment"
+      ]
+    },
+    {
+      "id": 25,
+      "cat": "basics",
+      "q": "What is patient safety?",
+      "a": "In CSSD, patient safety is supported by consistently performing and verifying each required reprocessing step.",
+      "k": [
+        "patient safety",
+        "safe",
+        "harm",
+        "infection",
+        "protect"
+      ]
+    },
+    {
+      "id": 26,
+      "cat": "digital",
+      "q": "Can AI sterilize instruments?",
+      "a": "AI itself does not physically sterilize instruments. It may support areas such as monitoring, education, analytics, documentation and process visibility.",
+      "k": [
+        "ai sterilize",
+        "robot",
+        "machine",
+        "can ai",
+        "automatic"
+      ]
+    },
+    {
+      "id": 27,
+      "cat": "digital",
+      "q": "Will AI replace CSSD professionals?",
+      "a": "No. The purpose of this concept is to demonstrate how technology can support CSSD professionals while professional expertise and judgement remain essential.",
+      "k": [
+        "replace",
+        "job",
+        "redundant",
+        "lose",
+        "ai",
+        "future of work"
+      ]
+    },
+    {
+      "id": 28,
+      "cat": "digital",
+      "q": "How can AI help CSSD?",
+      "a": "Potential applications include identifying trends, supporting monitoring, education, analytics, workflow visibility and quality improvement.",
+      "k": [
+        "how ai help",
+        "benefit",
+        "use case",
+        "support",
+        "application"
+      ]
+    },
+    {
+      "id": 29,
+      "cat": "digital",
+      "q": "What is smart tracking?",
+      "a": "Technologies such as barcode or RFID-based systems can help improve identification and traceability of instruments, sets and processing information.",
+      "k": [
+        "smart tracking",
+        "barcode",
+        "rfid",
+        "scan",
+        "tag",
+        "qr"
+      ]
+    },
+    {
+      "id": 30,
+      "cat": "digital",
+      "q": "What is digital documentation?",
+      "a": "It means recording relevant processing information electronically rather than relying solely on manual documentation.",
+      "k": [
+        "digital documentation",
+        "paperless",
+        "electronic",
+        "record",
+        "software"
+      ]
+    },
+    {
+      "id": 31,
+      "cat": "digital",
+      "q": "What are real-time dashboards?",
+      "a": "Dashboards can present selected operational or quality information in a visual format to support monitoring and decision-making.",
+      "k": [
+        "dashboard",
+        "real time",
+        "screen",
+        "visual",
+        "kpi",
+        "monitor"
+      ]
+    },
+    {
+      "id": 32,
+      "cat": "digital",
+      "q": "What is predictive analytics?",
+      "a": "Predictive analytics uses historical data and analytical models to identify patterns that may help support planning and informed decision-making.",
+      "k": [
+        "predictive",
+        "analytics",
+        "forecast",
+        "trend",
+        "model",
+        "data"
+      ]
+    },
+    {
+      "id": 33,
+      "cat": "digital",
+      "q": "Can AI make sterilization decisions by itself?",
+      "a": "Technology can support professionals, but validated processes, approved policies, manufacturer's instructions and professional judgement remain essential.",
+      "k": [
+        "ai decide",
+        "autonomous",
+        "by itself",
+        "alone",
+        "decision",
+        "judgement"
+      ]
+    },
+    {
+      "id": 34,
+      "cat": "basics",
+      "q": "What is a Sterilization Passport?",
+      "a": "It is an educational experience that allows visitors to follow the journey of a reusable medical instrument through different CSSD stages.",
+      "k": [
+        "passport",
+        "journey",
+        "what is this",
+        "experience",
+        "stations"
+      ]
+    },
+    {
+      "id": 35,
+      "cat": "basics",
+      "q": "Is this a real passport?",
+      "a": "No. It is an interactive educational concept designed to make learning about sterile processing more engaging.",
+      "k": [
+        "real passport",
+        "travel",
+        "document",
+        "official",
+        "is this real"
+      ]
+    },
+    {
+      "id": 36,
+      "cat": "about",
+      "q": "What is STERIA?",
+      "a": "I'm STERIA, your AI CSSD Specialist and digital guide through the Sterilization Passport Journey.",
+      "k": [
+        "steria",
+        "who are you",
+        "your name",
+        "what are you"
+      ]
+    },
+    {
+      "id": 37,
+      "cat": "about",
+      "q": "Are you a real CSSD specialist?",
+      "a": "I'm an AI educational assistant designed to represent and support the educational experience. Real CSSD professionals remain the experts responsible for sterile processing practice.",
+      "k": [
+        "real person",
+        "human",
+        "specialist",
+        "are you real",
+        "bot"
+      ]
+    },
+    {
+      "id": 38,
+      "cat": "about",
+      "q": "Can I ask you medical questions?",
+      "a": "I can answer educational questions related to sterile processing and patient safety, but I don't provide patient-specific medical advice.",
+      "k": [
+        "medical advice",
+        "diagnosis",
+        "my condition",
+        "treatment",
+        "doctor"
+      ]
+    },
+    {
+      "id": 39,
+      "cat": "about",
+      "q": "What if you don't know an answer?",
+      "a": "I won't guess. I'll recommend checking the appropriate approved source or speaking with one of our CSSD specialists.",
+      "k": [
+        "don't know",
+        "unsure",
+        "guess",
+        "wrong",
+        "not sure"
+      ]
+    },
+    {
+      "id": 40,
+      "cat": "about",
+      "q": "What is your main message?",
+      "a": "Technology supports us. Knowledge empowers us. Together, we protect what matters most — our patients.",
+      "k": [
+        "message",
+        "motto",
+        "slogan",
+        "core",
+        "main",
+        "tagline"
+      ]
+    }
+  ],
+  "chat": {
+    "greeting": "Hi, I'm STERIA 👋 Ask me anything about sterile processing — type in your own words, or tap a question below to get started.",
+    "openers": [
+      "",
+      "",
+      "",
+      "Good question. ",
+      "Sure — ",
+      "Happy to explain. ",
+      "Here's what I can tell you: "
+    ],
+    "clarify": "I have two answers that could fit. Which one did you mean?",
+    "multi": "You asked a few things — let me take them one at a time.",
+    "more": "Here's something related you might find useful:",
+    "noMore": "That's everything I have on that topic. Try another question, or tap one below.",
+    "noContext": "Happy to — what would you like to know more about? You can type a question or tap one below.",
+    "feedbackAsk": "Was this helpful?",
+    "feedbackYes": "Glad it helped!",
+    "feedbackNo": "Thanks for telling me. One of our CSSD specialists at the stand will be happy to go into more detail.",
+    "smallTalk": [
+      {
+        "id": "greet",
+        "when": "hi · hello · hey · good morning · salam · assalamu alaikum · marhaba · السلام عليكم · مرحبا",
+        "pattern": "^(hi+|hello|hey|hiya|salam|salaam|assalam\\w*|as-?salamu? ?alaikum|marhaba|good (morning|afternoon|evening)|السلام عليكم|مرحبا|اهلا|أهلا)(?=[\\s,!.?؟،]|$)",
+        "replies": [
+          "Hello! What would you like to know about sterile processing?",
+          "Hi there — ask me anything about how CSSD keeps instruments safe.",
+          "Welcome! I'm here to answer your questions about the instrument journey."
+        ]
+      },
+      {
+        "id": "howareyou",
+        "when": "how are you · how's it going · كيف حالك",
+        "pattern": "(how are (you|u)|how r u|how's it going|كيف حالك)",
+        "replies": [
+          "I'm doing well, thank you — and ready to talk sterile processing. What would you like to know?"
+        ]
+      },
+      {
+        "id": "nicetomeet",
+        "when": "nice to meet you · pleased to meet you",
+        "pattern": "\\b(nice|pleased|good|great) to (meet|see) (you|u)\\b",
+        "replies": [
+          "Lovely to meet you too! What brings you to the CSSD stand today?"
+        ]
+      },
+      {
+        "id": "name",
+        "when": "what does STERIA mean · why are you called STERIA · what's your name",
+        "pattern": "(what does (steria|your name) mean|why (are you|r u) called|(what('s| is) your|your) name|who are you)(?=[\\s,!.?؟،]|$)",
+        "replies": [
+          "I'm STERIA — the name comes from sterilization, the work at the heart of CSSD. I'm the digital guide for the Sterilization Passport Journey."
+        ],
+        "chips": [
+          36,
+          34
+        ]
+      },
+      {
+        "id": "whomade",
+        "when": "who made you · who created you · who built you · who is behind this",
+        "pattern": "\\bwho ((made|created|built|designed|developed|invented|programmed) (you|u|this|steria)|is behind (you|this))\\b",
+        "replies": [
+          "I was created by the CSSD team at King Khaled Eye Specialist Hospital. The concept and content were developed by Bodoor Megbel Alharbi, Sterilization Specialist — and the real experts are the CSSD professionals right here at the stand."
+        ]
+      },
+      {
+        "id": "robot",
+        "when": "are you a robot · are you a bot · are you real · are you human · is this AI",
+        "pattern": "\\b((are (you|u)|r u) (a |an )?(robot|bot|chatbot|ai|computer|machine|program|human( being)?|person|real( (person|human|one|cssd specialist|specialist|nurse|doctor))?|alive)|is this (a |an )?(robot|bot|chatbot|ai))\\b",
+        "replies": [
+          "I'm an AI educational assistant — not a person, and not a replacement for one. The real CSSD specialists are right here at the stand, and they know far more than I do."
+        ],
+        "chips": [
+          37,
+          27,
+          26
+        ]
+      },
+      {
+        "id": "feelings",
+        "when": "do you have feelings · are you happy · do you get tired · do you sleep · do you eat",
+        "pattern": "\\b(do (you|u) (have feelings|get tired|sleep|eat|dream|get bored)|are (you|u) (happy|sad|tired|bored|lonely))\\b",
+        "replies": [
+          "I don't have feelings, but I do have endless enthusiasm for clean instruments! What would you like to know?"
+        ]
+      },
+      {
+        "id": "age",
+        "when": "how old are you · when were you born · when were you made",
+        "pattern": "\\b(how old are (you|u)|when were (you|u) (born|made|created)|your birthday)\\b",
+        "replies": [
+          "I'm brand new — created for International Sterile Processing Week 2026. Young, but I know my way around a CSSD."
+        ]
+      },
+      {
+        "id": "nurse",
+        "when": "are you a nurse · are you a doctor · are you a technician",
+        "pattern": "\\b(are (you|u)|r u|you're|you are) (a |an )?(nurse|doctor|technician|tech|specialist|surgeon)\\b",
+        "replies": [
+          "I'm a digital CSSD specialist — an educational assistant that represents the sterile processing team. Every real decision about an instrument is made by trained CSSD professionals."
+        ],
+        "chips": [
+          37,
+          2
+        ]
+      },
+      {
+        "id": "favourite",
+        "when": "what's your favourite station · favourite part · favourite instrument",
+        "pattern": "\\b(favou?rite|favorite|best) (station|part|step|stage|instrument|topic)\\b|\\bwhat('s| is) your favou?rite\\b",
+        "replies": [
+          "My favourite station is Decontamination — nothing downstream works if cleaning isn't done well. Which station is your favourite?"
+        ],
+        "chips": [
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "id": "photo",
+        "when": "can I take a photo with you · selfie · picture",
+        "pattern": "\\b(selfie|(take|get|have) a (photo|picture|pic|selfie)|photo with (you|u))\\b",
+        "replies": [
+          "Of course — I'd be honoured! The team at the stand can show you the best spot. Smile: clean instruments make everyone happy."
+        ]
+      },
+      {
+        "id": "arabic_speak",
+        "when": "do you speak Arabic · can you speak Arabic · English only?",
+        "pattern": "\\b(speak|talk|understand|know) (arabic|arabi|english|other languages?)\\b|\\bin arabic\\b",
+        "replies": [
+          "At the moment I chat in English. Our CSSD specialists at the stand will gladly help you in Arabic."
+        ]
+      },
+      {
+        "id": "event",
+        "when": "what is this event · what's happening here · what is this stand · why sterile processing week · what are you celebrating",
+        "pattern": "\\b(what('s| is) (this|the) (event|stand|booth|exhibition|display|activity)|what('s| is) (going on|happening|this)( here)?|sterile processing week|what are (you|we) celebrating|why (celebrate|is there a week))\\b",
+        "replies": [
+          "This is International Sterile Processing Week 2026 — a week to celebrate the CSSD professionals who make every instrument safe before it reaches a patient. The stand shows what happens behind the scenes, and I'm your guide."
+        ],
+        "chips": [
+          34,
+          1,
+          2
+        ]
+      },
+      {
+        "id": "when",
+        "when": "when is sterile processing week · what are the dates · what's the schedule",
+        "pattern": "\\b(when is (sterile processing week|the event|this)|what (are the )?dates?|schedule|programme|program of)\\b",
+        "replies": [
+          "It's happening right now — this week! The team at the stand can share the full schedule of activities."
+        ]
+      },
+      {
+        "id": "where_cssd",
+        "when": "where is the CSSD · can I visit the department · can I see the sterilizers",
+        "pattern": "\\b(where('s| is) (the )?(cssd|sterile services|sterilization department|department)|(visit|see|tour|go to|enter) (the )?(cssd|department|sterilizers?))\\b",
+        "replies": [
+          "Our CSSD is inside the hospital, but it's a controlled area — visitors can't walk in. This stand is the next best thing: the whole instrument journey, without the scrubs!"
+        ]
+      },
+      {
+        "id": "howjourney",
+        "when": "how does this work · how does the passport work · how long does it take · how many stations",
+        "pattern": "\\b(how (does|do) (this|the passport|the journey|it) work|how long (does|will) (it|this|the journey) take|how many (stations|stops|steps|questions))\\b",
+        "replies": [
+          "The Passport Journey has 9 short stations — about five minutes if you read, a little longer if you watch. At each one you answer a question and collect a stamp. Tap 'Start the passport journey' on the home screen to begin."
+        ],
+        "chips": [
+          34,
+          35
+        ]
+      },
+      {
+        "id": "prize",
+        "when": "is there a prize · what do I get · gift · giveaway · certificate",
+        "pattern": "\\b(prizes?|gifts?|giveaways?|rewards?|certificates?|what do i (get|win)|can i win|free stuff|goodies?)\\b",
+        "replies": [
+          "Finish all nine stations and you earn the CSSD Champion badge. Ask the team at the stand about anything else on offer this week!"
+        ]
+      },
+      {
+        "id": "im_clinical",
+        "when": "I'm a nurse · I'm a doctor · I'm a surgeon · I work in the OR / theatre / clinic",
+        "pattern": "\\b((i'm|im|i am) (a |an )?(nurse|doctor|surgeon|physician|anaesthetist|anesthesiologist|technician|tech|pharmacist|dentist|optometrist|ophthalmologist)|i work in (the )?(or|ot|theatre|theater|operating|icu|clinic|ward|opd))\\b",
+        "replies": [
+          "Wonderful — you're one of the people we do this for. Every instrument you receive has passed through all nine stations. Ask me about any of them; traceability and monitoring are the ones that matter most at point of use."
+        ],
+        "chips": [
+          20,
+          18,
+          24
+        ]
+      },
+      {
+        "id": "im_cssd",
+        "when": "I work in CSSD · I'm a sterilization technician · I'm from CSSD",
+        "pattern": "\\b(i work in (the )?cssd|(i'm|im|i am) (a |an )?(cssd|sterilization|sterile processing|sterile services) (specialist|tech|technician|staff|nurse|supervisor)|(i'm|im|i am) from (the )?cssd)\\b",
+        "replies": [
+          "Then you're the expert here, not me! Thank you for what you do. Test me — ask something tricky and see whether my answers match your experience. Anything I get wrong, tell the team at the stand so we can fix it."
+        ],
+        "chips": [
+          28,
+          33,
+          32
+        ]
+      },
+      {
+        "id": "im_student",
+        "when": "I'm a student · I'm a trainee · I'm an intern · I'm studying",
+        "pattern": "\\b((i'm|im|i am) (a |an )?(student|trainee|intern|resident|graduate)|(i'm|im|i am) studying|i study)\\b",
+        "replies": [
+          "Welcome! The Passport Journey is a great way to learn the whole reprocessing cycle in a few minutes. Start with 'What is CSSD?' and work through the stations — and ask me anything along the way."
+        ],
+        "chips": [
+          1,
+          3,
+          7
+        ]
+      },
+      {
+        "id": "im_patient",
+        "when": "I'm a patient · I'm a visitor · my mother is a patient here",
+        "pattern": "\\b((i'm|im|i am) (a |an )?(patient|visitor|relative|family member|guest)|my (mother|father|mum|dad|son|daughter|husband|wife|child|brother|sister) (is|has|had) )",
+        "replies": [
+          "Thank you for visiting. Everything here is about keeping patients safe — every instrument used in care is cleaned, inspected, sterilized and tracked before it reaches you. For questions about your own care, please speak with your care team."
+        ],
+        "chips": [
+          25,
+          2
+        ]
+      },
+      {
+        "id": "im_it",
+        "when": "I'm from IT · I work in innovation · I'm in digital health",
+        "pattern": "\\b((i'm|im|i am) (from|in|with) (it|innovation|digital|informatics|data|technology|the innovation)|i work in (it|innovation|informatics))\\b",
+        "replies": [
+          "Then you'll enjoy the 'AI & digital' topics — smart tracking, digital documentation, dashboards and predictive analytics. Ask me how technology can support CSSD without replacing the people."
+        ],
+        "chips": [
+          29,
+          31,
+          32
+        ]
+      },
+      {
+        "id": "career",
+        "when": "how do I become a sterilization specialist · how can I join CSSD · career in CSSD",
+        "pattern": "\\b(how (do|can|could) i (become|join|work|get a job|start)|career|want to (work|be|join)|how to become|job (in|at) cssd|hiring|vacanc)\\b",
+        "replies": [
+          "That's great to hear — CSSD is a specialised, growing field. Speak with the CSSD team at the stand; they can tell you about training and pathways at the hospital."
+        ]
+      },
+      {
+        "id": "compliment",
+        "when": "you're smart · you're cute · this is cool · I love you · good job · well done",
+        "pattern": "\\b(you('re| are) (so |very |really )?(cute|smart|clever|amazing|awesome|great|cool|nice|helpful|beautiful|pretty|funny|brilliant|the best)|i (love|like) (you|this|it)|good (bot|job)|well done|this is (so |very |really )?(cool|amazing|great|nice|awesome|fun))\\b",
+        "replies": [
+          "Thank you! I'll pass that on to the team — they did all the hard work. What would you like to know next?",
+          "That's kind of you! Now, let's put my knowledge to the test — ask me something."
+        ]
+      },
+      {
+        "id": "complaint",
+        "when": "you're useless · you're wrong · this is bad · you don't understand · you're not helpful",
+        "pattern": "\\b(you('re| are) (useless|stupid|dumb|bad|wrong|not helpful|unhelpful|boring|slow|broken)|this (is )?(sucks|is bad|doesn't work|is useless)|(you|u) don'?t (understand|get it)|that('s| is) (wrong|not right|incorrect))\\b",
+        "replies": [
+          "Sorry about that. I only know the questions our CSSD team approved, so I do miss things. Try rephrasing, tap one of the suggested questions, or ask one of the specialists at the stand — and your feedback helps us improve."
+        ]
+      },
+      {
+        "id": "confused",
+        "when": "I don't understand · I'm confused · explain it simply · what do you mean",
+        "pattern": "\\b(i don'?t (understand|get it|follow)|(i'm|im|i am) confused|i ?m confused|confusing|what do (you|u) mean|explain (it |that )?(again|simply|simpler|in simple words|like i'm)|too (complicated|technical))\\b",
+        "replies": [
+          "Let me put it simply: an instrument used on one patient is cleaned, checked, wrapped, sterilized, monitored, recorded and stored before it can be used again — and CSSD does every one of those steps. Which part would you like me to go into?"
+        ],
+        "chips": [
+          3,
+          11,
+          13
+        ]
+      },
+      {
+        "id": "bored",
+        "when": "I'm bored · I'm tired · this is boring",
+        "pattern": "\\b((i'm|im|i am) (bored|tired|sleepy|exhausted)|(this|it)('s| is) boring)\\b",
+        "replies": [
+          "Then let's make it quick and fun — take the challenge: nine stations, nine questions, one badge. Or ask me anything and I'll keep it short."
+        ]
+      },
+      {
+        "id": "joke",
+        "when": "tell me a joke · make me laugh · say something funny",
+        "pattern": "\\b(jokes?|make me laugh|something funny|be funny|are (you|u) funny)\\b",
+        "replies": [
+          "Why did the instrument go to CSSD? It needed a clean start.",
+          "What's a sterilizer's favourite music? Steam-punk.",
+          "Why do instruments never skip cleaning? Because sterilization can't fix what cleaning missed — and that's not a joke, that's the rule."
+        ]
+      },
+      {
+        "id": "flirt",
+        "when": "will you marry me · are you single · be my girlfriend",
+        "pattern": "\\b(marry me|be my (girlfriend|wife|valentine)|are (you|u) single|go on a date|date me|(i'm|im|i am) in love with (you|u))\\b",
+        "replies": [
+          "I'm flattered, but I'm married to my work — sterile processing, around the clock. What would you like to know about it?"
+        ]
+      },
+      {
+        "id": "rude",
+        "when": "insults or bad language",
+        "pattern": "\\b(shut up|idiot|stupid bot|damn|hell|crap|f+u+c*k+\\w*|sh[i1]t+|b[i1]tch|ass(hole)?|wtf|stfu)\\b",
+        "replies": [
+          "Let's keep it friendly — I'm here to help. What would you like to know about sterile processing?"
+        ],
+        "stop": true
+      },
+      {
+        "id": "medical",
+        "when": "my eye hurts · I need an appointment · my prescription · I feel sick · emergency",
+        "pattern": "\\b(my (eyes?|vision|sight|eyesight|pain|condition|surgery|operation|results?)|i (have|feel|am|'m) (pain|sick|dizzy|unwell|ill|not well)|appointments?|prescriptions?|my medication|medicine for|emergency|(see|need|find) a doctor|it hurts|hurts)\\b",
+        "replies": [
+          "I can't help with medical questions, appointments or personal care — I only cover sterile processing. Please speak with hospital staff or the information desk, and they'll point you to the right place."
+        ],
+        "chips": [
+          38,
+          25
+        ],
+        "stop": true
+      },
+      {
+        "id": "directions",
+        "when": "where is the toilet · cafeteria · pharmacy · parking · prayer room · information desk · exit",
+        "pattern": "\\b(where('s| is| are) (the |a )?(toilets?|bathrooms?|restrooms?|washrooms?|cafeteria|cafe|coffee|restaurant|pharmacy|parking|car park|exit|entrance|elevators?|lifts?|prayer room|mosque|musalla|information desk|reception|main desk|atm)|how do i get to)\\b",
+        "replies": [
+          "I'm afraid I don't know my way around the building — I only know my way around a CSSD! The team at the stand or the information desk can point you in the right direction."
+        ],
+        "stop": true
+      },
+      {
+        "id": "hospital_general",
+        "when": "hospital opening hours · visiting hours · how to contact the hospital · services · complaints",
+        "pattern": "\\b(opening hours|visiting hours|working hours|contact (the )?hospital|hospital (number|phone|email|website|services)|make a complaint|patient (relations|experience|affairs))\\b",
+        "replies": [
+          "That's a question for the hospital rather than for me. The information desk or the hospital website can help — I'm only an expert on what happens to instruments!"
+        ],
+        "stop": true
+      },
+      {
+        "id": "thanks",
+        "when": "thanks · thank you · shukran · شكرا",
+        "pattern": "(^|\\s)(thanks?|thank you|thx|ty|shukran|appreciated?|شكرا)(?=[\\s,!.?؟،]|$)",
+        "replies": [
+          "You're very welcome! Anything else you'd like to know?",
+          "My pleasure. Feel free to ask another question.",
+          "Happy to help — every question helps protect patients."
+        ]
+      },
+      {
+        "id": "bye",
+        "when": "bye · goodbye · see you · ma'a salama · مع السلامة",
+        "pattern": "^(bye|goodbye|see (you|ya)|ma ?a?salama|مع السلامة|good ?night|take care|i have to go|gotta go)(?=[\\s,!.?؟،]|$)",
+        "replies": [
+          "Thank you for visiting! Remember: technology supports us, knowledge empowers us. Goodbye!",
+          "Goodbye — and thank you for caring about patient safety. Enjoy the rest of the event!"
+        ]
+      },
+      {
+        "id": "help",
+        "when": "help · menu · what can I ask · what do you know",
+        "pattern": "^(help|menu|options|topics|what can (you|i) (do|ask)( you)?|what do you know|what can you help with)\\W*$",
+        "replies": [
+          "I can answer questions about CSSD — cleaning, inspection, packaging, sterilization, monitoring, traceability, storage, and how AI and digital tools support the team. Pick a topic below, or just type your question."
+        ]
+      },
+      {
+        "id": "ack",
+        "when": "ok · okay · cool · great · got it · I see · interesting",
+        "pattern": "^(ok|okay|k|cool|great|nice|good|got it|i see|sure|alright|perfect|wow|interesting|makes sense|understood)\\W*$",
+        "replies": [
+          "Great! What else would you like to know?",
+          "Glad that's clear. Anything else on your mind?"
+        ]
+      },
+      {
+        "id": "arabic",
+        "when": "any message written in Arabic that isn't a greeting or thanks",
+        "pattern": "[\\u0600-\\u06FF]",
+        "replies": [
+          "أهلاً وسهلاً! At the moment I chat in English, but our CSSD specialists at the stand will gladly help you in Arabic."
+        ],
+        "stop": true
+      }
+    ],
+    "followUpPattern": "^(tell me more|more|more info|go on|and\\??|why\\??|explain( more)?|what else|continue|elaborate|anything else)\\W*$",
+    "guardrails": [
+      {
+        "id": "parameters",
+        "note": "Rules 2 and 3 of the master prompt: never state temperatures, times, pressures, concentrations or other process values.",
+        "pattern": "\\b(what|which)\\b.*\\b(temp[a-z]*|degrees?|pressure|minutes?|seconds?|concentration|settings?|parameters?)\\b|\\bhow (long|hot|many minutes|much time)\\b|\\b(degrees?|celsius|fahrenheit|psi|kpa|ppm|mbar)\\b|°|\\b\\d+\\s?(c|f)\\b|\\bexposure times?\\b|\\bcycle (times?|temp[a-z]*|parameters?|settings?)\\b",
+        "unless": "low[- ]?temp",
+        "reply": "Specific values — temperatures, times, pressures, concentrations or storage limits — depend on the validated process, approved hospital policy and the manufacturer's Instructions for Use (IFU). They should always be verified rather than assumed, so I don't give numbers. One of our CSSD specialists will be happy to explain how this is managed in practice."
+      }
+    ]
+  }
+}
