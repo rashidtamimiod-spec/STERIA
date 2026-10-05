@@ -224,7 +224,16 @@ body[data-mood="yay"] .steria{animation:yay .9s cubic-bezier(.25,1.5,.4,1) 2,flo
 .dot[data-s="now"]{background:var(--blue);box-shadow:0 0 0 4px rgba(10,133,166,.16)}
 
 .station{padding:1.5rem 1.35rem}
-.st-head{display:flex;align-items:center;gap:1rem;margin-bottom:1.3rem}
+.st-head{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.3rem}
+.st-head .st-no{margin-top:.1rem}
+.listen{display:inline-flex;align-items:center;gap:.5rem;margin-top:.6rem;min-height:44px;padding:.45rem 1.05rem .45rem .85rem;
+  background:#fff;color:var(--blue);border:2px solid var(--blue-soft);border-radius:999px;cursor:pointer;
+  font-weight:700;font-size:var(--t-sm);transition:.15s}
+.listen svg{width:18px;height:18px}
+.listen:hover{background:var(--sky);border-color:var(--blue)}
+.listen[aria-pressed="true"]{background:var(--blue);color:#fff;border-color:var(--blue)}
+.listen[aria-pressed="true"] svg path:nth-child(2),.listen[aria-pressed="true"] svg path:nth-child(3){animation:wave 1.1s ease-in-out infinite}
+@keyframes wave{0%,100%{opacity:1}50%{opacity:.3}}
 .st-no{flex:0 0 auto;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
   background:var(--navy);color:#fff;font-weight:700;font-size:1.35rem}
 .st-head h3{font-size:var(--t-lg)}
@@ -478,7 +487,7 @@ body[data-mood="yay"] .steria{animation:yay .9s cubic-bezier(.25,1.5,.4,1) 2,flo
       <footer class="credits" aria-label="Credits">
         <img data-logo alt="King Khaled Eye Specialist Hospital" hidden>
         <div class="credit-lines">
-          <p>Developed by the <strong>Digital Innovation Department</strong> <span class="sep">·</span> Content by the Central Sterile Services Department</p>
+          <p>Developed by the <strong>Digital Innovation Department</strong> <span class="sep">·</span> Content by the <strong>Central Sterile Services Department</strong></p>
         </div>
       </footer>
     </div>
@@ -556,24 +565,24 @@ body[data-mood="yay"] .steria{animation:yay .9s cubic-bezier(.25,1.5,.4,1) 2,flo
         <div class="station" id="station">
           <div class="st-head">
             <span class="st-no" id="st-no" aria-hidden="true">1</span>
-            <div><h3 id="st-title"></h3><p class="zone" id="st-zone"></p></div>
+            <div>
+              <h3 id="st-title"></h3><p class="zone" id="st-zone"></p>
+              <button class="listen" id="listen" type="button" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
+                <span>Listen to this station</span>
+              </button>
+            </div>
             <span class="stamped" id="st-done" hidden>✓ Stamped</span>
           </div>
 
-          <div class="seg" role="tablist" aria-label="Choose how to view this station">
-            <button role="tab" id="t-read" aria-controls="p-read" aria-selected="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg>Read</button>
-            <button role="tab" id="t-watch" aria-controls="p-watch" aria-selected="false">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>Watch</button>
-          </div>
-
-          <div class="pane" id="p-read" role="tabpanel" aria-labelledby="t-read" tabindex="0">
+          <div class="pane" id="p-read">
             <p class="lead-line" id="st-lead"></p>
             <div class="body-copy" id="st-body"></div>
             <ul class="points" id="st-points"></ul>
           </div>
 
-          <div class="pane" id="p-watch" role="tabpanel" aria-labelledby="t-watch" tabindex="0" hidden>
+          <!-- Video (Watch tab) is switched off until clips exist — see IMPLEMENTATION.md §6 -->
+          <div class="pane" id="p-watch" hidden>
             <div class="player" id="player"></div>
             <div class="mtools" id="mtools"></div>
             <details class="tscript"><summary>Read the transcript</summary><div class="tb" id="tb"></div></details>
@@ -1028,17 +1037,18 @@ function renderQuiz(s){
 }
 
 /* read / watch */
+const WATCH_TAB = false;   /* set true to bring back the Read/Watch toggle once videos exist */
 function setMode(m,quiet){
+  if(!WATCH_TAB) m='read';
   state.mode=m;
   const read=m==='read';
-  $('#t-read').setAttribute('aria-selected',read);
-  $('#t-watch').setAttribute('aria-selected',!read);
   $('#p-read').hidden=!read; $('#p-watch').hidden=read;
-  stopAudio();
+  stopAudio(); resetListen();
   if(!read) renderPlayer(STATIONS[state.i]);
   if(!quiet) track('station_media_toggle',{station:STATIONS[state.i].code,mode:m});
   save();
 }
+function resetListen(){ const b=$('#listen'); if(!b) return; b.dataset.on='0'; b.setAttribute('aria-pressed','false'); b.querySelector('span').textContent='Listen to this station'; }
 function renderPlayer(s){
   const p=$('#player');
   if(MEDIA_READY){
@@ -1063,7 +1073,7 @@ function renderPlayer(s){
     b.textContent='▶ Listen'; b.onclick=()=>playNarration(s,b); t.append(b);
   }
   const r=document.createElement('button'); r.className='btn soft'; r.type='button';
-  r.textContent='Read instead'; r.onclick=()=>{setMode('read'); $('#t-read').focus();}; t.append(r);
+  r.textContent='Read instead'; r.onclick=()=>setMode('read'); t.append(r);
   $('#tb').innerHTML=cues(s).map(c=>`<div class="cue"><span class="t">${c.t}</span><span>${c.text}</span></div>`).join('');
 }
 function cues(s){
@@ -1094,9 +1104,11 @@ function bestVoice(){
 }
 function stopAudio(){ try{speechSynthesis.cancel();}catch(e){} if(audioEl){audioEl.pause(); audioEl=null;} }
 function playNarration(s,btn){
-  if(btn.dataset.on==='1'){ stopAudio(); btn.dataset.on='0'; btn.textContent='▶ Listen'; return; }
-  btn.dataset.on='1'; btn.textContent='■ Stop';
-  const finish=()=>{ btn.dataset.on='0'; btn.textContent='▶ Listen'; };
+  const label=btn.querySelector('span')||btn;
+  const set=(on)=>{ btn.dataset.on=on?'1':'0'; btn.setAttribute('aria-pressed',on); label.textContent=on?'Stop listening':'Listen to this station'; };
+  if(btn.dataset.on==='1'){ stopAudio(); set(false); return; }
+  set(true);
+  const finish=()=>set(false);
   if(NARRATION_READY){
     audioEl=new Audio(s.media.audio);
     audioEl.onended=finish; audioEl.onerror=finish;
@@ -1104,11 +1116,11 @@ function playNarration(s,btn){
     track('narration_play',{station:s.code,src:'recording'});
     return;
   }
-  if(!('speechSynthesis' in window)){ btn.disabled=true; btn.textContent='Not available'; return; }
+  if(!('speechSynthesis' in window)){ btn.disabled=true; label.textContent='Audio not available'; return; }
   const u=new SpeechSynthesisUtterance([s.lead,...s.narrative].join(' '));
   const v=bestVoice(); if(v){ u.voice=v; u.lang=v.lang; } else u.lang='en-GB';
-  u.rate=.94; u.pitch=1.02;          /* slightly slow + level pitch reads calmer */
-  u.onend=finish;
+  u.rate=.94; u.pitch=1.02;
+  u.onend=finish; u.onerror=finish;
   speechSynthesis.speak(u);
   track('narration_play',{station:s.code,src:'tts',voice:v?v.name:'default'});
 }
@@ -1124,9 +1136,9 @@ function next(){
     return;
   }
   if(state.i===STATIONS.length-1) return finish();
-  state.i++; save(); render();
+  stopAudio(); state.i++; save(); render();
 }
-function back(){ if(state.i>0){ state.i--; save(); render(); } }
+function back(){ if(state.i>0){ stopAudio(); state.i--; save(); render(); } }
 function finish(){
   const ok=STATIONS.filter(s=>state.ans[s.id]?.correct).length;
   $('#grade').textContent = ok>=8?'CSSD Champion':ok>=5?'CSSD Specialist':'CSSD Explorer';
@@ -1187,8 +1199,7 @@ function boot(){
   $('#kbq').onchange=e=>track('kb_search',{q:e.target.value.slice(0,40)});
   $('#prev').onclick=()=>{page--; renderList(); track('kb_page',{page:page+1});};
   $('#next').onclick=()=>{page++; renderList(); track('kb_page',{page:page+1});};
-  $('#t-read').onclick=()=>setMode('read');
-  $('#t-watch').onclick=()=>setMode('watch');
+  $('#listen').onclick=()=>playNarration(STATIONS[state.i],$('#listen'));
   $('#next-st').onclick=next; $('#prev-st').onclick=back;
   $('#d-restart').onclick=()=>{reset(); go('journey');};
   $('#d-ask').onclick=()=>{go('ask'); setTimeout(()=>$('#q').focus(),300);};
@@ -1196,12 +1207,6 @@ function boot(){
 
   addEventListener('keydown',e=>{
     if(view!=='journey'||e.target.matches('input,textarea')) return;
-    if(e.target.matches('[role="tab"]')){
-      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){ e.preventDefault();
-        const o=e.target.id==='t-read'?$('#t-watch'):$('#t-read');
-        setMode(o.id==='t-read'?'read':'watch'); o.focus(); }
-      return;
-    }
     if(e.key==='ArrowRight') next();
     if(e.key==='ArrowLeft') back();
   });
