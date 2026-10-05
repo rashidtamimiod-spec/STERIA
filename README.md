@@ -1,7 +1,7 @@
 # STERIA — AI CSSD Specialist
 
 Interactive educational experience for the **Sterilization Passport Journey**, International Sterile Processing Week 2026.
-Central Sterile Services Department, King Khaled Eye Specialist Hospital.
+Central Sterile Services Department, King Khaled Eye Specialist Hospital & Research Centre (KKESH&RC).
 
 Developed by the Digital Innovation Department. Content by the Central Sterile Services Department (Bodoor Megbel Alharbi, Sterilization Specialist).
 
@@ -61,7 +61,7 @@ All wording lives in `steria-content.json`. Edit it, commit, done — no code ch
 
 ## Credits
 
-- Development: Digital Innovation Department, KKESH
+- Development: Digital Innovation Department, KKESH&RC
 - Content and CSSD expertise: Central Sterile Services Department — Bodoor Megbel Alharbi, Sterilization Specialist
 - Character artwork: commissioned for this project
 
